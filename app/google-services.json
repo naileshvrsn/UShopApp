@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "68309207905",
+    "firebase_url": "https://ushop-73f4b.firebaseio.com",
+    "project_id": "ushop-73f4b",
+    "storage_bucket": "ushop-73f4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68309207905:android:0c377872c0352c4f",
+        "android_client_info": {
+          "package_name": "com.ushop.ushopapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68309207905-0nu95i57q0aqqg6a5k318jso9q2ivuha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4pEGb4vNwbCFF_IKY-spyBRrP5IT6nmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68309207905-0nu95i57q0aqqg6a5k318jso9q2ivuha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
