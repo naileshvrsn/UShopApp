@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrationActivity"
+    android:background="@drawable/homeBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="46dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:orientation="vertical">
+
+        <ImageView android:src="@drawable/UshopTextOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp" />
+
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LoginFieldsTextLayout">
+            <EditText android:id="@+id/input_name"
+                style="@style/LoginFieldsTextStyle"
+                android:inputType="textPersonName"
+                android:hint="Name" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LoginFieldsTextLayout">
+            <EditText android:id="@+id/input_street"
+                style="@style/LoginFieldsTextStyle"
+                android:inputType="textPostalAddress"
+                android:hint="Street Address" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LoginFieldsTextLayout">
+            <EditText android:id="@+id/input_suburb"
+                style="@style/LoginFieldsTextStyle"
+                android:inputType="textPostalAddress"
+                android:hint="Suburb" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LoginFieldsTextLayout">
+            <EditText android:id="@+id/input_city"
+                style="@style/LoginFieldsTextStyle"
+                android:inputType="textPostalAddress"
+                android:hint="City" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LoginFieldsTextLayout">
+            <EditText android:id="@+id/input_postcode"
+                style="@style/LoginFieldsTextStyle"
+                android:inputType="number"
+                android:hint="Post Code" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LoginFieldsTextLayout">
+            <EditText android:id="@+id/input_email"
+                style="@style/LoginFieldsTextStyle"
+                android:inputType="textEmailAddress"
+                android:hint="Email" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/LoginFieldsTextLayout">
+            <EditText android:id="@+id/input_password"
+                style="@style/LoginFieldsTextStyle"
+                android:inputType="textPassword"
+                android:hint="Password"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Signup Button -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_signup"
+            style="@style/ButtonsStyle"
+            android:padding="14dp"
+            android:textColor="@color/cyanCornflowerBlue"
+            android:background="@drawable/rounded_button"
+            android:text="Create Account"/>
+
+        <TextView android:id="@+id/link_login"
+            style="@style/ButtonsStyle"
+            android:text="Already a member? Login"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:textColor="@color/lightCyanBlue"
+            android:textStyle="italic"
+            android:background="@drawable/rounded_button_dark"/>
+
+    </LinearLayout>
+
+</ScrollView>
