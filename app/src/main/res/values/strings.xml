@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">UShop</string>
+    <string name="app_name">U-shop</string>
+    <string name="home_username_hint">Username</string>
 </resources>
