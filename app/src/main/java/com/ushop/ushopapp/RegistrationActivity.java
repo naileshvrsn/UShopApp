@@ -8,21 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 public class RegistrationActivity extends AppCompatActivity {
 
     //link UI elements to class
-    @InjectView(R.id.input_name) EditText _nameText;
-    @InjectView(R.id.input_street) EditText _streetText;
-    @InjectView(R.id.input_suburb) EditText _suburbText;
-    @InjectView(R.id.input_city) EditText _cityText;
-    @InjectView(R.id.input_postcode) EditText _postcodeText;
-    @InjectView(R.id.input_email) EditText _emailText;
-    @InjectView(R.id.input_password) EditText _passwordText;
-    @InjectView(R.id.btn_signup) Button _signupButton;
-    @InjectView(R.id.link_login) TextView _loginLink;
 
 
     @Override
