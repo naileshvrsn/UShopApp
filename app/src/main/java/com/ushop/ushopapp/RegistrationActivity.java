@@ -11,13 +11,20 @@ import android.view.View;
 public class RegistrationActivity extends AppCompatActivity {
 
     //link UI elements to class
-
+    EditText _nameText = findViewById(R.id.input_name);
+    EditText _streetText = findViewById(R.id.input_name);
+    EditText _suburbText = findViewById(R.id.input_name);
+    EditText _cityText = findViewById(R.id.input_name);
+    EditText _postcodeText = findViewById(R.id.input_name);
+    EditText _emailText = findViewById(R.id.input_name);
+    EditText _passwordText = findViewById(R.id.input_name);
+    Button _signupButton = findViewById(R.id.btn_signup);
+    TextView _loginLink = findViewById(R.id.link_login);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        ButterKnife.inject(this);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override

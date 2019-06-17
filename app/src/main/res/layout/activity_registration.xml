@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity"
-    android:background="@drawable/homeBackground">
+    android:background="@drawable/home_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:paddingRight="24dp"
         android:orientation="vertical">
 
-        <ImageView android:src="@drawable/UshopTextOnly"
+        <ImageView android:src="@drawable/ushop_text_only"
             android:layout_width="wrap_content"
             android:layout_height="100dp" />
 

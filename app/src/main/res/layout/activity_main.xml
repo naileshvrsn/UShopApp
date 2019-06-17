@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/homeBackground"
+    android:background="@drawable/home_background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:src="@drawable/UshopTextOnly" />
+            android:src="@drawable/ushop_text_only" />
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
