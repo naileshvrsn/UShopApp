@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "68309207905-bv32prashprpn0j94oea1jgg9f2f341r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ushop.ushopapp",
+            "certificate_hash": "d06ab9617551106e51dae61d51f71c8f7f9fd67b"
+          }
+        },
+        {
           "client_id": "68309207905-0nu95i57q0aqqg6a5k318jso9q2ivuha.apps.googleusercontent.com",
           "client_type": 3
         }

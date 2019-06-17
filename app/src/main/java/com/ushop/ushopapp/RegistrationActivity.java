@@ -11,20 +11,26 @@ import android.view.View;
 public class RegistrationActivity extends AppCompatActivity {
 
     //link UI elements to class
-    EditText _nameText = findViewById(R.id.input_name);
-    EditText _streetText = findViewById(R.id.input_name);
-    EditText _suburbText = findViewById(R.id.input_name);
-    EditText _cityText = findViewById(R.id.input_name);
-    EditText _postcodeText = findViewById(R.id.input_name);
-    EditText _emailText = findViewById(R.id.input_name);
-    EditText _passwordText = findViewById(R.id.input_name);
-    Button _signupButton = findViewById(R.id.btn_signup);
-    TextView _loginLink = findViewById(R.id.link_login);
+    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText, _emailText, _passwordText;
+    private Button _signupButton;
+    private TextView _loginLink;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+
+        _nameText = findViewById(R.id.input_name);
+        _streetText = findViewById(R.id.input_name);
+        _suburbText = findViewById(R.id.input_name);
+        _cityText = findViewById(R.id.input_name);
+        _postcodeText = findViewById(R.id.input_name);
+        _emailText = findViewById(R.id.input_name);
+        _passwordText = findViewById(R.id.input_name);
+        _signupButton = findViewById(R.id.btn_signup);
+        _loginLink = findViewById(R.id.link_login);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
