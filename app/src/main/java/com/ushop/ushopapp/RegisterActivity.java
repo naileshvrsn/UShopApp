@@ -1,8 +1,6 @@
 package com.ushop.ushopapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -31,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        PB = findViewById(R.id.progressbar);
+        /*PB = findViewById(R.id.progressbar);
         PB.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
@@ -66,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                public void onComplete(Task<AuthResult> task) {
                                     if (!task.isSuccessful()){
                                         PB.setVisibility(View.INVISIBLE);
                                         Toast.makeText(RegisterActivity.this, "Authentication failed", Toast.LENGTH_LONG).show();
@@ -87,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
-        });
+        });*/
     }
 
     public void onSignupFailed() {

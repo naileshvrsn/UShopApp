@@ -37,8 +37,8 @@
 
         <!-- Password Label -->
         <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-
+            style="@style/LoginFieldsTextLayout"
+            app:passwordToggleEnabled="true">
             <EditText
                 android:id="@+id/input_password"
                 style="@style/LoginFieldsTextStyle"
