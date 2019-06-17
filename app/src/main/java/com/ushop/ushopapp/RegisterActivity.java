@@ -1,26 +1,45 @@
 package com.ushop.ushopapp;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 
-public class RegistrationActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+public class RegisterActivity extends AppCompatActivity {
 
     //link UI elements to class
     private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText, _emailText, _passwordText;
     private Button _signupButton;
     private TextView _loginLink;
-
+    private FirebaseAuth mAuth;
+    private ProgressBar PB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_register);
 
+        PB = findViewById(R.id.progressbar);
+        PB.setVisibility(View.INVISIBLE);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser() != null){
+            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+            finish();
+        }
 
         _nameText = findViewById(R.id.input_name);
         _streetText = findViewById(R.id.input_name);
@@ -35,49 +54,46 @@ public class RegistrationActivity extends AppCompatActivity {
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                final String email = _emailText.getText().toString().trim();
+                final String password = _passwordText.getText().toString().trim();
+
+                if (!validate()) {
+                    onSignupFailed();
+                    return;
+                }
+                else {
+                    PB.setVisibility(View.VISIBLE);
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()){
+                                        PB.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(RegisterActivity.this, "Authentication failed", Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                        finish();
+                                    }
+                                }
+                            });
+                }
+
             }
         });
 
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
         });
-    }
-
-
-    public void signup() {
-        if (!validate()) {
-            onSignupFailed();
-            return;
-        }
-
-        _signupButton.setEnabled(false);
-
-        String name = _nameText.getText().toString();
-        String street = _streetText.getText().toString();
-        String suburb = _suburbText.getText().toString();
-        String city = _cityText.getText().toString();
-        String postcode = _postcodeText.getText().toString();
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-
-        // TODO: Implement your own sign up logic here.
-    }
-
-
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-        finish();
     }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
 
-        _signupButton.setEnabled(true);
+        //_signupButton.setEnabled(true);
     }
 
     public boolean validate() {

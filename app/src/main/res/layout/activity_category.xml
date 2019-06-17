@@ -7,8 +7,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context = ".CategoryActivity"
-    android:background="@drawable/home_background"
-        >
+        android:background="@drawable/home_background">
 
         <ImageView
             android:id="@+id/store_Image"
@@ -19,10 +18,7 @@
             android:layout_marginTop="48dp"
             android:layout_marginBottom="24dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-
-            />
-
+            android:layout_marginRight="24dp" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -102,11 +98,7 @@
                                     android:text="Fresh Produce"
                                     android:textSize="24sp" />
                             </RelativeLayout>
-
-
-
                         </android.support.v7.widget.CardView>
-
 
                     </LinearLayout>
 
