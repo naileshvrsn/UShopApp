@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,103 +7,107 @@
     tools:context=".RegisterActivity"
     android:background="@drawable/home_background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="46dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:orientation="vertical">
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
-        <android.support.v4.widget.ContentLoadingProgressBar
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:id="@+id/progressbar"
-            android:indeterminate="true"
-            android:max="100"
-            android:indeterminateTint="@color/appDarkBlueGreen"/>
+            android:layout_height="wrap_content"
+            android:paddingTop="36dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="56dp"
+            android:orientation="vertical">
 
-        <ImageView android:src="@drawable/ushop_text_only"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp" />
-
-
-        <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-            <EditText android:id="@+id/input_name"
-                style="@style/LoginFieldsTextStyle"
-                android:inputType="textPersonName"
-                android:hint="Name" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-            <EditText android:id="@+id/input_street"
-                style="@style/LoginFieldsTextStyle"
-                android:inputType="textPostalAddress"
-                android:hint="Street Address" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-            <EditText android:id="@+id/input_suburb"
-                style="@style/LoginFieldsTextStyle"
-                android:inputType="textPostalAddress"
-                android:hint="Suburb" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-            <EditText android:id="@+id/input_city"
-                style="@style/LoginFieldsTextStyle"
-                android:inputType="textPostalAddress"
-                android:hint="City" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-            <EditText android:id="@+id/input_postcode"
-                style="@style/LoginFieldsTextStyle"
-                android:inputType="number"
-                android:hint="Post Code" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-            <EditText android:id="@+id/input_email"
-                style="@style/LoginFieldsTextStyle"
-                android:inputType="textEmailAddress"
-                android:hint="Email" />
-        </android.support.design.widget.TextInputLayout>
+            <ImageView android:src="@drawable/ushop_text_only"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp" />
 
 
-        <android.support.design.widget.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
-            <EditText android:id="@+id/input_password"
-                style="@style/LoginFieldsTextStyle"
-                android:inputType="textPassword"
-                android:hint="Password"/>
-        </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_name"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="textPersonName"
+                    android:hint="Name" />
+            </android.support.design.widget.TextInputLayout>
 
-        <!-- Signup Button -->
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_signup"
-            style="@style/ButtonsStyle"
-            android:padding="14dp"
-            android:textColor="@color/cyanCornflowerBlue"
-            android:background="@drawable/rounded_button"
-            android:text="Create Account"/>
+            <android.support.design.widget.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_street"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="textPostalAddress"
+                    android:hint="Street Address" />
+            </android.support.design.widget.TextInputLayout>
 
-        <TextView android:id="@+id/link_login"
-            style="@style/ButtonsStyle"
-            android:text="Already a member? Login"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:padding="6dp"
-            android:textColor="@color/lightCyanBlue"
-            android:textStyle="italic"
-            android:background="@drawable/rounded_button_dark"/>
+            <android.support.design.widget.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_suburb"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="textPostalAddress"
+                    android:hint="Suburb" />
+            </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
+            <android.support.design.widget.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_city"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="textPostalAddress"
+                    android:hint="City" />
+            </android.support.design.widget.TextInputLayout>
 
-</ScrollView>
+            <android.support.design.widget.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_postcode"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="number"
+                    android:hint="Post Code" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_email"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_password"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="textPassword"
+                    android:hint="Password"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Signup Button -->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_signup"
+                style="@style/ButtonsStyle"
+                android:padding="14dp"
+                android:textColor="@color/cyanCornflowerBlue"
+                android:background="@drawable/rounded_button"
+                android:text="Create Account"/>
+
+            <TextView android:id="@+id/link_login"
+                style="@style/ButtonsStyle"
+                android:text="Already a member? Login"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="6dp"
+                android:textColor="@color/lightCyanBlue"
+                android:textStyle="italic"
+                android:background="@drawable/rounded_button_dark"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_background"
     tools:context=".MainActivity">
+
+    <ProgressBar
+        android:id="@+id/loginprogressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +37,7 @@
             style="@style/LoginFieldsTextLayout">
 
             <EditText
-                android:id="@+id/input_email"
+                android:id="@+id/input_loginEmail"
                 style="@style/LoginFieldsTextStyle"
                 android:hint="Email"
                 android:inputType="textEmailAddress" />
@@ -40,7 +48,7 @@
             style="@style/LoginFieldsTextLayout"
             app:passwordToggleEnabled="true">
             <EditText
-                android:id="@+id/input_password"
+                android:id="@+id/input_loginPassword"
                 style="@style/LoginFieldsTextStyle"
                 android:hint="Password"
                 android:inputType="textPassword" />
@@ -55,6 +63,16 @@
             android:background="@drawable/rounded_button"
             android:textSize="18sp" />
 
+        <TextView android:id="@+id/link_reset_password"
+            style="@style/ButtonsStyle"
+            android:text="Forgot password?"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:textColor="@color/lightCyanBlue"
+            android:textStyle="italic"
+            android:background="@drawable/rounded_button_dark"/>
+
         <TextView android:id="@+id/link_register"
             style="@style/ButtonsStyle"
             android:text="No account? Register"
@@ -67,4 +85,4 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

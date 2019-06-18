@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button _signupButton;
     private TextView _loginLink;
     private FirebaseAuth mAuth;
-    private ProgressBar PB;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Registration");
 
-        PB = findViewById(R.id.progressbar);
-        PB.setVisibility(View.INVISIBLE);
+        progressBar = findViewById(R.id.progressbar);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -59,23 +59,27 @@ public class RegisterActivity extends AppCompatActivity {
                 final String password = _passwordText.getText().toString();
 
                 if (!validate()) {
-                    onSignupFailed();
                     return;
                 }
                 else {
-                    PB.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (!task.isSuccessful()){
-                                        PB.setVisibility(View.INVISIBLE);
-                                        Toast.makeText(RegisterActivity.this, "Authentication failed", Toast.LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                            Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                     else {
                                         Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
-                                        //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                        //finish();
+                                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                        finish();
                                     }
                                 }
                             });
@@ -86,15 +90,10 @@ public class RegisterActivity extends AppCompatActivity {
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                RegisterActivity.this.finish();
+                //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
         });
-    }
-
-    public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Sign incomplete", Toast.LENGTH_LONG).show();
-
-        _signupButton.setEnabled(true);
     }
 
     public boolean validate() {
@@ -137,20 +136,20 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (postcode.isEmpty() || postcode.length() != 4){
-            _postcodeText.setError("enter a valid postcode");
+            _postcodeText.setError("Enter a valid postcode");
             valid = false;
         } else {
             _postcodeText.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+            _emailText.setError("Enter a valid email address");
             valid = false;
         } else {
             _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
+        if (password.isEmpty() || password.length() < 6 || password.length() > 10) {
             _passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
