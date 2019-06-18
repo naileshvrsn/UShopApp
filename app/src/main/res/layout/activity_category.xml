@@ -7,7 +7,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context = ".CategoryActivity"
     android:background="@drawable/home_background">
-<!--
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -240,6 +239,5 @@
         </LinearLayout>
 
     </LinearLayout>
--->
 
 </ScrollView>

@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
         _login = findViewById(R.id.btn_login);
         _register = findViewById(R.id.link_register);
 
-        //_register.setOnClickListener(new View.OnClickListener(){
-          //  @Override
-            //public void onClick(View v) {
+        _register.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
                 //or startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-              //  startActivity(new Intent(MainActivity.this, RegisterActivity.class));
-            //}
-        //});
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
 
 
 
