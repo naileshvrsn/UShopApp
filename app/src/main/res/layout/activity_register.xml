@@ -17,11 +17,11 @@
 
         <android.support.v4.widget.ContentLoadingProgressBar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="15dp"
             android:id="@+id/progressbar"
             android:indeterminate="true"
             android:max="100"
-            android:indeterminateTint="@color/lightCyanBlue"/>
+            android:indeterminateTint="@color/appDarkBlueGreen"/>
 
         <ImageView android:src="@drawable/ushop_text_only"
             android:layout_width="wrap_content"

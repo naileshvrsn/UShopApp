@@ -1,6 +1,7 @@
 package com.ushop.ushopapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -29,31 +30,33 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        /*PB = findViewById(R.id.progressbar);
+        getSupportActionBar().setTitle("Registration");
+
+        PB = findViewById(R.id.progressbar);
         PB.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
 
-        if(mAuth.getCurrentUser() != null){
-            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-            finish();
-        }
+        //if(mAuth.getCurrentUser() != null){
+            //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+            //finish();
+        //}
 
         _nameText = findViewById(R.id.input_name);
-        _streetText = findViewById(R.id.input_name);
-        _suburbText = findViewById(R.id.input_name);
-        _cityText = findViewById(R.id.input_name);
-        _postcodeText = findViewById(R.id.input_name);
-        _emailText = findViewById(R.id.input_name);
-        _passwordText = findViewById(R.id.input_name);
+        _streetText = findViewById(R.id.input_street);
+        _suburbText = findViewById(R.id.input_suburb);
+        _cityText = findViewById(R.id.input_city);
+        _postcodeText = findViewById(R.id.input_postcode);
+        _emailText = findViewById(R.id.input_email);
+        _passwordText = findViewById(R.id.input_password);
         _signupButton = findViewById(R.id.btn_signup);
         _loginLink = findViewById(R.id.link_login);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = _emailText.getText().toString().trim();
-                final String password = _passwordText.getText().toString().trim();
+                final String email = _emailText.getText().toString();
+                final String password = _passwordText.getText().toString();
 
                 if (!validate()) {
                     onSignupFailed();
@@ -64,19 +67,19 @@ public class RegisterActivity extends AppCompatActivity {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
-                                public void onComplete(Task<AuthResult> task) {
+                                public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (!task.isSuccessful()){
                                         PB.setVisibility(View.INVISIBLE);
                                         Toast.makeText(RegisterActivity.this, "Authentication failed", Toast.LENGTH_LONG).show();
                                     }
                                     else {
-                                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                        finish();
+                                        Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
+                                        //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                        //finish();
                                     }
                                 }
                             });
                 }
-
             }
         });
 
@@ -85,14 +88,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
-        });*/
+        });
     }
 
-    //public void onSignupFailed() {
-      //  Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
+    public void onSignupFailed() {
+        Toast.makeText(getBaseContext(), "Sign incomplete", Toast.LENGTH_LONG).show();
 
-        //_signupButton.setEnabled(true);
-    //}
+        _signupButton.setEnabled(true);
+    }
 
     public boolean validate() {
         boolean valid = true;
@@ -155,7 +158,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return valid;
-
     }
 
 }
