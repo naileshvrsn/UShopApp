@@ -88,11 +88,11 @@ public class RegisterActivity extends AppCompatActivity {
         });*/
     }
 
-    public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
+    //public void onSignupFailed() {
+      //  Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
 
         //_signupButton.setEnabled(true);
-    }
+    //}
 
     public boolean validate() {
         boolean valid = true;
