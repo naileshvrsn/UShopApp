@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        getSupportActionBar().setTitle("Registration");
+        getSupportActionBar().setTitle("Register");
 
         progressBar = findViewById(R.id.progressbar);
 

@@ -54,9 +54,8 @@
                         android:text="Bakery"
                         android:textSize="24sp" />
                 </RelativeLayout>
-
-
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
