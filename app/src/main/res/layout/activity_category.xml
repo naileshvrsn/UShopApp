@@ -15,10 +15,10 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/store_Image"
+            android:id="@+id/store_image_category"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/paknsave_logo"/>
+            android:layout_height="100dp"
+            android:src="@drawable/ushop_text_only"/>
 
         <LinearLayout
             android:layout_width="match_parent"

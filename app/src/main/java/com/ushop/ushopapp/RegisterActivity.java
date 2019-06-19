@@ -98,7 +98,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         }
                                     }
                                     else {
-
                                         firestoreDb.collection("users").document(mAuth.getUid()).set(user).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -113,22 +112,6 @@ public class RegisterActivity extends AppCompatActivity {
                                                 }
                                             }
                                         });
-
-//                                        user.uId = mAuth.getUid();
-//                                        firestoreDb.collection("users").add(user).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<DocumentReference>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<DocumentReference> task) {
-//                                                if(!task.isSuccessful()){
-//                                                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                                                    return;
-//                                                }
-//                                                else {
-//                                                    Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
-//                                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-//                                                    finish();
-//                                                }
-//                                            }
-//                                        });
                                     }
                                 }
                             });
@@ -140,7 +123,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RegisterActivity.this.finish();
-                //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
         });
     }

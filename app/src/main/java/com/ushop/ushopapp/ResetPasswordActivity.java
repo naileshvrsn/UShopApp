@@ -31,10 +31,17 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        String loginActivityEmail = getIntent().getExtras().getString("email");
+
         email = findViewById(R.id.input_email_reset_password);
         resetPassword = findViewById(R.id.btnResetPassword);
         goBack = findViewById(R.id.link_back);
         progressBar = findViewById(R.id.progressbarResetPassword);
+        mAuth = FirebaseAuth.getInstance();
+
+        if(!loginActivityEmail.isEmpty()){
+            email.setText(loginActivityEmail);
+        }
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override

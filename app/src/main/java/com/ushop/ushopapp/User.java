@@ -1,7 +1,6 @@
 package com.ushop.ushopapp;
 
 public class User {
-    String uId;
     String name;
     String street;
     String suburb;
@@ -17,14 +16,6 @@ public class User {
         this.suburb = suburb;
         this.city = city;
         this.postCode = postCode;
-    }
-
-    public String getuId() {
-        return uId;
-    }
-
-    public void setuId(String uId) {
-        this.uId = uId;
     }
 
     public String getName() {

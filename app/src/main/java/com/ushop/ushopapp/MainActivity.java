@@ -28,22 +28,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (mAuth.getCurrentUser() != null) {
-//            // User is logged in
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//            finish();
-//        }
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().hide();
+
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            // User is logged in
+            startActivity(new Intent(getApplicationContext(), SelectStoreActivity.class));
+            finish();
+        }
 
         _email = findViewById(R.id.input_loginEmail);
         _password = findViewById(R.id.input_loginPassword);
         _login = findViewById(R.id.btn_login);
         _register = findViewById(R.id.link_register);
         _resetPassword = findViewById(R.id.link_reset_password);
-
-        mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.loginprogressbar);
 
         _register.setOnClickListener(new View.OnClickListener(){
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         _resetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ResetPasswordActivity.class));
+                startActivity(new Intent(getApplicationContext(), ResetPasswordActivity.class).putExtra("email", _email.getText().toString()));
             }
         });
 
