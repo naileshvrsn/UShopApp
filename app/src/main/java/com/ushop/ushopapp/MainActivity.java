@@ -1,8 +1,8 @@
 package com.ushop.ushopapp;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
 
                             if(!task.isSuccessful()){
-                                Toast.makeText(getApplicationContext(), "Enter correct email and password", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Enter correct email and password or Register", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 Intent intent = new Intent(MainActivity.this, SelectStoreActivity.class);

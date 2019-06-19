@@ -1,8 +1,8 @@
 package com.ushop.ushopapp;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Button;
@@ -12,16 +12,21 @@ import android.widget.Toast;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     //link UI elements to class
-    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText, _emailText, _passwordText;
+    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText, _emailText, _passwordText, _confirmPassword;
     private Button _signupButton;
     private TextView _loginLink;
     private FirebaseAuth mAuth;
@@ -52,20 +57,33 @@ public class RegisterActivity extends AppCompatActivity {
         _postcodeText = findViewById(R.id.input_postcode);
         _emailText = findViewById(R.id.input_email);
         _passwordText = findViewById(R.id.input_password);
+        _confirmPassword = findViewById(R.id.input_confirmPassword);
         _signupButton = findViewById(R.id.btn_signup);
         _loginLink = findViewById(R.id.link_login);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = _emailText.getText().toString();
-                final String password = _passwordText.getText().toString();
+                String email = _emailText.getText().toString().trim();
+                String password = _passwordText.getText().toString().trim();
+                String name = _nameText.getText().toString();
+                String street = _streetText.getText().toString();
+                String suburb = _suburbText.getText().toString();
+                String city = _cityText.getText().toString();
+                String postcode = _postcodeText.getText().toString();
 
                 if (!validate()) {
                     return;
                 }
                 else {
                     progressBar.setVisibility(View.VISIBLE);
+                    final User user = new User();
+                    user.name = name;
+                    user.street = street;
+                    user.suburb = suburb;
+                    user.city = city;
+                    user.postCode = postcode;
+
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -80,10 +98,37 @@ public class RegisterActivity extends AppCompatActivity {
                                         }
                                     }
                                     else {
-                                        
-                                        Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                        finish();
+
+                                        firestoreDb.collection("users").document(mAuth.getUid()).set(user).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(!task.isSuccessful()){
+                                                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    return;
+                                                }
+                                                else {
+                                                    Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
+                                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                                    finish();
+                                                }
+                                            }
+                                        });
+
+//                                        user.uId = mAuth.getUid();
+//                                        firestoreDb.collection("users").add(user).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<DocumentReference>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+//                                                if(!task.isSuccessful()){
+//                                                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                                                    return;
+//                                                }
+//                                                else {
+//                                                    Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
+//                                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+//                                                    finish();
+//                                                }
+//                                            }
+//                                        });
                                     }
                                 }
                             });
@@ -108,8 +153,9 @@ public class RegisterActivity extends AppCompatActivity {
         String suburb = _suburbText.getText().toString();
         String city = _cityText.getText().toString();
         String postcode = _postcodeText.getText().toString();
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = _emailText.getText().toString().trim();
+        String password = _passwordText.getText().toString().trim();
+        String confirmPassword = _confirmPassword.getText().toString().trim();
 
         if (name.isEmpty() || name.length() < 2) {
             _nameText.setError("at least 2 characters");
@@ -158,6 +204,13 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         } else {
             _passwordText.setError(null);
+        }
+
+        if(!password.equals(confirmPassword)){
+            _confirmPassword.setError("Passwords do not match");
+            valid = false;
+        }else {
+            _confirmPassword.setError(null);
         }
 
         return valid;
