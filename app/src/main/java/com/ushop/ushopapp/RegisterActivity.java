@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView _loginLink;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    private FirebaseFirestore firestoreDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
 
         mAuth = FirebaseAuth.getInstance();
+        firestoreDb = FirebaseFirestore.getInstance();
 
         //if(mAuth.getCurrentUser() != null){
             //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
@@ -77,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         }
                                     }
                                     else {
+                                        
                                         Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                         finish();
