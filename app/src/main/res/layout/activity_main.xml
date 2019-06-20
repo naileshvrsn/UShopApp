@@ -15,74 +15,78 @@
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingTop="60dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="60dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:src="@drawable/ushop_text_only" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/ushop_text_only" />
 
-        <!-- Email Label -->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/LoginFieldsTextLayout">
+            <!-- Email Label -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
 
-            <EditText
-                android:id="@+id/input_loginEmail"
-                style="@style/LoginFieldsTextStyle"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/input_loginEmail"
+                    style="@style/LoginFieldsTextStyle"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Password Label -->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/LoginFieldsTextLayout"
-            app:passwordToggleEnabled="true">
-            <EditText
-                android:id="@+id/input_loginPassword"
-                style="@style/LoginFieldsTextStyle"
-                android:hint="Password"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <!-- Password Label -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginFieldsTextLayout"
+                app:passwordToggleEnabled="true">
+                <EditText
+                    android:id="@+id/input_loginPassword"
+                    style="@style/LoginFieldsTextStyle"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            style="@style/ButtonsStyle"
-            android:padding="14dp"
-            android:text="Login"
-            android:textColor="@color/moderateGreen"
-            android:background="@drawable/rounded_button"
-            android:textSize="18sp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                style="@style/ButtonsStyle"
+                android:padding="14dp"
+                android:text="Login"
+                android:textColor="@color/moderateGreen"
+                android:background="@drawable/rounded_button"
+                android:textSize="18sp" />
 
-        <TextView android:id="@+id/link_reset_password"
-            style="@style/ButtonsStyle"
-            android:text="Forgot password?"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:padding="6dp"
-            android:textColor="@color/lightCyanBlue"
-            android:textStyle="italic"
-            android:background="@drawable/rounded_button_dark"/>
+            <TextView android:id="@+id/link_reset_password"
+                style="@style/ButtonsStyle"
+                android:text="Forgot password?"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="6dp"
+                android:textColor="@color/lightCyanBlue"
+                android:fontFamily="sans-serif-thin"
+                android:background="@drawable/rounded_button_dark"/>
 
-        <TextView android:id="@+id/link_register"
-            style="@style/ButtonsStyle"
-            android:text="No account? Register"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:padding="6dp"
-            android:textColor="@color/lightCyanBlue"
-            android:textStyle="italic"
-            android:background="@drawable/rounded_button_dark"/>
+            <TextView android:id="@+id/link_register"
+                style="@style/ButtonsStyle"
+                android:text="No account? Register"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="6dp"
+                android:textColor="@color/lightCyanBlue"
+                android:fontFamily="sans-serif-thin"
+                android:background="@drawable/rounded_button_dark"
+                android:layout_marginBottom="30dp"/>
 
-    </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

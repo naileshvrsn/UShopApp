@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <ImageView android:src="@drawable/ushop_text_only"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="120dp" />
 
 
@@ -122,7 +122,7 @@
                 android:textSize="16sp"
                 android:padding="6dp"
                 android:textColor="@color/lightCyanBlue"
-                android:textStyle="italic"
+                android:fontFamily="sans-serif-thin"
                 android:background="@drawable/rounded_button_dark"/>
 
         </LinearLayout>
