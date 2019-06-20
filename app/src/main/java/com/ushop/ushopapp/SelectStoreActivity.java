@@ -36,7 +36,8 @@ public class SelectStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                finish();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                SelectStoreActivity.this.finish();
             }
         });
 

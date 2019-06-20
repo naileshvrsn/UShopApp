@@ -74,6 +74,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_dateofbirth"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="date"
+                    android:hint="Date of birth"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
                 <EditText android:id="@+id/input_email"
                     style="@style/LoginFieldsTextStyle"
                     android:inputType="textEmailAddress"
