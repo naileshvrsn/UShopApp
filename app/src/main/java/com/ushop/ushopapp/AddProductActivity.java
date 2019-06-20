@@ -106,6 +106,7 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
+                // validate empty fields
                 if(!validate()){
                     return;
                 }else{
@@ -114,6 +115,15 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void addProduct() {
+        //Add Product is it has image file
+        if(filePath != null){
+            uploadImage();
+        }else{
+            Toast.makeText(AddProductActivity.this, "Select an Image", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void chooseImage(){
@@ -133,7 +143,6 @@ public class AddProductActivity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 productImage.setImageBitmap(bitmap);
-
             }
             catch (IOException e)
             {
@@ -142,32 +151,7 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
-    public void addProduct() {
-    if(filePath != null){
-
-        uploadImage();
-
-    } else {
-
-        // Get product value;
-        name = nameTextField.getText().toString();
-        description = descriptionTextField.getText().toString();
-        unitPrice = Double.parseDouble(unitpriceTextField.getText().toString());
-        category = categorySpinner.getSelectedItem().toString();
-        store = storeSpinner.getSelectedItem().toString();
-        imageURl = "";
-
-        // make new product
-        Product newProduct = new Product(name,description,unitPrice,category,store,imageURl);
-
-        //upload the product into firestore
-        productFirestoreUpload(newProduct);
-    }
-
-
-    }
-
-
+    //Funtion -> Upload image to firebase storage
     private void uploadImage() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading Image");
@@ -182,6 +166,7 @@ public class AddProductActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Successfull Upload then get image URL to save in product
                             getImageURl();
                             progressDialog.dismiss();
                         }
@@ -194,7 +179,7 @@ public class AddProductActivity extends AppCompatActivity {
                     });
         }
     }
-
+    // Function -> get image url for image file
     private void getImageURl(){
         String _name = nameTextField.getText().toString();
         String _store = storeSpinner.getSelectedItem().toString();
@@ -213,6 +198,8 @@ public class AddProductActivity extends AppCompatActivity {
                 unitPrice = Double.parseDouble(unitpriceTextField.getText().toString());
                 category = categorySpinner.getSelectedItem().toString();
                 store = storeSpinner.getSelectedItem().toString();
+
+                //set Image URL
                 imageURl = String.valueOf(uri);
 
                 // make new product
@@ -231,7 +218,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
-
+    // Function -> Upload Product into database(Firestore)
     private void productFirestoreUpload(Product product) {
         // progress bar
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -257,7 +244,7 @@ public class AddProductActivity extends AppCompatActivity {
                 });
     }
 
-
+    // Validate empty fields
     private boolean validate(){
         boolean valid = true;
 
@@ -272,23 +259,22 @@ public class AddProductActivity extends AppCompatActivity {
         if (_name.isEmpty() || _name.length() < 2){
             valid = false;
             nameTextField.setError("at least 2 characters");
-
         }else{
             nameTextField.setError(null);
         }
+
         //validate description
         if (_description.isEmpty() || _description.length() < 5){
             valid = false;
             descriptionTextField.setError("at least 5 characters");
-
         }else{
             descriptionTextField.setError(null);
         }
+
         //validate empty unit price
         if (_price.isEmpty()){
             valid = false;
             unitpriceTextField.setError("enter value");
-
         }else{
             unitpriceTextField.setError(null);
         }
@@ -297,16 +283,12 @@ public class AddProductActivity extends AppCompatActivity {
         if (_category.equals("Select")){
             valid = false;
             Toast.makeText(AddProductActivity.this, "Select category", Toast.LENGTH_LONG).show();
-
-        }else if(_store.equals("Select")){
+        }else if(_store.equals("Select")){ //Validate store
             valid = false;
             Toast.makeText(AddProductActivity.this, "Select Store", Toast.LENGTH_LONG).show();
+        }else{
 
         }
-        else{
-
-        }
-
         return valid;
 
     }
