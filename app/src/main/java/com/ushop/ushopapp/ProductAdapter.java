@@ -25,6 +25,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
             Product currentProduct = getItem(position);
 
+
+
             TextView productTextView = (TextView) listItemView.findViewById(R.id.product_title);
             productTextView.setText(currentProduct.getName());
 

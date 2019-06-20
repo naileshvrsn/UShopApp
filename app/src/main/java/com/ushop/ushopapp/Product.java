@@ -1,5 +1,7 @@
 package com.ushop.ushopapp;
 
+import android.widget.ImageView;
+
 public class Product {
     private String name;
     private String description;
@@ -7,10 +9,12 @@ public class Product {
     private String category;
     private String store;
     private String imageLocation;
+    private ImageView imageView;
 
     public Product() {
 
     }
+    
 
     public Product(String name, String description, double unitPrice, String category, String store, String imageLocation) {
         this.name = name;

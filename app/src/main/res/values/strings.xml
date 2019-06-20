@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Ushop</string>
+
+    <string-array name="category">
+        <item>Select</item>
+        <item>Bakery</item>
+        <item>Fresh Produce</item>
+        <item>Drinks</item>
+        <item>Wines and Beer</item>
+        <item>Frozen</item>
+        <item>Chocolates</item>
+    </string-array>
+
+    <string-array name="store">
+        <item>Select</item>
+        <item>PaknSave</item>
+        <item>Countdown</item>
+    </string-array>
 </resources>
