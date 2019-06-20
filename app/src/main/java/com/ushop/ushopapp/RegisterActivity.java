@@ -1,9 +1,12 @@
 package com.ushop.ushopapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -12,23 +15,23 @@ import android.widget.Toast;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Calendar;
+import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
     //link UI elements to class
-    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText, _emailText, _passwordText, _confirmPassword;
+    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText,_dateOfBirth, _emailText, _passwordText, _confirmPassword;
     private Button _signupButton;
     private TextView _loginLink;
+    private DatePickerDialog datePickerDialog;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private FirebaseFirestore firestoreDb;
@@ -45,32 +48,47 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firestoreDb = FirebaseFirestore.getInstance();
 
-        //if(mAuth.getCurrentUser() != null){
-            //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-            //finish();
-        //}
-
         _nameText = findViewById(R.id.input_name);
         _streetText = findViewById(R.id.input_street);
         _suburbText = findViewById(R.id.input_suburb);
         _cityText = findViewById(R.id.input_city);
         _postcodeText = findViewById(R.id.input_postcode);
+        _dateOfBirth = findViewById(R.id.input_dateofbirth);
         _emailText = findViewById(R.id.input_email);
         _passwordText = findViewById(R.id.input_password);
         _confirmPassword = findViewById(R.id.input_confirmPassword);
         _signupButton = findViewById(R.id.btn_signup);
         _loginLink = findViewById(R.id.link_login);
 
+        _dateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                datePickerDialog = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        _dateOfBirth.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = _emailText.getText().toString().trim();
-                String password = _passwordText.getText().toString().trim();
+                final String email = _emailText.getText().toString().trim();
+                final String password = _passwordText.getText().toString().trim();
                 String name = _nameText.getText().toString();
                 String street = _streetText.getText().toString();
                 String suburb = _suburbText.getText().toString();
                 String city = _cityText.getText().toString();
                 String postcode = _postcodeText.getText().toString();
+                //Date date = (Date) _dateOfBirth.getText();
 
                 if (!validate()) {
                     return;
@@ -107,8 +125,29 @@ public class RegisterActivity extends AppCompatActivity {
                                                 }
                                                 else {
                                                     Toast.makeText(RegisterActivity.this, "Successful ", Toast.LENGTH_LONG).show();
+
+                                                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                            if(task.isSuccessful()){
+                                                                final FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                                                firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        if (task.isSuccessful()) {
+                                                                            Toast.makeText(RegisterActivity.this, "Verification email sent to " + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                        else {
+                                                                            Toast.makeText(RegisterActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+
                                                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                                    finish();
+                                                    RegisterActivity.this.finish();
                                                 }
                                             }
                                         });
@@ -135,6 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
         String suburb = _suburbText.getText().toString();
         String city = _cityText.getText().toString();
         String postcode = _postcodeText.getText().toString();
+        String dateOfBirth = _dateOfBirth.getText().toString();
         String email = _emailText.getText().toString().trim();
         String password = _passwordText.getText().toString().trim();
         String confirmPassword = _confirmPassword.getText().toString().trim();
@@ -174,6 +214,13 @@ public class RegisterActivity extends AppCompatActivity {
             _postcodeText.setError(null);
         }
 
+        if (dateOfBirth.isEmpty()){
+            _dateOfBirth.setError("Enter a valid date");
+            valid = false;
+        } else {
+            _dateOfBirth.setError(null);
+        }
+
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("Enter a valid email address");
             valid = false;
@@ -197,5 +244,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         return valid;
     }
+
 
 }

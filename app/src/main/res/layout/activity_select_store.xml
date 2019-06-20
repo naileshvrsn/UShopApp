@@ -26,7 +26,7 @@
             android:gravity="center_horizontal"
             android:padding="10dp"
             android:text="Welcome!"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textColor="@color/moderateGreen"
             android:textStyle="bold"
             android:fontFamily="sans-serif-thin"/>
@@ -44,8 +44,8 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/countdownCardSelectStore"
             android:layout_width="match_parent"
-            android:layout_height="165dp"
-            app:cardBackgroundColor="#4051A931"
+            android:layout_height="155dp"
+            app:cardBackgroundColor="#c9e0c0"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="25dp">
 
@@ -60,8 +60,8 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/paknsaveCardSelectStore"
             android:layout_width="match_parent"
-            android:layout_height="165dp"
-            app:cardBackgroundColor="#70fed604"
+            android:layout_height="155dp"
+            app:cardBackgroundColor="#f4ecbe"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="25dp">
 
@@ -79,9 +79,10 @@
             android:gravity="center"
             android:textSize="22sp"
             android:padding="8dp"
-            android:textColor="@color/lightCyanBlue"
+            android:textColor="@color/colorAccent"
             android:textStyle="italic"
-            android:background="@drawable/rounded_button_dark"/>
+            android:background="@drawable/rounded_button_dark"
+            android:layout_marginBottom="30dp"/>
 
     </LinearLayout>
 </ScrollView>

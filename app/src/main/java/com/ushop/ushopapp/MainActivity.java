@@ -81,9 +81,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else {
                                 Intent intent = new Intent(MainActivity.this, SelectStoreActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
-
+                                MainActivity.this.finish();
                             }
                         }
                     });
