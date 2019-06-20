@@ -5,7 +5,6 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Button;
@@ -27,7 +26,6 @@ import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    //link UI elements to class
     private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText,_dateOfBirth, _emailText, _passwordText, _confirmPassword;
     private Button _signupButton;
     private TextView _loginLink;
@@ -35,6 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private FirebaseFirestore firestoreDb;
+    private Date selectedDateOfBirth;
+    private int selectedYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,19 @@ public class RegisterActivity extends AppCompatActivity {
                 datePickerDialog = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        _dateOfBirth.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                        //date chosen
+                        _dateOfBirth.setText((month + 1) + "/" + dayOfMonth + "/" + year);
+
+                        //set variable chosenDate with the date from picker
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTimeInMillis(0);
+                        cal.set(year, month, dayOfMonth, 0, 0, 0);
+                        selectedDateOfBirth = cal.getTime();
+                        selectedYear = cal.get(Calendar.YEAR);
+
+                        // Format the date using style short
+//                        DateFormat df_short = DateFormat.getDateInstance(DateFormat.SHORT);
+//                        String df_short_str = df_short.format(selectedDateOfBirth);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -88,7 +100,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String suburb = _suburbText.getText().toString();
                 String city = _cityText.getText().toString();
                 String postcode = _postcodeText.getText().toString();
-                //Date date = (Date) _dateOfBirth.getText();
 
                 if (!validate()) {
                     return;
@@ -101,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.suburb = suburb;
                     user.city = city;
                     user.postCode = postcode;
+                    user.dateOfBirth = selectedDateOfBirth;
 
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
@@ -215,7 +227,15 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (dateOfBirth.isEmpty()){
-            _dateOfBirth.setError("Enter a valid date");
+            _dateOfBirth.setError("Select date of birth");
+            valid = false;
+        } else {
+            _dateOfBirth.setError(null);
+        }
+
+        if(calculateAge() < 16 ){
+            //_dateOfBirth.setError("You must be over the age of 16");
+            Toast.makeText(RegisterActivity.this, "You must be over the age of 16", Toast.LENGTH_SHORT).show();
             valid = false;
         } else {
             _dateOfBirth.setError(null);
@@ -235,7 +255,7 @@ public class RegisterActivity extends AppCompatActivity {
             _passwordText.setError(null);
         }
 
-        if(!password.equals(confirmPassword)){
+        if(confirmPassword.isEmpty() || !password.equals(confirmPassword)){
             _confirmPassword.setError("Passwords do not match");
             valid = false;
         }else {
@@ -245,5 +265,11 @@ public class RegisterActivity extends AppCompatActivity {
         return valid;
     }
 
+
+    private int calculateAge(){
+        Calendar cal = Calendar.getInstance();
+        int age = (cal.get(Calendar.YEAR)) - selectedYear;
+        return age;
+    }
 
 }

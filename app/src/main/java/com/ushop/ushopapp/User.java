@@ -1,21 +1,26 @@
 package com.ushop.ushopapp;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class User {
     String name;
     String street;
     String suburb;
     String city;
     String postCode;
+    Date dateOfBirth;
 
     public User() {
     }
 
-    public User(String name, String street, String suburb, String city, String postCode) {
+    public User(String name, String street, String suburb, String city, String postCode, Date dateOfBirth) {
         this.name = name;
         this.street = street;
         this.suburb = suburb;
         this.city = city;
         this.postCode = postCode;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getName() {
@@ -56,5 +61,13 @@ public class User {
 
     public void setPostCode(String postCode) {
         this.postCode = postCode;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
 
                             if(!task.isSuccessful()){
-                                Toast.makeText(getApplicationContext(), "Enter correct email and password or Register", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Login failed. Have you registered?", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 Intent intent = new Intent(MainActivity.this, SelectStoreActivity.class);
