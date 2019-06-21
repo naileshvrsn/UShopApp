@@ -18,6 +18,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SelectStoreActivity extends AppCompatActivity {
 
     private TextView signOut, welcomeUser;
@@ -34,6 +36,10 @@ public class SelectStoreActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         //progress bar while activity loads
+        SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setTitleText("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -94,6 +100,8 @@ public class SelectStoreActivity extends AppCompatActivity {
                 paknsaveClicked();
             }
         });
+
+        pDialog.dismissWithAnimation();
     }
 
 

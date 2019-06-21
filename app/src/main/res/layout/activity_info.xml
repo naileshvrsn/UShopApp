@@ -8,30 +8,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/welcomeTextView"
+        <ImageView android:src="@drawable/ushop_text_only"
+            android:id="@+id/home_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="About, Privacy Policy and Terms"
-            android:gravity="center_horizontal"
-            android:textSize="24sp"
-            android:textColor="@color/loginText"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-thin"/>
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="20dp"
-            android:text="Ushop "
-            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:text="About"
+            android:textSize="23sp"
             android:textColor="@color/appDarkBlueGreen"
-            android:layout_marginBottom="15dp"/>
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/aboutTextView"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/loginText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Privacy Policy"
+            android:textSize="23sp"
+            android:textColor="@color/appDarkBlueGreen"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/privacyPolicyTextView"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/loginText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Terms and Conditions"
+            android:textSize="23sp"
+            android:textColor="@color/appDarkBlueGreen"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/termsTextView"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/loginText"
+            android:layout_marginBottom="20dp" />
 
     </LinearLayout>
 
