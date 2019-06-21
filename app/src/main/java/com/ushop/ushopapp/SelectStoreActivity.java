@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ public class SelectStoreActivity extends AppCompatActivity {
     private TextView signOut, welcomeUser;
     private CardView countdownCard, paknsaveCard;
     private FirebaseAuth mAuth;
+    private ImageView infoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class SelectStoreActivity extends AppCompatActivity {
         welcomeUser = findViewById(R.id.welcomeTextView);
         countdownCard = findViewById(R.id.countdownCardSelectStore);
         paknsaveCard = findViewById(R.id.paknsaveCardSelectStore);
+        infoButton = findViewById(R.id.info_button_home);
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +49,13 @@ public class SelectStoreActivity extends AppCompatActivity {
             String userWelcome = "Welcome " + currentUser.getEmail();
             welcomeUser.setText(userWelcome);
         }
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
 
         countdownCard.setOnClickListener(new View.OnClickListener() {
             @Override
