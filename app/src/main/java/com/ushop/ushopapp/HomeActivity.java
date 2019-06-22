@@ -51,10 +51,17 @@ public class HomeActivity extends AppCompatActivity {
         editProfileIcon = findViewById(R.id.homeEditProfileIcon);
         logoutIcon = findViewById(R.id.homeLogoutIcon);
 
+        shopIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SelectStoreActivity.class));
+            }
+        });
+
         editProfileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //take to user profile
+                startActivity(new Intent(getApplicationContext(), UserProfile.class));
             }
         });
 
