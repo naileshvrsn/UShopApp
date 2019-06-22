@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,12 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText _email, _password;
     private TextView _register, _resetPassword;
+<<<<<<< HEAD
+    private Button _login,_test;
+=======
     private Button _login;
+    private ImageView infoButton;
+>>>>>>> 6688e0b83c786dc355993199680770b7b7748f35
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
@@ -34,9 +40,12 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
             // User is logged in
-            startActivity(new Intent(getApplicationContext(), SelectStoreActivity.class));
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             finish();
         }
+
+        //test button
+        _test = findViewById(R.id.testButton);
 
         _email = findViewById(R.id.input_loginEmail);
         _password = findViewById(R.id.input_loginPassword);
@@ -44,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         _register = findViewById(R.id.link_register);
         _resetPassword = findViewById(R.id.link_reset_password);
         progressBar = findViewById(R.id.loginprogressbar);
+        infoButton = findViewById(R.id.info_button_home);
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+            }
+        });
 
         _register.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -80,13 +97,21 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Login failed. Have you registered?", Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                Intent intent = new Intent(MainActivity.this, SelectStoreActivity.class);
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 MainActivity.this.finish();
                             }
                         }
                     });
                 }
+            }
+        });
+
+        _test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ProductListActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -114,5 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         return valid;
     }
+
+
 
 }

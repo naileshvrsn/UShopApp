@@ -34,6 +34,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:18.0.0'
     implementation 'com.firebaseui:firebase-ui-storage:4.3.1'
     implementation 'com.github.f0ris.sweetalert:library:1.6.1'
+<<<<<<< HEAD
+    implementation 'com.squareup.picasso:picasso:2.71828'
+=======
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+>>>>>>> 6688e0b83c786dc355993199680770b7b7748f35
 }
 
 apply plugin: 'com.google.gms.google-services'
