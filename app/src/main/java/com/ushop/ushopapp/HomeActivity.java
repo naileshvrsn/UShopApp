@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +22,11 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView welcomeUser;
-    private ImageView logoutIcon;
+    private ImageView homeImage, logoutIcon, shopIcon, viewOrdersIcon, editProfileIcon;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
-    private RelativeLayout profile_info_layout;
+    private User currentUserFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +44,14 @@ public class HomeActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("users").document(mAuth.getUid());
 
-        logoutIcon = findViewById(R.id.logout_dashboard);
         welcomeUser = findViewById(R.id.welcomeTextView);
-        profile_info_layout = findViewById(R.id.home_u_profile_layout);
+        homeImage = findViewById(R.id.home_image);
+        shopIcon = findViewById(R.id.homeShopIcon);
+        viewOrdersIcon = findViewById(R.id.homeViewOrdersIcon);
+        editProfileIcon = findViewById(R.id.homeEditProfileIcon);
+        logoutIcon = findViewById(R.id.homeLogoutIcon);
 
-        profile_info_layout.setOnClickListener(new View.OnClickListener() {
+        editProfileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //take to user profile
@@ -65,18 +67,21 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-//      make this faster if possible
+//      Get user object of logged in user from firestore. make this faster if possible
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        User currentUserFirestore = document.toObject(User.class);
+                        currentUserFirestore = document.toObject(User.class);
                         welcomeUser.setText("Welcome " + currentUserFirestore.name);
                     }
                     else {
-
+                        //could not get user from firestore database hence back to login screen
+                        mAuth.signOut();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        HomeActivity.this.finish();
                     }
                 }
                 else {

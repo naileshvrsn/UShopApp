@@ -12,7 +12,8 @@
         android:roundIcon="@drawable/ushop_icon_2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectStoreActivity"></activity>
+        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".SelectStoreActivity" />
         <activity android:name=".InfoActivity" />
         <activity
             android:name=".AddProductActivity"
