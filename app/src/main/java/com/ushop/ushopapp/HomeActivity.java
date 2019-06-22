@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView signOut, welcomeUser;
+    private TextView welcomeUser;
+    private ImageView logoutIcon;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
@@ -43,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("users").document(mAuth.getUid());
 
-        signOut = findViewById(R.id.link_logout_selectStore);
+        logoutIcon = findViewById(R.id.logout_dashboard);
         welcomeUser = findViewById(R.id.welcomeTextView);
         profile_info_layout = findViewById(R.id.home_u_profile_layout);
 
@@ -54,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        signOut.setOnClickListener(new View.OnClickListener() {
+        logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
