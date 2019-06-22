@@ -91,7 +91,8 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/LoginFieldsTextLayout">
+                style="@style/LoginFieldsTextLayout"
+                app:passwordToggleEnabled="true">
                 <EditText android:id="@+id/input_password"
                     style="@style/LoginFieldsTextStyle"
                     android:inputType="textPassword"
@@ -99,7 +100,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/LoginFieldsTextLayout">
+                style="@style/LoginFieldsTextLayout"
+                app:passwordToggleEnabled="true">
                 <EditText android:id="@+id/input_confirmPassword"
                     style="@style/LoginFieldsTextStyle"
                     android:inputType="textPassword"

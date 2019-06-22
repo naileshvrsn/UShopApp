@@ -54,8 +54,7 @@
                     style="@style/UserProfileFieldsTextLayout">
                     <EditText
                         android:id="@+id/userProfileEmail"
-                        style="@style/UserProfileFieldsTextStyle"
-                        android:inputType="none" />
+                        style="@style/UserProfileFieldsTextStyle" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -70,8 +69,7 @@
                     style="@style/UserProfileFieldsTextLayout">
                     <EditText
                         android:id="@+id/userProfileDateOfBirth"
-                        style="@style/UserProfileFieldsTextStyle"
-                        android:inputType="none" />
+                        style="@style/UserProfileFieldsTextStyle" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -136,6 +134,42 @@
                         android:id="@+id/userProfilePostCode"
                         style="@style/UserProfileFieldsTextStyle"
                         android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="New Password" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout"
+                    app:passwordToggleEnabled="true">
+                    <EditText
+                        android:id="@+id/userProfileNewPassword"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="textPassword"
+                        android:hint="Not required"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="Confirm Password" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout"
+                    app:passwordToggleEnabled="true">
+                    <EditText
+                        android:id="@+id/userProfileConfirmPassword"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="textPassword"
+                        android:hint="Not required"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 

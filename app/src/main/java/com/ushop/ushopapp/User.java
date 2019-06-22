@@ -4,12 +4,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class User {
-    String name;
-    String street;
-    String suburb;
-    String city;
-    String postCode;
-    Date dateOfBirth;
+    private String name;
+    private String street;
+    private String suburb;
+    private String city;
+    private String postCode;
+    private Date dateOfBirth;
 
     public User() {
     }

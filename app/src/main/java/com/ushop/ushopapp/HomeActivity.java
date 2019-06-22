@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         currentUserFirestore = document.toObject(User.class);
-                        welcomeUser.setText("Welcome " + currentUserFirestore.name);
+                        welcomeUser.setText("Welcome " + currentUserFirestore.getName());
                     }
                     else {
                         //could not get user from firestore database hence back to login screen

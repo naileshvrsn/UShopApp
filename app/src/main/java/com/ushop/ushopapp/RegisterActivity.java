@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -107,12 +108,12 @@ public class RegisterActivity extends AppCompatActivity {
                 else {
                     progressBar.setVisibility(View.VISIBLE);
                     final User user = new User();
-                    user.name = name;
-                    user.street = street;
-                    user.suburb = suburb;
-                    user.city = city;
-                    user.postCode = postcode;
-                    user.dateOfBirth = selectedDateOfBirth;
+                    user.setName(name);
+                    user.setStreet(street);
+                    user.setSuburb(suburb);
+                    user.setCity(city);
+                    user.setPostCode(postcode);
+                    user.setDateOfBirth(selectedDateOfBirth);
 
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {

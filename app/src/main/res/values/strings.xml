@@ -17,6 +17,24 @@
         <item>Countdown</item>
     </string-array>
 
+    <string-array name="nz_cities_array">
+        <item>Auckland</item>
+        <item>Christchurch</item>
+        <item>Dunedin</item>
+        <item>Gisborne</item>
+        <item>Hamilton</item>
+        <item>Invercargill</item>
+        <item>Napier-Hastings</item>
+        <item>Nelson</item>
+        <item>New Plymouth</item>
+        <item>Palmerston North</item>
+        <item>Rotorua</item>
+        <item>Tauranga</item>
+        <item>Wellington</item>
+        <item>Whanganui</item>
+        <item>Whangarei</item>
+    </string-array>
+
     <string name="about_html">
         <![CDATA[
                   <p>
