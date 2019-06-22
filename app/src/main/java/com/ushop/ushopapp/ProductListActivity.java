@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +39,7 @@ public class ProductListActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+//                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 productList.add(document.toObject(Product.class));
                             }
                         } else {
@@ -49,11 +51,30 @@ public class ProductListActivity extends AppCompatActivity {
                 });
     }
 
-    public void displayProducts(ArrayList<Product> products){
+    public void displayProducts(final ArrayList<Product> products){
+
         ProductAdapter productAdapter = new ProductAdapter(this, products);
+
         ListView listView = findViewById(R.id.productlist);
         listView.setAdapter(productAdapter);
 
+
+        // go to detailed page
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               Product selectedProduct = products.get(position);
+
+            }
+        });
+
+        //add to cart
+
+
     }
+
+
+
 
 }
