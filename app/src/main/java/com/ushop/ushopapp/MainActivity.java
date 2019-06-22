@@ -21,12 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText _email, _password;
     private TextView _register, _resetPassword;
-<<<<<<< HEAD
     private Button _login,_test;
-=======
     private Button _login;
     private ImageView infoButton;
->>>>>>> 6688e0b83c786dc355993199680770b7b7748f35
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
