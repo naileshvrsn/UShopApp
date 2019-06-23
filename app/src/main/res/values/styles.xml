@@ -64,4 +64,22 @@
         <item name="android:layout_marginTop">16dp</item>
     </style>
 
+    <style name="categoriesIconsStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">160dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@drawable/rounded_button_dark</item>
+    </style>
+
+    <style name="categoriesLabelsStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@color/appDarkBlueGreen</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

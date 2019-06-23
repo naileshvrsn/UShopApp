@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,13 +16,15 @@ import android.widget.Toast;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Date selectedDateOfBirth;
     private int selectedYear;
 
+    private String defaultImageStorageLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         firestoreDb = FirebaseFirestore.getInstance();
+        defaultImageStorageLocation = "";
+        //defaultImageStorageLocation = "https://firebasestorage.googleapis.com/v0/b/ushop-73f4b.appspot.com/o/userImages%2Fblank_user.png?alt=media&token=ed4de9cf-befb-4fed-ad64-485f609ab709";
 
         _nameText = findViewById(R.id.input_name);
         _streetText = findViewById(R.id.input_street);
@@ -82,9 +90,6 @@ public class RegisterActivity extends AppCompatActivity {
                         selectedDateOfBirth = cal.getTime();
                         selectedYear = cal.get(Calendar.YEAR);
 
-                        // Format the date using style short
-//                        DateFormat df_short = DateFormat.getDateInstance(DateFormat.SHORT);
-//                        String df_short_str = df_short.format(selectedDateOfBirth);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -114,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setCity(city);
                     user.setPostCode(postcode);
                     user.setDateOfBirth(selectedDateOfBirth);
+                    user.setUserImageLocation(defaultImageStorageLocation);
 
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
