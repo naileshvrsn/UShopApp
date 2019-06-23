@@ -1,18 +1,17 @@
 package com.ushop.ushopapp;
 
 public class Cart {
-    private String pid,pname, price, quanity, discount;
+    private String pid,pname, price, quantity;
 
     public Cart(){
 
     }
 
-    public Cart(String pid, String pname, String price, String quanity, String discount) {
+    public Cart(String pid, String pname, String price, String quantity) {
         this.pid = pid;
         this.pname = pname;
         this.price = price;
-        this.quanity = quanity;
-        this.discount = discount;
+        this.quantity = quantity;
     }
 
     public String getPid() {
@@ -39,19 +38,11 @@ public class Cart {
         this.price = price;
     }
 
-    public String getQuanity() {
-        return quanity;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setQuanity(String quanity) {
-        this.quanity = quanity;
-    }
-
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }

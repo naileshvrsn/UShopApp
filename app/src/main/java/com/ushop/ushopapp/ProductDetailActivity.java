@@ -150,12 +150,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
 
                             Toast.makeText(ProductDetailActivity.this,"Product added to cart",Toast.LENGTH_SHORT).show();
-                            //send user to product list page
-
-                            Intent i = new Intent(ProductDetailActivity.this,ProductListActivity.class);
-                            startActivity(i);
-
-                            ProductDetailActivity.this.finish();
 
                         }else {
                             Toast.makeText(ProductDetailActivity.this,"Product not added to cart",Toast.LENGTH_SHORT).show();

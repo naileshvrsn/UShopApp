@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,11 +32,14 @@ public class ProductListActivity extends AppCompatActivity {
 
     private String store;
     private String category;
+    private FloatingActionButton cartBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+
+        cartBtn = findViewById(R.id.cartViewbtn);
 
         Bundle extras = getIntent().getExtras();
         store = extras.getString("store");
@@ -69,6 +73,15 @@ public class ProductListActivity extends AppCompatActivity {
         }
 
         getAllProducts();
+
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProductListActivity.this,CartListActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
 

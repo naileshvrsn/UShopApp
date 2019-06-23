@@ -2,9 +2,11 @@ package com.ushop.ushopapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -57,6 +60,30 @@ public class CartListActivity extends AppCompatActivity {
       recyclerView.setHasFixedSize(true);
       recyclerView.setLayoutManager(new LinearLayoutManager(this));
       recyclerView.setAdapter(adapter);
+
+
+      new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+              ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+          @Override
+          public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+              return false;
+          }
+
+          @Override
+          public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                adapter.removeProduct(viewHolder.getAdapterPosition());
+          }
+      }).attachToRecyclerView(recyclerView);
+
+      adapter.setOnItemClickListener(new CartItemAdapter.OnItemCLickListener() {
+          @Override
+          public void onItemClick(DocumentSnapshot documentSnapshot) {
+            String productId = documentSnapshot.getId();
+              Intent intent = new Intent(CartListActivity.this,ProductDetailActivity.class);
+              intent.putExtra("productID",productId);
+              startActivity(intent);
+          }
+      });
     }
 
     @Override
