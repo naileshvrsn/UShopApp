@@ -19,5 +19,7 @@
     <color name="appLightBlueGreen">#a1d2e2</color>
 
     <color name="countdownGreen">#51A931</color>
+    <color name="countdownBrightGreen">#79d358</color>
     <color name="paknsaveYellow">#fed604</color>
+    <color name="paknsaveBrightYellow">#fee503</color>
 </resources>
