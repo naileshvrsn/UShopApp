@@ -18,8 +18,6 @@ public class Product {
 
 
     // used when the product has an image
-
-
     public Product(String name, String description, double unitPrice, String category, String store, Image productImage) {
         this.name = name;
         this.description = description;

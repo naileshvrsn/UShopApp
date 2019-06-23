@@ -104,6 +104,13 @@ public class UserProfile extends AppCompatActivity {
         });
         pDialog.dismissWithAnimation();
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserProfile.this.finish();
+            }
+        });
+
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

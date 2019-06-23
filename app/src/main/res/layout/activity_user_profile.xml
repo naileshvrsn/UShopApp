@@ -151,7 +151,7 @@
                         android:id="@+id/userProfileNewPassword"
                         style="@style/UserProfileFieldsTextStyle"
                         android:inputType="textPassword"
-                        android:hint="Not required"/>
+                        android:hint="Optional"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -169,7 +169,7 @@
                         android:id="@+id/userProfileConfirmPassword"
                         style="@style/UserProfileFieldsTextStyle"
                         android:inputType="textPassword"
-                        android:hint="Not required"/>
+                        android:hint="Optional"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
