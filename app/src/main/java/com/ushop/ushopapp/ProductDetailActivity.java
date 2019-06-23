@@ -37,7 +37,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private ImageView productImage;
     private TextView productName,productPrice,description;
-    private Button addToCart,viewCart;
+    private Button addToCart;
     private ElegantNumberButton quanityButton;
     private String productID;
     FirebaseUser currentUser;
@@ -73,7 +73,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         productPrice = findViewById(R.id.product_price);
         description = findViewById(R.id.product_description);
         addToCart = findViewById(R.id.addtocart);
-        viewCart = findViewById(R.id.viewCart);
         quanityButton = findViewById(R.id.quantityButton);
 
 
@@ -110,14 +109,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addProducttoCart();
-
-            }
-        });
-
-        //view cart button pressed
-        viewCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
             }
         });

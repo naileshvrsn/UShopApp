@@ -1,7 +1,7 @@
 package com.ushop.ushopapp;
 
 public class Cart {
-    String pid,pname, price, quanity, discount;
+    private String pid,pname, price, quanity, discount;
 
     public Cart(){
 
