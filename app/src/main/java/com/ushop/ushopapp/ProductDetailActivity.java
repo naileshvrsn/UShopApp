@@ -166,7 +166,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             startActivity(i);
 
                             ProductDetailActivity.this.finish();
-                            
+
                         }else {
                             Toast.makeText(ProductDetailActivity.this,"Product not added to cart",Toast.LENGTH_SHORT).show();
                         }
