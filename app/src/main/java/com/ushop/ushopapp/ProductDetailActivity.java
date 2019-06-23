@@ -138,7 +138,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         //time
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(callForDate.getTime());
-        CollectionReference cartList =  db.getInstance().collection("CartList");
 
         CollectionReference cartListRef = db.collection("cartList");
 
