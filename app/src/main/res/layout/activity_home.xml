@@ -139,6 +139,27 @@
                         android:layout_weight="1"/>
                 </TableRow>
             </TableLayout>
+
+
+            <TextView android:id="@+id/link_logout_selectStore"
+                style="@style/ButtonsStyle"
+                android:text="Log Out"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:padding="8dp"
+                android:textColor="@color/colorAccent"
+                android:background="@drawable/rounded_button_dark"
+                android:layout_marginBottom="30dp"/>
+
+            <Button
+                android:id="@+id/test_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Test Activity"/>
+
         </LinearLayout>
+
+
     </ScrollView>
 </RelativeLayout>

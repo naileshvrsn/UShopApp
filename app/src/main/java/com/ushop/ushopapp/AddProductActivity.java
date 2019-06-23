@@ -46,6 +46,7 @@ public class AddProductActivity extends AppCompatActivity {
     //Firebase
     FirebaseStorage storage;
     StorageReference storageReference;
+    StorageReference ref;
 
     // Image storage URL string
     String storageLocation;
@@ -63,6 +64,7 @@ public class AddProductActivity extends AppCompatActivity {
         //setup firebase storage
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
 
         // setup Image storage location
         storageLocation = "gs://ushop-73f4b.appspot.com/productImages/";
@@ -146,7 +148,7 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
-    //Funtion -> Upload image to firebase storage
+    //Function -> Upload image to firebase storage
     private void uploadImage() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading Image");
@@ -155,8 +157,9 @@ public class AddProductActivity extends AppCompatActivity {
             //product name is picture file name
             String _name = nameTextField.getText().toString();
             String _store = storeSpinner.getSelectedItem().toString();
+            System.out.println(_store);
             //upload image to firebase storage
-            StorageReference ref = storageReference.child("productImages/" + _name + _store);
+                ref = storageReference.child("productImages/" + _name + _store);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -178,7 +181,7 @@ public class AddProductActivity extends AppCompatActivity {
     private void getImageURl(){
         String _name = nameTextField.getText().toString();
         String _store = storeSpinner.getSelectedItem().toString();
-        
+
         StorageReference gfReference = storage.getReferenceFromUrl(storageLocation+_name+_store);
 
         gfReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -202,6 +205,7 @@ public class AddProductActivity extends AppCompatActivity {
 
                 //upload the product into firestore
                 productFirestoreUpload(newProduct);
+
 
             }
         }).addOnFailureListener(new OnFailureListener() {

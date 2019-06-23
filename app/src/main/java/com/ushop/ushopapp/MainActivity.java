@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.finish();
         }
 
-        //test button
-        _test = findViewById(R.id.testButton);
+
 
         _email = findViewById(R.id.input_loginEmail);
         _password = findViewById(R.id.input_loginPassword);
@@ -103,13 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        _test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,ProductListActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
 
