@@ -1,16 +1,16 @@
 package com.ushop.ushopapp;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 public class CategoryActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        String selectedStore = getIntent().getExtras().getString("store");
+        final String selectedStore = getIntent().getExtras().getString("store");
         getSupportActionBar().setTitle(selectedStore);
 
         storeLogo = findViewById(R.id.store_image_category);
@@ -31,6 +31,9 @@ public class CategoryActivity extends AppCompatActivity {
         frozenLayout = findViewById(R.id.categoriesFrozenLayout);
         drinksLayout = findViewById(R.id.categoriesDrinksLayout);
         winesAndBeerLayout = findViewById(R.id.categoriesWinesAndBeerLayout);
+
+        final Bundle extras = new Bundle();
+        extras.putString("store", selectedStore);
 
         switch (selectedStore){
             case "Countdown":
@@ -70,6 +73,55 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
             default:
         }
+
+
+        bakeryLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extras.putString("category", "Bakery");
+                startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtras(extras));
+            }
+        });
+
+        confectioneryLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extras.putString("category", "Confectionery");
+                startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtras(extras));
+            }
+        });
+
+        freshProduceLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extras.putString("category", "Fresh Produce");
+                startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtras(extras));
+            }
+        });
+
+        frozenLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extras.putString("category", "Frozen");
+                startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtras(extras));
+            }
+        });
+
+        drinksLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extras.putString("category", "Drinks");
+                startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtras(extras));
+            }
+        });
+
+        winesAndBeerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extras.putString("category", "Wines and Beer");
+                startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtras(extras));
+            }
+        });
 
 
     }

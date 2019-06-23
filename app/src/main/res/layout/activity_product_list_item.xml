@@ -34,8 +34,6 @@
             android:textSize="16dp"
             android:hint="$24.00"
             />
-        
-        
 
     </RelativeLayout>
 
