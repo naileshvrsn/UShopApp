@@ -85,9 +85,11 @@ public class ProductListActivity extends AppCompatActivity {
                 Intent i = new Intent(getBaseContext(),ProductDetailActivity.class);
                 i.putExtra("productID",selectedProduct.getProductId());
                 startActivity(i);
+                ProductListActivity.this.finish();
 
             }
         });
+
 
     }
 
