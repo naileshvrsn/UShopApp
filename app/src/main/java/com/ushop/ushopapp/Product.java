@@ -1,35 +1,31 @@
 package com.ushop.ushopapp;
 
-import android.media.Image;
-import android.widget.ImageView;
 
 public class Product {
+
+    private String productId;
     private String name;
     private String description;
     private double unitPrice;
     private String category;
     private String store;
     private String imageLocation;
-    private Image productImage;
+
 
     public Product() {
 
     }
 
-
-    // used when the product has an image
-
-
-    public Product(String name, String description, double unitPrice, String category, String store, Image productImage) {
+    // Used when the product has image url
+    public Product(String productId,String name, String description, double unitPrice, String category, String store, String imageLocation) {
+        this.productId = productId;
         this.name = name;
         this.description = description;
         this.unitPrice = unitPrice;
         this.category = category;
         this.store = store;
-        this.productImage = productImage;
+        this.imageLocation = imageLocation;
     }
-
-    // Used when the product has image url
     public Product(String name, String description, double unitPrice, String category, String store, String imageLocation) {
         this.name = name;
         this.description = description;
@@ -37,6 +33,14 @@ public class Product {
         this.category = category;
         this.store = store;
         this.imageLocation = imageLocation;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -87,11 +91,5 @@ public class Product {
         this.imageLocation = imageLocation;
     }
 
-    public Image getProductImage() {
-        return productImage;
-    }
 
-    public void setProductImage(Image productImage) {
-        this.productImage = productImage;
-    }
 }

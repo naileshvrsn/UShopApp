@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
     private RelativeLayout profile_info_layout;
+    private Button _test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,9 @@ public class HomeActivity extends AppCompatActivity {
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
+
+        //testButton
+        _test = findViewById(R.id.test_btn);
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -83,8 +88,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        _test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this,ProductListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         pDialog.dismissWithAnimation();
     }
+
 
 
 }

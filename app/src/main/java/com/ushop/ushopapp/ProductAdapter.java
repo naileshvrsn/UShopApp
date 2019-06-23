@@ -27,18 +27,17 @@ import java.util.ArrayList;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-
-    StorageReference storageRef ;
 
     public ProductAdapter(Activity context, ArrayList<Product> products) {
         super(context, 0, products);
+
     }
 
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
         if (listItemView == null) {
+
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.activity_product_list_item, parent, false);
 
