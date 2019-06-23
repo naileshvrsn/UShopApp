@@ -25,7 +25,9 @@ public class ProductListActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "ShowProductActivity";
 
-
+    Bundle extras = getIntent().getExtras();
+    private String store = extras.getString("store");
+    private String category = extras.getString("category");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +36,15 @@ public class ProductListActivity extends AppCompatActivity {
 
        getAllProducts();
 
-
     }
+
+
     public void getAllProducts() {
        final ArrayList<Product> productList = new ArrayList<>();
 
         db.collection("products")
+                .whereEqualTo("store", store)
+                .whereEqualTo("category", category)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -61,8 +66,6 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     public void displayProducts(final ArrayList<Product> products){
-
-
 
         SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Loading");
