@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.RelativeLayout;
+
+import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +26,17 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView signOut, welcomeUser;
+    private TextView welcomeUser;
+    private ImageView homeImage, logoutIcon, shopIcon, viewOrdersIcon, editProfileIcon;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
+
     private RelativeLayout profile_info_layout;
     private Button _test;
+
+    private User currentUserFirestore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +57,28 @@ public class HomeActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("users").document(mAuth.getUid());
 
-        signOut = findViewById(R.id.link_logout_selectStore);
         welcomeUser = findViewById(R.id.welcomeTextView);
-        profile_info_layout = findViewById(R.id.home_u_profile_layout);
+        homeImage = findViewById(R.id.home_image);
+        shopIcon = findViewById(R.id.homeShopIcon);
+        viewOrdersIcon = findViewById(R.id.homeViewOrdersIcon);
+        editProfileIcon = findViewById(R.id.homeEditProfileIcon);
+        logoutIcon = findViewById(R.id.homeLogoutIcon);
 
-        profile_info_layout.setOnClickListener(new View.OnClickListener() {
+        shopIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //take to user profile
+                startActivity(new Intent(getApplicationContext(), SelectStoreActivity.class));
             }
         });
 
-        signOut.setOnClickListener(new View.OnClickListener() {
+        editProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), UserProfile.class));
+            }
+        });
+
+        logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
@@ -68,18 +87,21 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-//      make this faster if possible
+//      Get user object of logged in user from firestore. make this faster if possible
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        User currentUserFirestore = document.toObject(User.class);
-                        welcomeUser.setText("Welcome " + currentUserFirestore.name);
+                        currentUserFirestore = document.toObject(User.class);
+                        welcomeUser.setText("Welcome " + currentUserFirestore.getName());
                     }
                     else {
-
+                        //could not get user from firestore database hence back to login screen
+                        mAuth.signOut();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        HomeActivity.this.finish();
                     }
                 }
                 else {

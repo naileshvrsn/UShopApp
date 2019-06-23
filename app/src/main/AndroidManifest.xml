@@ -15,6 +15,9 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ProductDetailActivity"></activity>
+
+        <activity android:name=".UserProfile"></activity>
+
         <activity android:name=".SelectStoreActivity" />
         <activity android:name=".InfoActivity" />
         <activity

@@ -4,23 +4,25 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class User {
-    String name;
-    String street;
-    String suburb;
-    String city;
-    String postCode;
-    Date dateOfBirth;
+    private String name;
+    private String street;
+    private String suburb;
+    private String city;
+    private String postCode;
+    private Date dateOfBirth;
+    private String userImageLocation;
 
     public User() {
     }
 
-    public User(String name, String street, String suburb, String city, String postCode, Date dateOfBirth) {
+    public User(String name, String street, String suburb, String city, String postCode, Date dateOfBirth, String userImageLocation) {
         this.name = name;
         this.street = street;
         this.suburb = suburb;
         this.city = city;
         this.postCode = postCode;
         this.dateOfBirth = dateOfBirth;
+        this.userImageLocation = userImageLocation;
     }
 
     public String getName() {
@@ -69,5 +71,13 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getUserImageLocation() {
+        return userImageLocation;
+    }
+
+    public void setUserImageLocation(String userImageLocation) {
+        this.userImageLocation = userImageLocation;
     }
 }

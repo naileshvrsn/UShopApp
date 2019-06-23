@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserProfile"
+    android:background="@drawable/light_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        android:background="@drawable/blue_linen_background">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/editProfileImageView"
+            android:src="@drawable/blank_user"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginTop="25dp"
+            app:civ_border_width="3dp"
+            app:civ_border_color="@color/white"/>
+
+        <TextView
+            android:id="@+id/userProfileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="22sp"
+            android:text="Full Name"
+            android:textColor="@color/appDarkBlueGreen" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="Email" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout">
+                    <EditText
+                        android:id="@+id/userProfileEmail"
+                        style="@style/UserProfileFieldsTextStyle" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="Date of birth" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout">
+                    <EditText
+                        android:id="@+id/userProfileDateOfBirth"
+                        style="@style/UserProfileFieldsTextStyle" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="Street" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout">
+                    <EditText
+                        android:id="@+id/userProfileStreet"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="textPostalAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="Suburb" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout">
+                    <EditText
+                        android:id="@+id/userProfileSuburb"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="textPostalAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="City" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout">
+                    <EditText
+                        android:id="@+id/userProfileCity"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="textPostalAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="Postcode" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout">
+                    <EditText
+                        android:id="@+id/userProfilePostCode"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="New Password" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout"
+                    app:passwordToggleEnabled="true">
+                    <EditText
+                        android:id="@+id/userProfileNewPassword"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="textPassword"
+                        android:hint="Optional"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
+                    android:text="Confirm Password" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout"
+                    app:passwordToggleEnabled="true">
+                    <EditText
+                        android:id="@+id/userProfileConfirmPassword"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="textPassword"
+                        android:hint="Optional"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/userProfileSaveChangesButton"
+                style="@style/ButtonsStyle"
+                android:padding="14dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/cyanCornflowerBlue"
+                android:background="@drawable/rounded_button"
+                android:text="Save Changes"/>
+
+            <TextView
+                android:id="@+id/userProfileCancelButton"
+                style="@style/ButtonsStyle"
+                android:text="Cancel"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="6dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="40dp"
+                android:textColor="@color/red_btn_bg_color"
+                android:background="@drawable/rounded_button_dark"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

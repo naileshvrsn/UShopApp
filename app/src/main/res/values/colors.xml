@@ -3,12 +3,15 @@
     <color name="colorPrimary">#83e7f7</color>
     <color name="colorPrimaryDark">#4db5c4</color>
     <color name="colorAccent">#f96161</color>
+    <color name="white">#ffffff</color>
+
+    <color name="lightblueText">#259fdb</color>
 
     <color name="cyanCornflowerBlue">#2F97C1</color>
     <color name="lightCyanBlue">#e3eaed</color>
     <color name="moderateGreen">#3ea52e</color>
     <color name="dirtyOrangeBrown">#e2c4b7</color>
-    <color name="dullYellow">#dbc25e</color>
+    <color name="dullYellow">#d6a42f</color>
 
     <color name="loginText">#3a3a3a</color>
     <color name="bluePurple">#5e4bed</color>

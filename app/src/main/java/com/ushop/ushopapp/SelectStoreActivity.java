@@ -16,6 +16,8 @@ public class SelectStoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_store);
 
+        getSupportActionBar().setTitle("Select Store");
+
         countdownCard = findViewById(R.id.countdownCardSelectStore);
         paknsaveCard = findViewById(R.id.paknsaveCardSelectStore);
 

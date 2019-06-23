@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
     android:background="@drawable/light_background"
-    android:padding="20dp"
+    android:padding="15dp"
     android:orientation="vertical">
 
     <ScrollView
@@ -18,10 +18,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/home_u_profile_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/home_u_profile_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,14 +34,14 @@
                     app:civ_border_width="3dp"
                     app:civ_border_color="#ffffff"/>
 
-                <ImageView android:src="@drawable/outline_edit_black_48dp"
-                    android:id="@+id/edit_button_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:padding="2dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
+                <!--<ImageView android:src="@drawable/outline_edit_black_48dp"-->
+                    <!--android:id="@+id/edit_button_home"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:padding="2dp"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_alignParentRight="true"/>-->
+            <!--</RelativeLayout>-->
 
             <TextView
                 android:id="@+id/welcomeTextView"
@@ -51,18 +51,95 @@
                 android:padding="10dp"
                 android:text="Welcome!"
                 android:textSize="24sp"
-                android:textColor="@color/bluePurple"
+                android:textColor="@color/appDarkBlueGreen"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-thin"/>
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <ImageView
+                        android:id="@+id/homeShopIcon"
+                        android:src="@drawable/start_shopping"
+                        style="@style/dashboardIconsStyle"
+                        android:layout_marginRight="10dp"/>
+                    <ImageView
+                        android:id="@+id/homeViewOrdersIcon"
+                        android:src="@drawable/view_orders"
+                        style="@style/dashboardIconsStyle"/>
+                </TableRow>
 
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Shop"
+                        android:textColor="@color/moderateGreen"
+                        android:textSize="21sp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View Orders"
+                        android:gravity="center"
+                        android:textColor="@color/dullYellow"
+                        android:textSize="21sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_weight="1"/>
+                </TableRow>
 
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+                    <ImageView
+                        android:id="@+id/homeEditProfileIcon"
+                        android:src="@drawable/edit_profile"
+                        android:layout_marginRight="10dp"
+                        style="@style/dashboardIconsStyle"/>
+                    <ImageView
+                        android:src="@drawable/log_out"
+                        android:id="@+id/homeLogoutIcon"
+                        style="@style/dashboardIconsStyle"/>
+                </TableRow>
 
-
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Edit Profile"
+                        android:textColor="@color/appDarkBlueGreen"
+                        android:textSize="21sp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Out"
+                        android:gravity="center"
+                        android:textColor="@color/red_btn_bg_color"
+                        android:textSize="21sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_weight="1"/>
+                </TableRow>
             </TableLayout>
+
 
             <TextView android:id="@+id/link_logout_selectStore"
                 style="@style/ButtonsStyle"
@@ -80,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Test Activity"/>
+
         </LinearLayout>
 
 

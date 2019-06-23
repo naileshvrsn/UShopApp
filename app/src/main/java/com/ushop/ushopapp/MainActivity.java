@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
             // User is logged in
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-            finish();
+            MainActivity.this.finish();
         }
 
 

@@ -26,6 +26,16 @@ public class Product {
         this.store = store;
         this.imageLocation = imageLocation;
     }
+    // used when the product has an image
+    public Product(String name, String description, double unitPrice, String category, String store) {
+
+        this.name = name;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.category = category;
+        this.store = store;
+        this.imageLocation = imageLocation;
+    }
     public Product(String name, String description, double unitPrice, String category, String store, String imageLocation) {
         this.name = name;
         this.description = description;
