@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -25,17 +29,46 @@ public class ProductListActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "ShowProductActivity";
 
-    Bundle extras = getIntent().getExtras();
-    private String store = extras.getString("store");
-    private String category = extras.getString("category");
+    private String store;
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-       getAllProducts();
+        Bundle extras = getIntent().getExtras();
+        store = extras.getString("store");
+        category = extras.getString("category");
 
+        getSupportActionBar().setTitle(store + " " + category);
+
+        switch (store){
+            case "Countdown":
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                        .getColor(R.color.countdownBrightGreen)));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    Window window = getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(R.color.countdownGreen));
+                }
+                break;
+
+            case "PaknSave" :
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                        .getColor(R.color.paknsaveBrightYellow)));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    Window window = getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(R.color.paknsaveYellow));
+                }
+                break;
+            default:
+        }
+
+        getAllProducts();
     }
 
 
@@ -88,7 +121,7 @@ public class ProductListActivity extends AppCompatActivity {
                 Intent i = new Intent(getBaseContext(),ProductDetailActivity.class);
                 i.putExtra("productID",selectedProduct.getProductId());
                 startActivity(i);
-                ProductListActivity.this.finish();
+                //ProductListActivity.this.finish();
 
             }
         });
