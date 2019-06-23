@@ -26,13 +26,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
-
-
+    
     public ProductAdapter(Activity context, ArrayList<Product> products) {
         super(context, 0, products);
 
     }
-
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
