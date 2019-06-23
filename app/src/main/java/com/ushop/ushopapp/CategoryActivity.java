@@ -22,7 +22,7 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         final String selectedStore = getIntent().getExtras().getString("store");
-        getSupportActionBar().setTitle(selectedStore);
+        getSupportActionBar().setTitle("Shop from " + selectedStore);
 
         storeLogo = findViewById(R.id.store_image_category);
         bakeryLayout = findViewById(R.id.categoriesBakeryLayout);

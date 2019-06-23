@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -36,6 +40,33 @@ public class ProductListActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         store = extras.getString("store");
         category = extras.getString("category");
+
+        getSupportActionBar().setTitle(store + " " + category);
+
+        switch (store){
+            case "Countdown":
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                        .getColor(R.color.countdownBrightGreen)));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    Window window = getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(R.color.countdownGreen));
+                }
+                break;
+
+            case "PaknSave" :
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                        .getColor(R.color.paknsaveBrightYellow)));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    Window window = getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(R.color.paknsaveYellow));
+                }
+                break;
+            default:
+        }
 
         getAllProducts();
     }
