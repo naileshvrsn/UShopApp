@@ -32,8 +32,7 @@
             android:layout_below="@id/product_title"
             android:layout_marginLeft="8dp"
             android:textSize="16dp"
-            android:hint="$24.00"
-            />
+            android:hint="$24.00" />
 
     </RelativeLayout>
 

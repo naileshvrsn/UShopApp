@@ -25,17 +25,19 @@ public class ProductListActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "ShowProductActivity";
 
-    Bundle extras = getIntent().getExtras();
-    private String store = extras.getString("store");
-    private String category = extras.getString("category");
+    private String store;
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-       getAllProducts();
+        Bundle extras = getIntent().getExtras();
+        store = extras.getString("store");
+        category = extras.getString("category");
 
+        getAllProducts();
     }
 
 
@@ -88,7 +90,7 @@ public class ProductListActivity extends AppCompatActivity {
                 Intent i = new Intent(getBaseContext(),ProductDetailActivity.class);
                 i.putExtra("productID",selectedProduct.getProductId());
                 startActivity(i);
-                ProductListActivity.this.finish();
+                //ProductListActivity.this.finish();
 
             }
         });
