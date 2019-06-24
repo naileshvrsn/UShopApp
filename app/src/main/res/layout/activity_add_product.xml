@@ -73,7 +73,8 @@
             android:id="@+id/imageViewAddProduct"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/rounded_button_dark" />
+            android:background="@drawable/rounded_button_dark"
+            android:padding="10dp"/>
 
         <Button
             android:id="@+id/uploadProduct"
