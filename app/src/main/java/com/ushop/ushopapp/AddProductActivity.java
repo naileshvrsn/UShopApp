@@ -111,7 +111,6 @@ public class AddProductActivity extends AppCompatActivity {
                     return;
                 }else{
                 addProduct();
-                AddProductActivity.this.finish();
                 }
             }
         });
@@ -243,6 +242,7 @@ public class AddProductActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
                         Toast.makeText(AddProductActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        AddProductActivity.this.finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -289,13 +289,15 @@ public class AddProductActivity extends AppCompatActivity {
             unitpriceTextField.setError(null);
         }
 
+        if(_store.equals("Select Store")){ //Validate store
+            valid = false;
+            Toast.makeText(AddProductActivity.this, "Select store", Toast.LENGTH_LONG).show();
+        }
+
         //validate category
         if (_category.equals("Select Category")){
             valid = false;
             Toast.makeText(AddProductActivity.this, "Select category", Toast.LENGTH_LONG).show();
-        }else if(_store.equals("Select Store")){ //Validate store
-            valid = false;
-            Toast.makeText(AddProductActivity.this, "Select store", Toast.LENGTH_LONG).show();
         }
 
         return valid;
