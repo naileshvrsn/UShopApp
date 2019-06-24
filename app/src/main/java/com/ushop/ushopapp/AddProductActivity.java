@@ -32,7 +32,7 @@ import java.io.IOException;
 public class AddProductActivity extends AppCompatActivity {
 
     private EditText nameTextField,descriptionTextField,unitpriceTextField;
-    private TextView uploadImage;
+    private TextView uploadImage, cancel;
     private ImageView productImage;
     private Spinner categorySpinner,storeSpinner;
     private Button uploadProduct;
@@ -79,6 +79,7 @@ public class AddProductActivity extends AppCompatActivity {
         productImage = findViewById(R.id.imageViewAddProduct);
         uploadImage = findViewById(R.id.uploadImageAddProduct);
         uploadProduct = findViewById(R.id.uploadProduct);
+        cancel = findViewById(R.id.addProductCancelButton);
 
         //Spinner for category selection
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(AddProductActivity.this,
@@ -111,6 +112,13 @@ public class AddProductActivity extends AppCompatActivity {
                 }else{
                 addProduct();
                 }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddProductActivity.this.finish();
             }
         });
 
@@ -281,15 +289,14 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         //validate category
-        if (_category.equals("Select")){
+        if (_category.equals("Select Category")){
             valid = false;
             Toast.makeText(AddProductActivity.this, "Select category", Toast.LENGTH_LONG).show();
-        }else if(_store.equals("Select")){ //Validate store
+        }else if(_store.equals("Select Store")){ //Validate store
             valid = false;
-            Toast.makeText(AddProductActivity.this, "Select Store", Toast.LENGTH_LONG).show();
-        }else{
-
+            Toast.makeText(AddProductActivity.this, "Select store", Toast.LENGTH_LONG).show();
         }
+
         return valid;
 
     }

@@ -2,7 +2,7 @@
     <string name="app_name">Ushop</string>
 
     <string-array name="category">
-        <item>Select</item>
+        <item>Select Category</item>
         <item>Bakery</item>
         <item>Fresh Produce</item>
         <item>Drinks</item>
@@ -12,7 +12,7 @@
     </string-array>
 
     <string-array name="store">
-        <item>Select</item>
+        <item>Select Store</item>
         <item>PaknSave</item>
         <item>Countdown</item>
     </string-array>
