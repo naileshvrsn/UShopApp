@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private DocumentReference documentReference;
 
     private RelativeLayout profile_info_layout;
-    private Button _test;
+
 
     private User currentUserFirestore;
 
@@ -49,9 +49,6 @@ public class HomeActivity extends AppCompatActivity {
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
-
-        //testButton
-        _test = findViewById(R.id.test_btn);
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -107,14 +104,6 @@ public class HomeActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(HomeActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        _test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ProductListActivity.class);
-                startActivity(intent);
             }
         });
 

@@ -132,18 +132,16 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         CollectionReference cartListRef = db.collection("cartList");
 
-        final HashMap<String,Object> cartMap = new HashMap<>();
-        cartMap.put("pid", productID);
-        cartMap.put("pname", productName.getText().toString());
-        cartMap.put("price",productPrice.getText().toString());
-        cartMap.put("date",saveCurrentDate);
-        cartMap.put("time",saveCurrentTime);
-        cartMap.put("quantity",quanityButton.getNumber());
+        Cart cartProduct = new Cart();
+        cartProduct.setPid(productID);
+        cartProduct.setPname(productName.getText().toString());
+        cartProduct.setPrice(productPrice.getText().toString());
+        cartProduct.setQuantity(quanityButton.getNumber());
 
 
 
         cartListRef.document(currentUser.getUid()).
-                collection("products").document(productID).set(cartMap)
+                collection("products").document(productID).set(cartProduct)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

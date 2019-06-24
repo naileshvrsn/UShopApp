@@ -126,13 +126,6 @@
                 </TableRow>
             </TableLayout>
 
-            <Button
-                android:id="@+id/test_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Test Activity"/>
-
         </LinearLayout>
 
 
