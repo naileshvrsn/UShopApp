@@ -39,9 +39,12 @@ public class CartListActivity extends AppCompatActivity {
     private CollectionReference cartListRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+
     private CartItemAdapter adapter;
-    TextView cart_TotalTxt;
-    Button proccedtoCheckout;
+
+    private TextView cart_TotalTxt;
+    private Button proccedtoCheckout;
+    private BigDecimal bd;
 
 
     @Override
@@ -149,7 +152,7 @@ public class CartListActivity extends AppCompatActivity {
                         cartTotal += productTotal;
                     }
 
-                    BigDecimal bd = new BigDecimal(cartTotal).setScale(2, RoundingMode.HALF_UP);
+                    bd = new BigDecimal(cartTotal).setScale(2, RoundingMode.HALF_UP);
 
 
                     cart_TotalTxt.setText("$ "+ bd.doubleValue());
@@ -159,7 +162,8 @@ public class CartListActivity extends AppCompatActivity {
         });
 
     }
-    //
+
+
     private void proceedToCheckout() {
         //check if cart has item
         // done by using price
@@ -184,6 +188,7 @@ public class CartListActivity extends AppCompatActivity {
 
         }else {
             Intent i = new Intent(CartListActivity.this,ConfirmOrderActivity.class);
+            i.putExtra("cartTotal",bd.doubleValue());
             startActivity(i);
         }
 

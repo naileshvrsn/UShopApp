@@ -41,6 +41,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ElegantNumberButton quanityButton;
     private String productID;
     FirebaseUser currentUser;
+    Product currentProduct;
 
 
     private static final String TAG = "ProductDetailActivity";
@@ -84,7 +85,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        Product currentProduct = document.toObject(Product.class);
+                        currentProduct = document.toObject(Product.class);
 
                         // display information
                         Picasso.get().load(currentProduct.getImageLocation()).into(productImage);
@@ -137,6 +138,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         cartProduct.setPname(productName.getText().toString());
         cartProduct.setPrice(productPrice.getText().toString());
         cartProduct.setQuantity(quanityButton.getNumber());
+        cartProduct.setImageLocation(currentProduct.getImageLocation());
 
 
 
@@ -159,16 +161,3 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
 }
-
-//cartListRef.document(currentUser.getUid()).
-//        collection("products").document(productID).update(cartMap)
-//        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//@Override
-//public void onComplete(@NonNull Task<Void> task) {
-//        if(task.isSuccessful()){
-//        Toast.makeText(ProductDetailActivity.this,"Product added to cart",Toast.LENGTH_SHORT).show();
-//        }else {
-//        Toast.makeText(ProductDetailActivity.this,"Product not added to cart",Toast.LENGTH_SHORT).show();
-//        }
-//        }
-//        });

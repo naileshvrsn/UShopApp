@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapter.productHolder> {
 
@@ -23,9 +25,12 @@ public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapt
 
     @Override
     protected void onBindViewHolder(@NonNull productHolder productHolder, int i, @NonNull Cart cart) {
+        Picasso.get().load(cart.getImageLocation()).into(productHolder.pimage);
         productHolder.pnametxt.setText(cart.getPname());
         productHolder.pricetxt.setText(cart.getPrice());
         productHolder.pquantitytxt.setText("Quntity: "+cart.getQuantity());
+
+
     }
 
     @NonNull
@@ -46,6 +51,7 @@ public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapt
     class productHolder extends RecyclerView.ViewHolder{
 
         TextView pnametxt,pricetxt,pquantitytxt;
+        ImageView pimage;
 
 
         public productHolder(@NonNull View itemView) {
@@ -54,6 +60,8 @@ public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapt
             pnametxt = itemView.findViewById(R.id.cart_product_name);
             pricetxt = itemView.findViewById(R.id.cart_product_price);
             pquantitytxt = itemView.findViewById(R.id.cart_product_quantity);
+            pimage = itemView.findViewById(R.id.cart_product_image);
+
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
