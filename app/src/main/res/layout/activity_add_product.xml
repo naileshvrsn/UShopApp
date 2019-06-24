@@ -1,133 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/light_background"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="6dp"
-        >
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Name"
-                android:textSize="24dp"/>
-            <EditText
-                android:id="@+id/nameTextField"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:textSize="20dp"
-                android:hint="name"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Description"
-                android:textSize="24dp"/>
-            <EditText
-                android:id="@+id/descriptionTextField"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:textSize="20dp"
-                android:hint="description"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Unit Price"
-                android:textSize="24dp"/>
-            <EditText
-                android:id="@+id/unitpriceTextField"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:textSize="20dp"
-                android:inputType="numberDecimal"
-                android:hint="unit price"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Category"
-                android:textSize="24dp"/>
-
-            <Spinner
-                android:id="@+id/spinner_category"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Store"
-                android:textSize="24dp"/>
-            <Spinner
-                android:id="@+id/spinner_store"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
-
-        </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Upload Image"
-            android:textSize="24dp"/>
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
-        <Button
-            android:id="@+id/uploadImage"
-            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:src="@drawable/ushop_text_only"/>
+
+        <Spinner
+            android:id="@+id/spinner_storeAddProduct"
+            android:background="@drawable/rounded_button_dark"
+            style="@style/LoginFieldsTextStyle"
+            android:minHeight="50dp"
+            android:layout_marginBottom="10dp" />
+
+        <Spinner
+            android:id="@+id/spinner_categoryAddProduct"
+            android:background="@drawable/rounded_button_dark"
+            style="@style/LoginFieldsTextStyle"
+            android:minHeight="50dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Upload Image"/>
+            android:orientation="vertical"
+            android:layout_marginStart="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/nameTextFieldAddProduct"
+                    style="@style/LoginFieldsTextStyle"
+                    android:hint="Name"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/descriptionTextFieldAddProduct"
+                    style="@style/LoginFieldsTextStyle"
+                    android:hint="Description"
+                    android:inputType="textMultiLine"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/unitpriceTextFieldAddProduct"
+                    style="@style/LoginFieldsTextStyle"
+                    android:hint="Unit Price"
+                    android:inputType="numberDecimal"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/uploadImageAddProduct"
+            style="@style/ButtonsStyle"
+            android:text="Upload Image"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_margin="20dp"
+            android:textColor="@color/dullYellow"
+            android:background="@drawable/rounded_button_dark"/>
+
+        <ImageView
+            android:id="@+id/imageViewAddProduct"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/rounded_button_dark"
+            android:padding="10dp"/>
+
         <Button
             android:id="@+id/uploadProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
+            style="@style/ButtonsStyle"
+            android:background="@drawable/rounded_button_dark"
             android:text="Add Product"
-            android:onClick="addProduct"
-            />
+            android:textColor="@color/moderateGreen"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/addProductCancelButton"
+            style="@style/ButtonsStyle"
+            android:text="Cancel"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/red_btn_bg_color"
+            android:background="@drawable/rounded_button_dark"/>
     </LinearLayout>
+
 </ScrollView>

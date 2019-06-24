@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,9 +32,10 @@ import java.io.IOException;
 public class AddProductActivity extends AppCompatActivity {
 
     private EditText nameTextField,descriptionTextField,unitpriceTextField;
+    private TextView uploadImage, cancel;
     private ImageView productImage;
     private Spinner categorySpinner,storeSpinner;
-    private Button uploadImage,uploadProduct;
+    private Button uploadProduct;
     private String name,description,category,store,imageURl;
     private double unitPrice;
     private FirebaseFirestore db;
@@ -52,11 +54,11 @@ public class AddProductActivity extends AppCompatActivity {
     String storageLocation;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        getSupportActionBar().setTitle("Add Product");
 
         //setup firebase dfirestore db
         db = FirebaseFirestore.getInstance();
@@ -69,14 +71,15 @@ public class AddProductActivity extends AppCompatActivity {
         // setup Image storage location
         storageLocation = "gs://ushop-73f4b.appspot.com/productImages/";
 
-        nameTextField = findViewById(R.id.nameTextField);
-        descriptionTextField = findViewById(R.id.descriptionTextField);
-        unitpriceTextField = findViewById(R.id.unitpriceTextField);
-        categorySpinner = findViewById(R.id.spinner_category);
-        storeSpinner = findViewById(R.id.spinner_store);
-        productImage = findViewById(R.id.imageView);
-        uploadImage = findViewById(R.id.uploadImage);
+        nameTextField = findViewById(R.id.nameTextFieldAddProduct);
+        descriptionTextField = findViewById(R.id.descriptionTextFieldAddProduct);
+        unitpriceTextField = findViewById(R.id.unitpriceTextFieldAddProduct);
+        categorySpinner = findViewById(R.id.spinner_categoryAddProduct);
+        storeSpinner = findViewById(R.id.spinner_storeAddProduct);
+        productImage = findViewById(R.id.imageViewAddProduct);
+        uploadImage = findViewById(R.id.uploadImageAddProduct);
         uploadProduct = findViewById(R.id.uploadProduct);
+        cancel = findViewById(R.id.addProductCancelButton);
 
         //Spinner for category selection
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(AddProductActivity.this,
@@ -109,6 +112,13 @@ public class AddProductActivity extends AppCompatActivity {
                 }else{
                 addProduct();
                 }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddProductActivity.this.finish();
             }
         });
 
@@ -155,7 +165,7 @@ public class AddProductActivity extends AppCompatActivity {
         progressDialog.show();
         if(filePath != null) {
             //product name is picture file name
-            String _name = nameTextField.getText().toString();
+            String _name = nameTextField.getText().toString().trim();
             String _store = storeSpinner.getSelectedItem().toString();
             System.out.println(_store);
             //upload image to firebase storage
@@ -232,6 +242,7 @@ public class AddProductActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
                         Toast.makeText(AddProductActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        AddProductActivity.this.finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -278,16 +289,17 @@ public class AddProductActivity extends AppCompatActivity {
             unitpriceTextField.setError(null);
         }
 
+        if(_store.equals("Select Store")){ //Validate store
+            valid = false;
+            Toast.makeText(AddProductActivity.this, "Select store", Toast.LENGTH_LONG).show();
+        }
+
         //validate category
-        if (_category.equals("Select")){
+        if (_category.equals("Select Category")){
             valid = false;
             Toast.makeText(AddProductActivity.this, "Select category", Toast.LENGTH_LONG).show();
-        }else if(_store.equals("Select")){ //Validate store
-            valid = false;
-            Toast.makeText(AddProductActivity.this, "Select Store", Toast.LENGTH_LONG).show();
-        }else{
-
         }
+
         return valid;
 
     }
