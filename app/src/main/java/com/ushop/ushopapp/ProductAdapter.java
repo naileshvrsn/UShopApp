@@ -46,7 +46,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             productTextView.setText(currentProduct.getName());
 
             TextView priceTextView = listItemView.findViewById(R.id.product_price);
-            priceTextView.setText(String.valueOf(currentProduct.getUnitPrice()));
+            priceTextView.setText("$ " + String.valueOf(currentProduct.getUnitPrice()));
 
             ImageView imageView = listItemView.findViewById(R.id.product_image_view);
             Picasso.get().load(currentProduct.getImageLocation()).into(imageView);
