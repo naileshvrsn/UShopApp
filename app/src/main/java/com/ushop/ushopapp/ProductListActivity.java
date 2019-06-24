@@ -86,7 +86,7 @@ public class ProductListActivity extends AppCompatActivity {
 
 
     public void getAllProducts() {
-       final ArrayList<Product> productList = new ArrayList<>();
+        final ArrayList<Product> productList = new ArrayList<>();
 
         db.collection("products")
                 .whereEqualTo("store", store)
@@ -128,14 +128,13 @@ public class ProductListActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               Product selectedProduct = products.get(position);
-
+                Product selectedProduct = products.get(position);
                 Log.d("Product id",selectedProduct.getProductId());
-                Intent i = new Intent(getBaseContext(),ProductDetailActivity.class);
-                i.putExtra("productID",selectedProduct.getProductId());
-                startActivity(i);
-                //ProductListActivity.this.finish();
-
+                Bundle extrastoSend = new Bundle();
+                extrastoSend.putString("productId", selectedProduct.getProductId());
+                extrastoSend.putString("productName", selectedProduct.getName());
+                extrastoSend.putString("store", store);
+                startActivity(new Intent(getBaseContext(), ProductDetailActivity.class).putExtras(extrastoSend));
             }
         });
 

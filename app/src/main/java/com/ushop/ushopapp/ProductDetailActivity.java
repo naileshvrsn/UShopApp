@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,11 +42,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ImageView productImage;
     private TextView productName,productPrice,description;
     private Button addToCart;
-    private ElegantNumberButton quanityButton;
+    private ElegantNumberButton quantityButton;
     private String productID;
+    private String store;
     FirebaseUser currentUser;
     Product currentProduct;
-
 
     private static final String TAG = "ProductDetailActivity";
 
@@ -55,14 +59,42 @@ public class ProductDetailActivity extends AppCompatActivity {
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
+
         //extract product id
-        productID = getIntent().getStringExtra("productID");
+        Bundle extrasfromIntent = getIntent().getExtras();
+        productID = extrasfromIntent.getString("productId");
+        String nameProductName = extrasfromIntent.getString("productName");
+        store = extrasfromIntent.getString("store");
+
+        getSupportActionBar().setTitle(nameProductName);
+        switch (store){
+            case "Countdown":
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                        .getColor(R.color.countdownBrightGreen)));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    Window window = getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(R.color.countdownGreen));
+                }
+                break;
+
+            case "PaknSave" :
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                        .getColor(R.color.paknsaveBrightYellow)));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    Window window = getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.setStatusBarColor(getResources().getColor(R.color.paknsaveYellow));
+                }
+                break;
+            default:
+        }
 
         //setup current User
         mAuth = FirebaseAuth.getInstance();
-
         currentUser = mAuth.getCurrentUser();
-
 
         //db setup
         db = FirebaseFirestore.getInstance();
@@ -74,8 +106,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         productPrice = findViewById(R.id.product_price);
         description = findViewById(R.id.product_description);
         addToCart = findViewById(R.id.addtocart);
-        quanityButton = findViewById(R.id.quantityButton);
-
+        quantityButton = findViewById(R.id.quantityButton);
 
 
         //get product from id
@@ -117,9 +148,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void addProducttoCart() {
-
         //prog
-
         String saveCurrentDate,saveCurrentTime;
 
         Calendar callForDate = Calendar.getInstance();
@@ -137,10 +166,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         cartProduct.setPid(productID);
         cartProduct.setPname(productName.getText().toString());
         cartProduct.setPrice(productPrice.getText().toString());
-        cartProduct.setQuantity(quanityButton.getNumber());
+        cartProduct.setQuantity(quantityButton.getNumber());
         cartProduct.setImageLocation(currentProduct.getImageLocation());
-
-
 
         cartListRef.document(currentUser.getUid()).
                 collection("products").document(productID).set(cartProduct)
