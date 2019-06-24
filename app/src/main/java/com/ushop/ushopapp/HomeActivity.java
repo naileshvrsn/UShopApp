@@ -64,9 +64,9 @@ public class HomeActivity extends AppCompatActivity {
             if(email.equals("naileshvrsn@gmail.com")){
                 adminTableLayout.setVisibility(View.VISIBLE);
             }
-//            if(email.equals("svekaria124@gmail.com")){
-//                adminTableLayout.setVisibility(View.VISIBLE);
-//            }
+            if(email.equals("svekaria124@gmail.com")){
+                adminTableLayout.setVisibility(View.VISIBLE);
+            }
         }
 
         addProductIcon.setOnClickListener(new View.OnClickListener() {
