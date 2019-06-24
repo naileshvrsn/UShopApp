@@ -128,6 +128,7 @@ public class UserProfile extends AppCompatActivity {
 
                 //validation failed from inputs
                 if(!validate()){
+                    pDialog.dismissWithAnimation();
                     return;
                 }
                 else {
