@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,9 +32,10 @@ import java.io.IOException;
 public class AddProductActivity extends AppCompatActivity {
 
     private EditText nameTextField,descriptionTextField,unitpriceTextField;
+    private TextView uploadImage;
     private ImageView productImage;
     private Spinner categorySpinner,storeSpinner;
-    private Button uploadImage,uploadProduct;
+    private Button uploadProduct;
     private String name,description,category,store,imageURl;
     private double unitPrice;
     private FirebaseFirestore db;
@@ -52,11 +54,11 @@ public class AddProductActivity extends AppCompatActivity {
     String storageLocation;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        getSupportActionBar().setTitle("Add Product");
 
         //setup firebase dfirestore db
         db = FirebaseFirestore.getInstance();
@@ -69,13 +71,13 @@ public class AddProductActivity extends AppCompatActivity {
         // setup Image storage location
         storageLocation = "gs://ushop-73f4b.appspot.com/productImages/";
 
-        nameTextField = findViewById(R.id.nameTextField);
-        descriptionTextField = findViewById(R.id.descriptionTextField);
-        unitpriceTextField = findViewById(R.id.unitpriceTextField);
-        categorySpinner = findViewById(R.id.spinner_category);
-        storeSpinner = findViewById(R.id.spinner_store);
-        productImage = findViewById(R.id.imageView);
-        uploadImage = findViewById(R.id.uploadImage);
+        nameTextField = findViewById(R.id.nameTextFieldAddProduct);
+        descriptionTextField = findViewById(R.id.descriptionTextFieldAddProduct);
+        unitpriceTextField = findViewById(R.id.unitpriceTextFieldAddProduct);
+        categorySpinner = findViewById(R.id.spinner_categoryAddProduct);
+        storeSpinner = findViewById(R.id.spinner_storeAddProduct);
+        productImage = findViewById(R.id.imageViewAddProduct);
+        uploadImage = findViewById(R.id.uploadImageAddProduct);
         uploadProduct = findViewById(R.id.uploadProduct);
 
         //Spinner for category selection
