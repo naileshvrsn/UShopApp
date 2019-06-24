@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_above="@id/proceed_to_checkout"
+        android:layout_above="@id/proceed_to_checkoutBtn"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         >
@@ -51,7 +51,7 @@
             android:text="Total:"
             android:textSize="24dp"/>
         <TextView
-            android:id="@+id/cart_Totaltxt"
+            android:id="@+id/cart_Total_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
             android:textSize="24dp"/>
     </LinearLayout>
     <Button
-        android:id="@+id/proceed_to_checkout"
+        android:id="@+id/proceed_to_checkoutBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -75,5 +75,5 @@
         android:layout_below="@id/cart_title"
         android:layout_above="@id/cart_total"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginBottom="8dp"/>
 </RelativeLayout>
