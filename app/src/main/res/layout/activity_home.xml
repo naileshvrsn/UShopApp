@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="40dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -64,25 +65,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/dashboardLabelsStyle"
                         android:layout_marginRight="10dp"
                         android:text="Shop"
-                        android:textColor="@color/moderateGreen"
-                        android:textSize="21sp"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/moderateGreen" />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/dashboardLabelsStyle"
                         android:text="View Orders"
-                        android:gravity="center"
-                        android:textColor="@color/dullYellow"
-                        android:textSize="21sp"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/dullYellow" />
                 </TableRow>
 
                 <TableRow
@@ -104,25 +94,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/dashboardLabelsStyle"
                         android:layout_marginRight="10dp"
                         android:text="Edit Profile"
-                        android:textColor="@color/appDarkBlueGreen"
-                        android:textSize="21sp"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/appDarkBlueGreen" />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/dashboardLabelsStyle"
                         android:text="Log Out"
-                        android:gravity="center"
-                        android:textColor="@color/red_btn_bg_color"
-                        android:textSize="21sp"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/red_btn_bg_color" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/adminTableLayoutHome"
+                android:visibility="gone">
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+                    <ImageView
+                        android:id="@+id/homeNewProductIcon"
+                        android:src="@drawable/new_product"
+                        android:layout_marginRight="10dp"
+                        style="@style/dashboardIconsStyle"/>
+                    <ImageView
+                        android:src="@drawable/ic_update_black_24dp"
+                        android:id="@+id/homeUpdateProductIcon"
+                        style="@style/dashboardIconsStyle"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/dashboardLabelsStyle"
+                        android:layout_marginRight="10dp"
+                        android:text="Add Product"
+                        android:textColor="@color/moderateGreen" />
+                    <TextView
+                        style="@style/dashboardLabelsStyle"
+                        android:text="Update Product"
+                        android:textColor="@color/dullYellow" />
                 </TableRow>
             </TableLayout>
 

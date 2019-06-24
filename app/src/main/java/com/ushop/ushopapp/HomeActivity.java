@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import android.widget.Button;
-import android.widget.RelativeLayout;
-
 import android.widget.ImageView;
 
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +24,11 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView welcomeUser;
-    private ImageView homeImage, logoutIcon, shopIcon, viewOrdersIcon, editProfileIcon;
+    private ImageView homeImage, logoutIcon, shopIcon, viewOrdersIcon, editProfileIcon, addProductIcon, updateProductIcon;
+    private TableLayout adminTableLayout;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
-
-    private RelativeLayout profile_info_layout;
-
 
     private User currentUserFirestore;
 
@@ -60,6 +55,26 @@ public class HomeActivity extends AppCompatActivity {
         viewOrdersIcon = findViewById(R.id.homeViewOrdersIcon);
         editProfileIcon = findViewById(R.id.homeEditProfileIcon);
         logoutIcon = findViewById(R.id.homeLogoutIcon);
+        adminTableLayout = findViewById(R.id.adminTableLayoutHome);
+        addProductIcon = findViewById(R.id.homeNewProductIcon);
+        updateProductIcon = findViewById(R.id.homeUpdateProductIcon);
+
+        if(mAuth.getCurrentUser() != null){
+            String email = mAuth.getCurrentUser().getEmail();
+            if(email.equals("naileshvrsn@gmail.com")){
+                adminTableLayout.setVisibility(View.VISIBLE);
+            }
+//            if(email.equals("svekaria124@gmail.com")){
+//                adminTableLayout.setVisibility(View.VISIBLE);
+//            }
+        }
+
+        addProductIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AddProductActivity.class));
+            }
+        });
 
         shopIcon.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 else {
+                    _password.setEnabled(false);
                     progressBar.setVisibility(View.VISIBLE);
 
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(!task.isSuccessful()){
                                 Toast.makeText(getApplicationContext(), "Login failed. Have you registered?", Toast.LENGTH_SHORT).show();
+                                _password.setEnabled(true);
                             }
                             else {
                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
