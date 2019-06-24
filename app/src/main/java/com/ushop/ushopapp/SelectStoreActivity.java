@@ -1,5 +1,6 @@
 package com.ushop.ushopapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -16,7 +17,15 @@ public class SelectStoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_store);
 
-        getSupportActionBar().setTitle("Select Store");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Select Store");
+
+//        try{
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//
+//        } catch (Exception e){
+//
+//        }
 
         countdownCard = findViewById(R.id.countdownCardSelectStore);
         paknsaveCard = findViewById(R.id.paknsaveCardSelectStore);
