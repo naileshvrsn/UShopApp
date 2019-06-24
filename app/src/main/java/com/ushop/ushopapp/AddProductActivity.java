@@ -111,6 +111,7 @@ public class AddProductActivity extends AppCompatActivity {
                     return;
                 }else{
                 addProduct();
+                AddProductActivity.this.finish();
                 }
             }
         });
@@ -165,7 +166,7 @@ public class AddProductActivity extends AppCompatActivity {
         progressDialog.show();
         if(filePath != null) {
             //product name is picture file name
-            String _name = nameTextField.getText().toString();
+            String _name = nameTextField.getText().toString().trim();
             String _store = storeSpinner.getSelectedItem().toString();
             System.out.println(_store);
             //upload image to firebase storage
