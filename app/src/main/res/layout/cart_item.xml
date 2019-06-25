@@ -39,7 +39,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginBottom="16dp"
             android:hint="5"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@color/appDarkBlueGreen"/>
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_marginBottom="12dp"
             android:layout_marginEnd="38dp"
             android:hint="$ 20"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@color/appDarkBlueGreen"/>
 
     </RelativeLayout>
