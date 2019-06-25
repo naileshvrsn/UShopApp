@@ -12,23 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
 
 public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.orderHolder>{
 
-    DocumentReference orderRef;
-    CollectionReference productsRef;
-    ArrayList<Cart> cartProducts;
+    private OnItemClickListener listener;
 
     public OrderAdapter(@NonNull FirestoreRecyclerOptions<Order> options) {
         super(options);
@@ -37,14 +26,9 @@ public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.
     @Override
     protected void onBindViewHolder(@NonNull orderHolder orderHolder, int i, @NonNull Order order) {
 
-
-
-
-
         String shippingAddress = "";
         shippingAddress = order.getName() +"\n"+order.getStreet()+"\n"
                 +order.getSuburb()+"\n"+order.getCity()+", "+order.getPostalCode();
-
 
         orderHolder.orderTotalItems.setText(order.getProductsCount() + " Products");
         orderHolder.orderDate.setText(order.getOrderDate());
@@ -76,7 +60,25 @@ public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.
             orderTotal = itemView.findViewById(R.id.order_total);
             orderImageView = itemView.findViewById(R.id.order_imageView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION && listener != null){
+                        listener.onItemClick(getSnapshots().getSnapshot(position));
+                    }
+
+                }
+            });
+
         }
     }
 
+    public interface OnItemClickListener{
+        void onItemClick(DocumentSnapshot documentSnapshot);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
 }
