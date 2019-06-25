@@ -18,6 +18,7 @@ public class Order {
     private double shipping;
     private double discount;
     private double total;
+    private int productsCount;
     private String orderStatus;
 
     public Order(){}
@@ -40,7 +41,7 @@ public class Order {
 //    }
 
     public Order(String orderDate, String name, String street, String suburb, String city, String postalCode,
-                 double subtotal, double shipping, double discount, double total, String orderStatus) {
+                 double subtotal, double shipping, double discount, double total, int productsCount,String orderStatus) {
         this.orderDate = orderDate;
         this.name = name;
         this.street = street;
@@ -51,6 +52,7 @@ public class Order {
         this.shipping = shipping;
         this.discount = discount;
         this.total = total;
+        this.productsCount= productsCount;
         this.orderStatus = orderStatus;
     }
 
@@ -150,4 +152,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
+    public int getProductsCount() {
+        return productsCount;
+    }
+
+    public void setProductsCount(int productsCount) {
+        this.productsCount = productsCount;
+    }
 }
