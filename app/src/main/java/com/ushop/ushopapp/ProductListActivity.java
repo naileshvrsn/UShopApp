@@ -39,7 +39,7 @@ public class ProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-        cartBtn = findViewById(R.id.cartViewbtn);
+        cartBtn = findViewById(R.id.cartViewbtnProductList);
 
         Bundle extras = getIntent().getExtras();
         store = extras.getString("store");
