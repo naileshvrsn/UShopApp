@@ -22,6 +22,8 @@
     <color name="countdownBrightGreen">#79d358</color>
     <color name="paknsaveYellow">#fed604</color>
     <color name="paknsaveBrightYellow">#ffdb21</color>
+    <color name="elegantnumbercountdown">#b1e59e</color>
+    <color name="elegantnumberpaknsave">#f4e075</color>
 
     <color name="darkgrey">#5a6166</color>
     <color name="grey">#6a7277</color>

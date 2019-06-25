@@ -64,13 +64,23 @@
     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
         android:id="@+id/quantityButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_above="@+id/addtocart"
         android:gravity="center"
         app:initialNumber="1"
         app:finalNumber="10"
-        app:textSize="12dp"
-        app:backGroundColor="#b1e59e"/>
+        app:textSize="8dp"
+        app:textColor="@color/appDarkBlueGreen"
+        app:backGroundColor="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cartViewbtnProductDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addtocart"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_shopping_cart_blue_24dp"/>
 
     <Button
         style="@style/ButtonsStyle"
@@ -78,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
-        android:background="@color/countdownBrightGreen"
+        android:background="@color/appLightBlueGreen"
         android:text="Add to Cart"
         android:textSize="18sp"
         android:textColor="@color/white"/>

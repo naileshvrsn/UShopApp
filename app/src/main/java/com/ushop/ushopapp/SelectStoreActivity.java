@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class SelectStoreActivity extends AppCompatActivity {
 
     private CardView countdownCard, paknsaveCard;
+    private FloatingActionButton cartBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +23,9 @@ public class SelectStoreActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Select Store");
 
-//        try{
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//
-//        } catch (Exception e){
-//
-//        }
-
         countdownCard = findViewById(R.id.countdownCardSelectStore);
         paknsaveCard = findViewById(R.id.paknsaveCardSelectStore);
+        cartBtn = findViewById(R.id.cartViewbtnSelectStore);
 
         countdownCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +38,13 @@ public class SelectStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 paknsaveClicked();
+            }
+        });
+
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),CartListActivity.class));
             }
         });
 
