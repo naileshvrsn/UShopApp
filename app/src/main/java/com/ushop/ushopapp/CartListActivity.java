@@ -62,6 +62,7 @@ public class CartListActivity extends AppCompatActivity {
         cartListRef = db.collection("cartList").document(currentUser.getUid()).collection("products");
 
         setUpRecyclerView();
+
         calculateCartPrice();
 
         proccedtoCheckout.setOnClickListener(new View.OnClickListener() {
