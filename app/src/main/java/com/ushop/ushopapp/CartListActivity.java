@@ -11,12 +11,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +31,8 @@ import java.math.RoundingMode;
 
 
 public class CartListActivity extends AppCompatActivity {
+
+    private static final String TAG = "CartListActivity";
 
     private FirebaseFirestore db;
     private CollectionReference cartListRef;
@@ -61,11 +60,8 @@ public class CartListActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         cartListRef = db.collection("cartList").document(currentUser.getUid()).collection("products");
 
-
-
         setUpRecyclerView();
         calculateCartPrice();
-
 
         proccedtoCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,47 +73,47 @@ public class CartListActivity extends AppCompatActivity {
     }
 
 
-
     private void setUpRecyclerView() {
-      FirestoreRecyclerOptions<Cart> options = new FirestoreRecyclerOptions.Builder<Cart>()
-              .setQuery(cartListRef,Cart.class)
-              .build();
+        FirestoreRecyclerOptions<Cart> options = new FirestoreRecyclerOptions.Builder<Cart>()
+                .setQuery(cartListRef, Cart.class)
+                .build();
 
-      adapter = new CartItemAdapter(options);
+        adapter = new CartItemAdapter(options);
 
-      RecyclerView recyclerView = findViewById(R.id.cart_list);
-      recyclerView.setHasFixedSize(true);
-      recyclerView.setLayoutManager(new LinearLayoutManager(this));
-      recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.cart_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
 
-      new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-              ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-          @Override
-          public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-              return false;
-          }
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
 
-          @Override
-          public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 adapter.removeProduct(viewHolder.getAdapterPosition());
                 //update price after edit
-              calculateCartPrice();
-          }
-      }).attachToRecyclerView(recyclerView);
+                calculateCartPrice();
+            }
+        }).attachToRecyclerView(recyclerView);
 
-      adapter.setOnItemClickListener(new CartItemAdapter.OnItemCLickListener() {
-          @Override
-          public void onItemClick(DocumentSnapshot documentSnapshot) {
-            String productId = documentSnapshot.getId();
-              Intent intent = new Intent(CartListActivity.this,ProductDetailActivity.class);
-              intent.putExtra("productID",productId);
-              startActivity(intent);
+        adapter.setOnItemClickListener(new CartItemAdapter.OnItemCLickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                String productId = documentSnapshot.getId();
+                String productName = adapter.getItem(position).getPname();
 
-              CartListActivity.this.finish();
-          }
-      });
-
+                Bundle extrastoSend = new Bundle();
+                extrastoSend.putString("productID", productId);
+                extrastoSend.putString("productName", productName);
+                startActivity(new Intent(getBaseContext(), ProductDetailActivity.class).putExtras(extrastoSend));
+                CartListActivity.this.finish();
+            }
+        });
 
 
     }
@@ -136,14 +132,14 @@ public class CartListActivity extends AppCompatActivity {
     }
 
     // calculate the total price for the cart and display total price
-    private void calculateCartPrice(){
+    private void calculateCartPrice() {
 
         cartListRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     double cartTotal = 0;
-                    for(QueryDocumentSnapshot documentSnapshot: task.getResult()){
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         Cart product = documentSnapshot.toObject(Cart.class);
 
                         double productTotal = Double.valueOf(product.getPrice())
@@ -155,7 +151,7 @@ public class CartListActivity extends AppCompatActivity {
                     bd = new BigDecimal(cartTotal).setScale(2, RoundingMode.HALF_UP);
 
 
-                    cart_TotalTxt.setText("$ "+ bd.doubleValue());
+                    cart_TotalTxt.setText("$ " + bd.doubleValue());
                 }
 
             }
@@ -167,13 +163,13 @@ public class CartListActivity extends AppCompatActivity {
     private void proceedToCheckout() {
         //check if cart has item
         // done by using price
-        Log.d("Total Price",cart_TotalTxt.getText().toString());
+        Log.d("Total Price", cart_TotalTxt.getText().toString());
 
-        if(cart_TotalTxt.getText().toString().equals("$ 0.0") ||
+        if (cart_TotalTxt.getText().toString().equals("$ 0.0") ||
                 cart_TotalTxt.getText().toString().equals("$ 0") ||
-                cart_TotalTxt.getText().toString().equals("$ 0.00")){
+                cart_TotalTxt.getText().toString().equals("$ 0.00")) {
             // show alert message
-            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
             dlgAlert.setMessage("Please select some products");
             dlgAlert.setTitle("No Products in the Cart!");
 
@@ -186,15 +182,14 @@ public class CartListActivity extends AppCompatActivity {
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();
 
-        }else {
-            Intent i = new Intent(CartListActivity.this,ConfirmOrderActivity.class);
-            i.putExtra("cartTotal",bd.doubleValue());
+        } else {
+            Intent i = new Intent(CartListActivity.this, ConfirmOrderActivity.class);
+            i.putExtra("cartTotal", bd.doubleValue());
             startActivity(i);
         }
-
     }
 
-    public void gotoselectstore(){
+    public void gotoselectstore() {
         Intent i = new Intent(CartListActivity.this, SelectStoreActivity.class);
         startActivity(i);
         CartListActivity.this.finish();

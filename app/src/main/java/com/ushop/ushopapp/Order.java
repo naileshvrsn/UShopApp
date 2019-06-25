@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Order {
 
-    private String orderId;
+    //private String orderId;
     private Date orderDate;
     //user details
     private String name;
@@ -22,22 +22,22 @@ public class Order {
 
     public Order(){}
 
-    public Order(String orderId, Date orderDate, String name, String street, String suburb, String city, String postalCode,
-                 double subtotal, double shipping, double discount, double total, String orderStatus) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.name = name;
-        this.street = street;
-        this.suburb = suburb;
-        this.city = city;
-        this.postalCode = postalCode;
-        this.subtotal = subtotal;
-        this.shipping = shipping;
-        this.discount = discount;
-        this.total = total;
-        this.orderStatus = orderStatus;
-
-    }
+//    public Order(String orderId, Date orderDate, String name, String street, String suburb, String city, String postalCode,
+//                 double subtotal, double shipping, double discount, double total, String orderStatus) {
+//        this.orderId = orderId;
+//        this.orderDate = orderDate;
+//        this.name = name;
+//        this.street = street;
+//        this.suburb = suburb;
+//        this.city = city;
+//        this.postalCode = postalCode;
+//        this.subtotal = subtotal;
+//        this.shipping = shipping;
+//        this.discount = discount;
+//        this.total = total;
+//        this.orderStatus = orderStatus;
+//
+//    }
 
     public Order(Date orderDate, String name, String street, String suburb, String city, String postalCode,
                  double subtotal, double shipping, double discount, double total, String orderStatus) {
@@ -54,13 +54,13 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
+//    public String getOrderId() {
+//        return orderId;
+//    }
+//
+//    public void setOrderId(String orderId) {
+//        this.orderId = orderId;
+//    }
 
     public Date getOrderDate() {
         return orderDate;

@@ -129,9 +129,9 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product selectedProduct = products.get(position);
-                Log.d("Product id",selectedProduct.getProductId());
+
                 Bundle extrastoSend = new Bundle();
-                extrastoSend.putString("productId", selectedProduct.getProductId());
+                extrastoSend.putString("productID", selectedProduct.getProductId());
                 extrastoSend.putString("productName", selectedProduct.getName());
                 extrastoSend.putString("store", store);
                 startActivity(new Intent(getBaseContext(), ProductDetailActivity.class).putExtras(extrastoSend));

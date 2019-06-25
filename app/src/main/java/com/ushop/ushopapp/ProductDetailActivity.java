@@ -62,12 +62,12 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         //extract product id
         Bundle extrasfromIntent = getIntent().getExtras();
-        productID = extrasfromIntent.getString("productId");
+        productID = extrasfromIntent.getString("productID");
         String nameProductName = extrasfromIntent.getString("productName");
-        store = extrasfromIntent.getString("store");
+        store = extrasfromIntent.getString("store","Countdown");
 
         getSupportActionBar().setTitle(nameProductName);
-        switch (store){
+        switch (store) {
             case "Countdown":
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                         .getColor(R.color.countdownBrightGreen)));
@@ -79,7 +79,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
                 break;
 
-            case "PaknSave" :
+            case "PaknSave":
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                         .getColor(R.color.paknsaveBrightYellow)));
                 if (Build.VERSION.SDK_INT >= 21) {
@@ -148,22 +148,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void addProducttoCart() {
-        //prog
-        String saveCurrentDate,saveCurrentTime;
-
-        Calendar callForDate = Calendar.getInstance();
-        //date
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd.MMM.yyyy");
-        saveCurrentDate = currentDate.format(callForDate.getTime());
-
-        //time
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-        saveCurrentTime = currentTime.format(callForDate.getTime());
 
         CollectionReference cartListRef = db.collection("cartList");
 
         Cart cartProduct = new Cart();
-        cartProduct.setPid(productID);
+       // cartProduct.setPid(productID);
         cartProduct.setPname(productName.getText().toString());
         cartProduct.setPrice(productPrice.getText().toString());
         cartProduct.setQuantity(quantityButton.getNumber());

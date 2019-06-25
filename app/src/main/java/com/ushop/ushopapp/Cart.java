@@ -1,27 +1,27 @@
 package com.ushop.ushopapp;
 
 public class Cart {
-    private String pid,pname, price, quantity, imageLocation;
+    private String pname, price, quantity, imageLocation;
 
     public Cart(){
 
     }
 
-    public Cart(String pid, String pname, String price, String quantity, String imageLocation) {
-        this.pid = pid;
+    public Cart(String pname, String price, String quantity, String imageLocation) {
+        //this.pid = pid;
         this.pname = pname;
         this.price = price;
         this.quantity = quantity;
         this.imageLocation = imageLocation;
     }
 
-    public String getPid() {
-        return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
-    }
+//    public String getPid() {
+//        return pid;
+//    }
+//
+//    public void setPid(String pid) {
+//        this.pid = pid;
+//    }
 
     public String getPname() {
         return pname;

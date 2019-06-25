@@ -64,7 +64,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_order);
 
         pDialog=new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.setTitleText("Loading");
+        pDialog.setTitleText("Placing Order");
         pDialog.setCancelable(false);
 
 
@@ -258,20 +258,18 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         Cart product = documentSnapshot.toObject(Cart.class);
                         //add all products to the order for future reference
-                        productRef.document(product.getPid()).set(product)
+                        productRef.document(documentSnapshot.getId()).set(product)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                        } else {
-
                                         }
                                     }
                                 });
                     }
                     //dismiss progress dialog
                     pDialog.dismissWithAnimation();
-
+                    clearCart();
                     // show alert message
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(ConfirmOrderActivity.this);
                     dlgAlert.setMessage("Order Placed Successfully");
@@ -280,6 +278,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             gotoselectstore();
+
                         }
                     });
                     dlgAlert.setCancelable(true);
@@ -291,6 +290,29 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         });
 
 
+
+
+    }
+
+    private void clearCart() {
+        cartRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                        cartRef.document(documentSnapshot.getId())
+                                .delete()
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG,"Error Clearing Cart", e);
+                                    }
+                                });
+                    }
+
+                }
+            }
+        });
     }
 
     public void gotoselectstore() {

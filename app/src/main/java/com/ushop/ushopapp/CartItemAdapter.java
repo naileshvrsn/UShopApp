@@ -3,7 +3,6 @@ package com.ushop.ushopapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,7 +68,7 @@ public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapt
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if(position != RecyclerView.NO_POSITION  && listener !=null){
-                        listener.onItemClick(getSnapshots().getSnapshot(position));
+                        listener.onItemClick(getSnapshots().getSnapshot(position),position);
                     }
                 }
             });
@@ -78,7 +77,7 @@ public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapt
     }
 
     public interface OnItemCLickListener{
-        void onItemClick(DocumentSnapshot documentSnapshot);
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
     public void setOnItemClickListener(OnItemCLickListener listener){
         this.listener =  (OnItemCLickListener) listener;
