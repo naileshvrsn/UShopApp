@@ -5,75 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CartListActivity"
-    android:layout_margin="8dp">
-
-    <TextView
-        android:id="@+id/cart_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cart"
-        android:gravity="center"
-        android:textSize="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/cart_list"
-        android:layout_alignParentLeft="true"
-        android:paddingLeft="8dp"
-        android:text="Swipe to delete"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/cart_list"
-        android:layout_alignParentRight="true"
-        android:paddingLeft="8dp"
-        android:text="Click to Edit"/>
-
-
-    <LinearLayout
-        android:id="@+id/cart_total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_above="@id/proceed_to_checkoutBtn"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        >
-        <TextView
-            android:layout_marginRight="24dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right"
-            android:text="Total:"
-            android:textSize="24dp"/>
-        <TextView
-            android:id="@+id/cart_Total_txt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="$0.00"
-            android:textSize="24dp"/>
-    </LinearLayout>
-    <Button
-        android:id="@+id/proceed_to_checkoutBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Proceed to checkout"
-        android:textSize="24dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"/>
+    android:background="@drawable/light_background">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cart_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/cart_title"
-        android:layout_above="@id/cart_total"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:src="@drawable/hor_line_blue"
+        android:id="@+id/horizontal_line"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cart_list"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="40dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontal_line"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="right"
+            android:layout_gravity="top"
+            android:text="SUBTOTAL:"
+            android:textSize="18sp"
+            android:textColor="@color/appDarkBlueGreen"/>
+        <TextView
+            android:id="@+id/cart_Total_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_marginEnd="30dp"
+            android:hint="$0.00"
+            android:textSize="22dp"
+            android:gravity="right"
+            android:textColor="@color/appDarkBlueGreen"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/proceed_to_checkoutBtn"
+        style="@style/ButtonsStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="#7ef22e"
+        android:text="Checkout"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
+
 </RelativeLayout>

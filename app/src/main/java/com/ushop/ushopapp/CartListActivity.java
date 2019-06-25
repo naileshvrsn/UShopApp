@@ -50,6 +50,7 @@ public class CartListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_list);
+        getSupportActionBar().setTitle("Shopping Cart");
 
         cart_TotalTxt = findViewById(R.id.cart_Total_txt);
         proccedtoCheckout = findViewById(R.id.proceed_to_checkoutBtn);
