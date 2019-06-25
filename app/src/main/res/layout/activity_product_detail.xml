@@ -73,6 +73,15 @@
         app:textColor="@color/appDarkBlueGreen"
         app:backGroundColor="@color/white"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cartViewbtnProductDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addtocart"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_shopping_cart_blue_24dp"/>
+
     <Button
         style="@style/ButtonsStyle"
         android:id="@+id/addtocart"
