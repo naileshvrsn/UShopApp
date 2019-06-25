@@ -66,8 +66,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         String nameProductName = extrasfromIntent.getString("productName");
         store = extrasfromIntent.getString("store","Countdown");
 
-        getSupportActionBar().setTitle(nameProductName);
-        switch (store) {
+
+        getSupportActionBar().setTitle("Shopping from " + store);
+        switch (store){
             case "Countdown":
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                         .getColor(R.color.countdownBrightGreen)));
@@ -121,7 +122,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         // display information
                         Picasso.get().load(currentProduct.getImageLocation()).into(productImage);
                         productName.setText(currentProduct.getName());
-                        productPrice.setText(String.valueOf(currentProduct.getUnitPrice()));
+                        productPrice.setText("$ " + String.valueOf(currentProduct.getUnitPrice()));
                         description.setText(currentProduct.getDescription());
 
                     }else {
@@ -164,9 +165,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-
                             Toast.makeText(ProductDetailActivity.this,"Product added to cart",Toast.LENGTH_SHORT).show();
-
                         }else {
                             Toast.makeText(ProductDetailActivity.this,"Product not added to cart",Toast.LENGTH_SHORT).show();
                         }
