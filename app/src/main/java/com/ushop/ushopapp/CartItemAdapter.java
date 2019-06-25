@@ -26,7 +26,7 @@ public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapt
     protected void onBindViewHolder(@NonNull productHolder productHolder, int i, @NonNull Cart cart) {
         Picasso.get().load(cart.getImageLocation()).into(productHolder.pimage);
         productHolder.pnametxt.setText(cart.getPname());
-        productHolder.pricetxt.setText(cart.getPrice());
+        productHolder.pricetxt.setText("$ "+cart.getPrice());
         productHolder.pquantitytxt.setText("Quntity: "+cart.getQuantity());
 
 

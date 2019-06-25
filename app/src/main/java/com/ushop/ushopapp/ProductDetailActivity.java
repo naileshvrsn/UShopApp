@@ -63,11 +63,17 @@ public class ProductDetailActivity extends AppCompatActivity {
         //extract product id
         Bundle extrasfromIntent = getIntent().getExtras();
         productID = extrasfromIntent.getString("productID");
-        String nameProductName = extrasfromIntent.getString("productName");
-        store = extrasfromIntent.getString("store","Countdown");
+        //String nameProductName = extrasfromIntent.getString("productName");
+        store = extrasfromIntent.getString("store","cart");
 
 
-        getSupportActionBar().setTitle("Shopping from " + store);
+        if(store.equals("cart")){
+            getSupportActionBar().setTitle("Update Product Quantity");
+        }else{
+            getSupportActionBar().setTitle("Shopping from " + store);
+        }
+
+
         switch (store){
             case "Countdown":
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
@@ -122,7 +128,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         // display information
                         Picasso.get().load(currentProduct.getImageLocation()).into(productImage);
                         productName.setText(currentProduct.getName());
-                        productPrice.setText("$ " + String.valueOf(currentProduct.getUnitPrice()));
+                        productPrice.setText(String.format("$ %s", String.valueOf(currentProduct.getUnitPrice())));
                         description.setText(currentProduct.getDescription());
 
                     }else {
@@ -155,7 +161,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         Cart cartProduct = new Cart();
        // cartProduct.setPid(productID);
         cartProduct.setPname(productName.getText().toString());
-        cartProduct.setPrice(productPrice.getText().toString());
+        cartProduct.setPrice(String.valueOf(currentProduct.getUnitPrice()));
         cartProduct.setQuantity(quantityButton.getNumber());
         cartProduct.setImageLocation(currentProduct.getImageLocation());
 
