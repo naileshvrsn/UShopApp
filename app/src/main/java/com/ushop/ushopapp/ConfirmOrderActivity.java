@@ -64,7 +64,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
-        pDialog=new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Placing Order");
         pDialog.setCancelable(false);
 
@@ -206,45 +206,60 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private void placeOrder() {
         pDialog.show();
 
+        int productCount;
 
-        //date of the order
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        String orderDate = simpleDateFormat.format(new Date());
+        cartRef.get().addOnCompleteListener
+                (new OnCompleteListener<QuerySnapshot>() {
+                     @Override
+                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                         if (task.isSuccessful()) {
+                             int count = task.getResult().size();
 
-        //put in other values into the Order
-        //Shipping details
-        String orderUserName = uName.getText().toString();
-        String orderUserStreet = uStreet.getText().toString();
-        String orderUserSuburb = uSuburb.getText().toString();
-        String orderUserCity = uCity.getText().toString();
-        String orderUserPostalCode = uPostCode.getText().toString();
-        //Order Details
-        double orderSubTotal = Double.valueOf(oSubTotal.getText().toString());
-        double orderShipping = Double.valueOf(oShipment.getText().toString());
-        double orderDiscount = Double.valueOf(oDiscount.getText().toString());
-        double orderTotal = Double.valueOf(oTotal.getText().toString());
-        //Order Status
-        String orderStatus = "Pending payment";
+                             //date of the order
+                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                             String orderDate = simpleDateFormat.format(new Date());
 
-        // make new blank order
-        Order order = new Order(orderDate,orderUserName,orderUserStreet,orderUserSuburb,orderUserCity,orderUserPostalCode,orderSubTotal,orderShipping,orderDiscount,orderTotal,orderStatus);
+                             //put in other values into the Order
+                             //Shipping details
+                             String orderUserName = uName.getText().toString();
+                             String orderUserStreet = uStreet.getText().toString();
+                             String orderUserSuburb = uSuburb.getText().toString();
+                             String orderUserCity = uCity.getText().toString();
+                             String orderUserPostalCode = uPostCode.getText().toString();
+                             //Order Details
+                             double orderSubTotal = Double.valueOf(oSubTotal.getText().toString());
+                             double orderShipping = Double.valueOf(oShipment.getText().toString());
+                             double orderDiscount = Double.valueOf(oDiscount.getText().toString());
+                             double orderTotal = Double.valueOf(oTotal.getText().toString());
+                             //Order Status
+                             String orderStatus = "Pending payment";
 
-        //set cart list
-        orderRef.add(order).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                             // make new blank order
+                             Order order = new Order(orderDate, orderUserName, orderUserStreet, orderUserSuburb, orderUserCity, orderUserPostalCode,
+                                     orderSubTotal, orderShipping, orderDiscount, orderTotal, count, orderStatus);
 
-                addProductsToOrder(documentReference.getId());
+                             //set cart list
+                             orderRef.add(order).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                 @Override
+                                 public void onSuccess(DocumentReference documentReference) {
+                                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error adding document", e);
-            }
-        });
+                                     addProductsToOrder(documentReference.getId());
 
+                                 }
+                             }).addOnFailureListener(new OnFailureListener() {
+                                 @Override
+                                 public void onFailure(@NonNull Exception e) {
+                                     Log.w(TAG, "Error adding document", e);
+                                 }
+                             });
+
+                         }
+
+                     }
+
+                 }
+                );
 
     }
 
@@ -292,22 +307,20 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void clearCart() {
         cartRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         cartRef.document(documentSnapshot.getId())
                                 .delete()
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG,"Error Clearing Cart", e);
+                                        Log.w(TAG, "Error Clearing Cart", e);
                                     }
                                 });
                     }
@@ -322,4 +335,5 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         startActivity(i);
         ConfirmOrderActivity.this.finish();
     }
+
 }

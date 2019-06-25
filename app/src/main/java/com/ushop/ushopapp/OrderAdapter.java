@@ -22,11 +22,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.orderHolder>{
 
     DocumentReference orderRef;
     CollectionReference productsRef;
-    int productCount = 0;
+    ArrayList<Cart> cartProducts;
 
     public OrderAdapter(@NonNull FirestoreRecyclerOptions<Order> options) {
         super(options);
@@ -35,28 +37,16 @@ public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.
     @Override
     protected void onBindViewHolder(@NonNull orderHolder orderHolder, int i, @NonNull Order order) {
 
-        orderRef =  getSnapshots().getSnapshot(i).getReference();
-        productsRef= orderRef.collection("products");
 
 
-        productsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        productCount += 1;
-                    }
-                }
-            }
-        });
 
 
         String shippingAddress = "";
         shippingAddress = order.getName() +"\n"+order.getStreet()+"\n"
                 +order.getSuburb()+"\n"+order.getCity()+", "+order.getPostalCode();
 
-        orderHolder.orderTotalItems.setText(productCount);
+
+        orderHolder.orderTotalItems.setText(order.getProductsCount() + " Products");
         orderHolder.orderDate.setText(order.getOrderDate());
         orderHolder.orderTotal.setText("$ "+order.getTotal());
         orderHolder.orderShippingAddress.setText(shippingAddress);
