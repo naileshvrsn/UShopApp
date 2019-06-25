@@ -30,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.Console;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -207,7 +208,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
 
         //date of the order
-        Date callForDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        String orderDate = simpleDateFormat.format(new Date());
 
         //put in other values into the Order
         //Shipping details
@@ -225,7 +227,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         String orderStatus = "Pending payment";
 
         // make new blank order
-        Order order = new Order(callForDate,orderUserName,orderUserStreet,orderUserSuburb,orderUserCity,orderUserPostalCode,orderSubTotal,orderShipping,orderDiscount,orderTotal,orderStatus);
+        Order order = new Order(orderDate,orderUserName,orderUserStreet,orderUserSuburb,orderUserCity,orderUserPostalCode,orderSubTotal,orderShipping,orderDiscount,orderTotal,orderStatus);
 
         //set cart list
         orderRef.add(order).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

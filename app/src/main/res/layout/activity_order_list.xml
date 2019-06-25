@@ -16,7 +16,7 @@
         android:layout_marginBottom="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/order_list"
+        android:id="@+id/order_Recycler_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/cart_title"

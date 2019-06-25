@@ -89,6 +89,14 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), UserProfile.class));
             }
         });
+        viewOrdersIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), OrderListActivity.class));
+            }
+        });
+
+
 
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
