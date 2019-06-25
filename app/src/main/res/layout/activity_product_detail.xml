@@ -61,26 +61,26 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+        android:id="@+id/quantityButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addtocart"
+        android:gravity="center"
+        app:initialNumber="1"
+        app:finalNumber="10"
+        app:textSize="12dp"
+        app:backGroundColor="#b1e59e"/>
+
+    <Button
+        style="@style/ButtonsStyle"
+        android:id="@+id/addtocart"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/countdownBrightGreen"
+        android:text="Add to Cart"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
 
-        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-            android:id="@+id/quantityButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            app:initialNumber="1"
-            app:finalNumber="10"
-            app:textSize="12dp" />
-
-        <Button
-            android:id="@+id/addtocart"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Add to Cart"/>
-    </LinearLayout>
 </RelativeLayout>
