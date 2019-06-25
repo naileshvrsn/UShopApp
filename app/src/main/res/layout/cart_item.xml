@@ -5,12 +5,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
-    app:cardElevation="16dp"
-    android:layout_margin="8dp">
+    app:cardElevation="12dp"
+    android:layout_margin="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="140dp">
 
         <ImageView
             android:id="@+id/cart_product_image"

@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/horizontal_line"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        android:padding="24dp" />
+        android:layout_marginBottom="4dp" />
 
     <ImageView
         android:src="@drawable/hor_line_blue"
@@ -31,8 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/proceed_to_checkoutBtn"
         android:orientation="horizontal"
-        android:padding="8dp">
-
+        android:padding="8dp"
+        android:layout_marginBottom="-10dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
