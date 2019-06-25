@@ -1,134 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context = ".CategoryActivity"
     android:background="@drawable/light_background">
 
-    <ImageView
-        android:id="@+id/store_image_category"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@drawable/ushop_text_only"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/store_image_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp"
-            android:layout_marginBottom="40dp">
+            android:layout_height="100dp"
+            android:src="@drawable/ushop_text_only"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"/>
 
-            <TableLayout
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <TableRow
-                    android:layout_width="wrap_content"
+                <TableLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <RelativeLayout
-                        android:id="@+id/categoriesBakeryLayout"
-                        style="@style/categoriesRelativeLayoutStyle"
-                        android:layout_marginRight="10dp">
-                        <ImageView
-                            android:id="@+id/categoriesBakeryIcon"
-                            android:src="@drawable/bakery1"
-                            style="@style/categoriesIconsStyle"/>
-                        <TextView
-                            style="@style/categoriesLabelsStyle"
-                            android:text="Bakery"
-                            android:layout_below="@+id/categoriesBakeryIcon"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/categoriesConfectioneryLayout"
-                        style="@style/categoriesRelativeLayoutStyle">
-                        <ImageView
-                            android:id="@+id/categoriesConfectioneryIcon"
-                            android:src="@drawable/chocolatesandsweets"
-                            style="@style/categoriesIconsStyle" />
-                        <TextView
-                            style="@style/categoriesLabelsStyle"
-                            android:text="Confectionery"
-                            android:layout_below="@+id/categoriesConfectioneryIcon"/>
-                    </RelativeLayout>
-                </TableRow>
+                    android:orientation="vertical">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <RelativeLayout
-                        android:id="@+id/categoriesFreshProduceLayout"
-                        style="@style/categoriesRelativeLayoutStyle"
-                        android:layout_marginRight="10dp">
-                        <ImageView
-                            android:id="@+id/categoriesFreshProduceIcon"
-                            android:src="@drawable/freshproduce"
-                            style="@style/categoriesIconsStyle"/>
-                        <TextView
-                            style="@style/categoriesLabelsStyle"
-                            android:text="Fresh Produce"
-                            android:layout_below="@+id/categoriesFreshProduceIcon"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/categoriesFrozenLayout"
-                        style="@style/categoriesRelativeLayoutStyle">
-                        <ImageView
-                            android:id="@+id/categoriesFrozenIcon"
-                            android:src="@drawable/frozen"
-                            style="@style/categoriesIconsStyle" />
-                        <TextView
-                            style="@style/categoriesLabelsStyle"
-                            android:text="Frozen"
-                            android:layout_below="@+id/categoriesFrozenIcon"/>
-                    </RelativeLayout>
-                </TableRow>
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+                        <RelativeLayout
+                            android:id="@+id/categoriesBakeryLayout"
+                            style="@style/categoriesRelativeLayoutStyle"
+                            android:layout_marginRight="10dp">
+                            <ImageView
+                                android:id="@+id/categoriesBakeryIcon"
+                                android:src="@drawable/bakery1"
+                                style="@style/categoriesIconsStyle"/>
+                            <TextView
+                                style="@style/categoriesLabelsStyle"
+                                android:text="Bakery"
+                                android:layout_below="@+id/categoriesBakeryIcon"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/categoriesConfectioneryLayout"
+                            style="@style/categoriesRelativeLayoutStyle">
+                            <ImageView
+                                android:id="@+id/categoriesConfectioneryIcon"
+                                android:src="@drawable/chocolatesandsweets"
+                                style="@style/categoriesIconsStyle" />
+                            <TextView
+                                style="@style/categoriesLabelsStyle"
+                                android:text="Confectionery"
+                                android:layout_below="@+id/categoriesConfectioneryIcon"/>
+                        </RelativeLayout>
+                    </TableRow>
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <RelativeLayout
-                        android:id="@+id/categoriesDrinksLayout"
-                        style="@style/categoriesRelativeLayoutStyle"
-                        android:layout_marginRight="10dp">
-                        <ImageView
-                            android:id="@+id/categoriesDrinksIcon"
-                            android:src="@drawable/drinks"
-                            style="@style/categoriesIconsStyle"/>
-                        <TextView
-                            style="@style/categoriesLabelsStyle"
-                            android:text="Drinks"
-                            android:layout_below="@+id/categoriesDrinksIcon"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/categoriesWinesAndBeerLayout"
-                        style="@style/categoriesRelativeLayoutStyle">
-                        <ImageView
-                            android:id="@+id/categoriesWinesandBeerIcon"
-                            android:src="@drawable/beerandwine"
-                            style="@style/categoriesIconsStyle" />
-                        <TextView
-                            style="@style/categoriesLabelsStyle"
-                            android:text="Wines and Beer"
-                            android:layout_below="@+id/categoriesWinesandBeerIcon"/>
-                    </RelativeLayout>
-                </TableRow>
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+                        <RelativeLayout
+                            android:id="@+id/categoriesFreshProduceLayout"
+                            style="@style/categoriesRelativeLayoutStyle"
+                            android:layout_marginRight="10dp">
+                            <ImageView
+                                android:id="@+id/categoriesFreshProduceIcon"
+                                android:src="@drawable/freshproduce"
+                                style="@style/categoriesIconsStyle"/>
+                            <TextView
+                                style="@style/categoriesLabelsStyle"
+                                android:text="Fresh Produce"
+                                android:layout_below="@+id/categoriesFreshProduceIcon"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/categoriesFrozenLayout"
+                            style="@style/categoriesRelativeLayoutStyle">
+                            <ImageView
+                                android:id="@+id/categoriesFrozenIcon"
+                                android:src="@drawable/frozen"
+                                style="@style/categoriesIconsStyle" />
+                            <TextView
+                                style="@style/categoriesLabelsStyle"
+                                android:text="Frozen"
+                                android:layout_below="@+id/categoriesFrozenIcon"/>
+                        </RelativeLayout>
+                    </TableRow>
 
-            </TableLayout>
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+                        <RelativeLayout
+                            android:id="@+id/categoriesDrinksLayout"
+                            style="@style/categoriesRelativeLayoutStyle"
+                            android:layout_marginRight="10dp">
+                            <ImageView
+                                android:id="@+id/categoriesDrinksIcon"
+                                android:src="@drawable/drinks"
+                                style="@style/categoriesIconsStyle"/>
+                            <TextView
+                                style="@style/categoriesLabelsStyle"
+                                android:text="Drinks"
+                                android:layout_below="@+id/categoriesDrinksIcon"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/categoriesWinesAndBeerLayout"
+                            style="@style/categoriesRelativeLayoutStyle">
+                            <ImageView
+                                android:id="@+id/categoriesWinesandBeerIcon"
+                                android:src="@drawable/beerandwine"
+                                style="@style/categoriesIconsStyle" />
+                            <TextView
+                                style="@style/categoriesLabelsStyle"
+                                android:text="Wines and Beer"
+                                android:layout_below="@+id/categoriesWinesandBeerIcon"/>
+                        </RelativeLayout>
+                    </TableRow>
+                </TableLayout>
 
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cartViewbtnCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_shopping_cart_blue_24dp"/>
+
+</RelativeLayout>

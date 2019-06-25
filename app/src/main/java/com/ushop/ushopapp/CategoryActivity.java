@@ -12,10 +12,13 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class CategoryActivity extends AppCompatActivity {
 
     private ImageView storeLogo;
     private RelativeLayout bakeryLayout, confectioneryLayout, freshProduceLayout, frozenLayout, drinksLayout, winesAndBeerLayout;
+    private FloatingActionButton cartBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class CategoryActivity extends AppCompatActivity {
         frozenLayout = findViewById(R.id.categoriesFrozenLayout);
         drinksLayout = findViewById(R.id.categoriesDrinksLayout);
         winesAndBeerLayout = findViewById(R.id.categoriesWinesAndBeerLayout);
+        cartBtn = findViewById(R.id.cartViewbtnCategories);
 
         final Bundle extras = new Bundle();
         extras.putString("store", selectedStore);
@@ -123,6 +127,12 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),CartListActivity.class));
+            }
+        });
 
     }
 }
