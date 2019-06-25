@@ -86,7 +86,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         orderProducts = orderDetials.collection("products");
 
 
-//        setUpRecyclerView();
+       setUpRecyclerView();
 
 
     }
