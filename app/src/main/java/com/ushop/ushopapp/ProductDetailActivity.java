@@ -63,21 +63,22 @@ public class ProductDetailActivity extends AppCompatActivity {
         //extract product id
         Bundle extrasfromIntent = getIntent().getExtras();
         productID = extrasfromIntent.getString("productID");
-        //String nameProductName = extrasfromIntent.getString("productName");
         store = extrasfromIntent.getString("store","cart");
 
-
-        if(store.equals("cart")){
-            getSupportActionBar().setTitle("Update Product Quantity");
-        }else{
-            getSupportActionBar().setTitle("Shopping from " + store);
-        }
-
+        //setup views
+        productImage = findViewById(R.id.product_ImageView);
+        productName = findViewById(R.id.product_name);
+        productPrice = findViewById(R.id.product_price);
+        description = findViewById(R.id.product_description);
+        addToCart = findViewById(R.id.addtocart);
+        quantityButton = findViewById(R.id.quantityButton);
 
         switch (store){
             case "Countdown":
+                getSupportActionBar().setTitle("Shopping from " + store);
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                         .getColor(R.color.countdownBrightGreen)));
+                addToCart.setBackgroundColor(getResources().getColor(R.color.elegantnumbercountdown));
                 if (Build.VERSION.SDK_INT >= 21) {
                     Window window = getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -87,8 +88,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                 break;
 
             case "PaknSave":
+                getSupportActionBar().setTitle("Shopping from " + store);
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                         .getColor(R.color.paknsaveBrightYellow)));
+                addToCart.setBackgroundColor(getResources().getColor(R.color.elegantnumberpaknsave));
                 if (Build.VERSION.SDK_INT >= 21) {
                     Window window = getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -96,6 +99,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                     window.setStatusBarColor(getResources().getColor(R.color.paknsaveYellow));
                 }
                 break;
+            case "cart":
+                getSupportActionBar().setTitle("Update Product Quantity");
             default:
         }
 
@@ -106,15 +111,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         //db setup
         db = FirebaseFirestore.getInstance();
         docRef = db.collection("products").document(productID);
-
-        //setup views
-        productImage = findViewById(R.id.product_ImageView);
-        productName = findViewById(R.id.product_name);
-        productPrice = findViewById(R.id.product_price);
-        description = findViewById(R.id.product_description);
-        addToCart = findViewById(R.id.addtocart);
-        quantityButton = findViewById(R.id.quantityButton);
-
 
         //get product from id
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -142,24 +138,19 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
         pDialog.dismissWithAnimation();
 
-
         //add to cart button clicked
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addProducttoCart();
-
             }
         });
-
     }
 
     private void addProducttoCart() {
-
         CollectionReference cartListRef = db.collection("cartList");
 
         Cart cartProduct = new Cart();
-       // cartProduct.setPid(productID);
         cartProduct.setPname(productName.getText().toString());
         cartProduct.setPrice(String.valueOf(currentProduct.getUnitPrice()));
         cartProduct.setQuantity(quantityButton.getNumber());
@@ -177,7 +168,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
 
