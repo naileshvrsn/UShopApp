@@ -14,7 +14,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/product_image_card"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:layout_height="120dp"
             app:cardCornerRadius="24dp"
             android:elevation="8dp">
@@ -22,7 +22,8 @@
                 android:id="@+id/product_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                android:padding="8dp"/>
         </androidx.cardview.widget.CardView>
 
 

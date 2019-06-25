@@ -66,7 +66,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         String nameProductName = extrasfromIntent.getString("productName");
         store = extrasfromIntent.getString("store");
 
-        getSupportActionBar().setTitle(nameProductName);
+        getSupportActionBar().setTitle("Shopping from " + store);
         switch (store){
             case "Countdown":
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
@@ -121,7 +121,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         // display information
                         Picasso.get().load(currentProduct.getImageLocation()).into(productImage);
                         productName.setText(currentProduct.getName());
-                        productPrice.setText(String.valueOf(currentProduct.getUnitPrice()));
+                        productPrice.setText("$ " + String.valueOf(currentProduct.getUnitPrice()));
                         description.setText(currentProduct.getDescription());
 
                     }else {
