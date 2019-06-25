@@ -137,7 +137,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
     private void setOrderDetails() {
         shipment = 6.99;
-        discount = 0.0;
+        discount = 5.0;
 
         total = (subtotal + shipment) - discount;
 
@@ -206,7 +206,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private void placeOrder() {
         pDialog.show();
 
-        int productCount;
 
         cartRef.get().addOnCompleteListener
                 (new OnCompleteListener<QuerySnapshot>() {

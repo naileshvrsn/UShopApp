@@ -72,6 +72,11 @@ public class OrderDetailActivity extends AppCompatActivity {
                         //shipping Address
                         shippingAddress = order.getStreet()+"\n"+order.getSuburb()+"\n"+order.getCity()+", "+ order.getPostalCode();
                         userAddress.setText(shippingAddress);
+                        orderSubtotal.setText(" SubTotal: $ "+ String.valueOf(order.getSubtotal()));
+                        orderShipping.setText(" Shipping: $ "+ String.valueOf(order.getShipping()));
+                        orderDiscount.setText(" Discount: -$ "+ String.valueOf(order.getDiscount()));
+                        orderTotal.setText(" Total: $ "+ String.valueOf(order.getTotal()));
+
 
 
                     } else {
