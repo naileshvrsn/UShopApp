@@ -44,7 +44,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         Bundle extrasfromIntent = getIntent().getExtras();
         orderId = extrasfromIntent.getString("orderId");
 
-
         userName = findViewById(R.id.order_detail_user_name);
         userAddress = findViewById(R.id.order_detail_user_address);
         orderSubtotal = findViewById(R.id.order_detail_subTotal);
@@ -92,10 +91,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         orderProducts = orderDetials.collection("products");
 
-
        setUpRecyclerView();
-
-
     }
 
     private void setUpRecyclerView() {
@@ -115,7 +111,6 @@ public class OrderDetailActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         adapter.startListening();
-
     }
 
     @Override

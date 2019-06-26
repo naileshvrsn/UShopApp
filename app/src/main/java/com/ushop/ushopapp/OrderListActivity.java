@@ -14,11 +14,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.ushop.ushopapp.Adapter.OrderAdapter;
+import com.ushop.ushopapp.Adapter.OrderItemAdapter;
 import com.ushop.ushopapp.Model.Order;
 
 public class OrderListActivity extends AppCompatActivity {
-
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -26,7 +25,7 @@ public class OrderListActivity extends AppCompatActivity {
     private CollectionReference ordersRef = db.collection("order")
             .document(user.getUid()).collection("userorders");
 
-    private OrderAdapter adapter;
+    private OrderItemAdapter adapter;
 
     private static final String TAG = "CheckoutActivity";
 
@@ -34,27 +33,25 @@ public class OrderListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
+        getSupportActionBar().setTitle("Your Orders");
 
         setUpRecyclerView();
     }
 
     private void setUpRecyclerView() {
-
         Query squery = ordersRef.orderBy("orderDate", Query.Direction.DESCENDING);
-
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(squery, Order.class).build();
 
-        adapter = new OrderAdapter(options);
+        adapter = new OrderItemAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.order_Recycler_View);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-
-        adapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OrderItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot) {
                 String orderId = documentSnapshot.getId();

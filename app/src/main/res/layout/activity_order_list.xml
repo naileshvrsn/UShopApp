@@ -6,20 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".OrderListActivity"
     android:orientation="vertical"
-    android:padding="16dp">
-    <TextView
+    android:background="@drawable/light_background"
+    android:padding="8dp">
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Your Orders"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:layout_marginBottom="8dp"/>
+        android:layout_height="120dp"
+        android:src="@drawable/ushop_text_only"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_Recycler_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"/>
 
 </LinearLayout>
