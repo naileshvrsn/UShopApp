@@ -14,6 +14,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.ushop.ushopapp.Adapter.OrderAdapter;
+import com.ushop.ushopapp.Model.Order;
 
 public class OrderListActivity extends AppCompatActivity {
 
@@ -37,8 +39,12 @@ public class OrderListActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
+
+        Query squery = ordersRef.orderBy("orderDate", Query.Direction.DESCENDING);
+
+
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
-                .setQuery(ordersRef, Order.class).build();
+                .setQuery(squery, Order.class).build();
 
         adapter = new OrderAdapter(options);
 

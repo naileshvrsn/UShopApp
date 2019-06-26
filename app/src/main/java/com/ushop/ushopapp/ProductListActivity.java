@@ -1,8 +1,10 @@
 package com.ushop.ushopapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -20,6 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.ushop.ushopapp.Adapter.ProductAdapter;
+import com.ushop.ushopapp.Model.Product;
 
 import java.util.ArrayList;
 
@@ -140,8 +144,4 @@ public class ProductListActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
 }

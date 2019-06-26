@@ -25,6 +25,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.ushop.ushopapp.Adapter.CartItemAdapter;
+import com.ushop.ushopapp.Model.Cart;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -188,6 +190,7 @@ public class CartListActivity extends AppCompatActivity {
             Intent i = new Intent(CartListActivity.this, CheckoutActivity.class);
             i.putExtra("cartTotal", bd.doubleValue());
             startActivity(i);
+            CartListActivity.this.finish();
         }
     }
 

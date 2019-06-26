@@ -1,4 +1,4 @@
-package com.ushop.ushopapp;
+package com.ushop.ushopapp.Model;
 
 import java.util.Calendar;
 import java.util.Date;

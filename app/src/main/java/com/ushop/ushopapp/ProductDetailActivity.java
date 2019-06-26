@@ -27,10 +27,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
+import com.ushop.ushopapp.Model.Cart;
+import com.ushop.ushopapp.Model.Product;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -153,6 +151,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),CartListActivity.class));
+                ProductDetailActivity.this.finish();
             }
         });
     }
