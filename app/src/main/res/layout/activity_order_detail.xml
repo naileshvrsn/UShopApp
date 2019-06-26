@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".OrderDetailActivity"
-    android:padding="16dp">
-    <TextView
+    android:padding="8dp"
+    android:background="@drawable/light_background">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Order Details"
-        android:layout_marginBottom="8dp"
-        android:textSize="32sp"
-        android:gravity="center"
-        />
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/order_detail_order_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Order ID: orderidfromdatabase"
+        android:textSize="18sp"
+        android:padding="4dp"
+        android:textColor="@color/appDarkBlueGreen"/>
 
     <TextView
         android:id="@+id/order_detail_user_name"
@@ -22,28 +29,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:hint="name"
+        android:hint="Customer Name"
         android:textSize="24sp"
-        android:gravity="center"
-        />
+        android:gravity="center" />
+
     <TextView
         android:id="@+id/order_detail_user_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:hint="name"
+        android:hint="Ship address"
         android:textSize="24sp"
-        android:gravity="center"
-        />
+        android:gravity="center" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_detail_product_list"
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/order_detail_subTotal"
         android:layout_width="match_parent"
@@ -53,6 +60,7 @@
         android:gravity="right"
         android:hint="SubTotal"
         android:textSize="18sp"/>
+
     <TextView
         android:id="@+id/order_detail_shipping"
         android:layout_width="match_parent"
@@ -78,9 +86,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-
         android:gravity="right"
         android:hint="Total"
         android:textSize="18sp"/>
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
