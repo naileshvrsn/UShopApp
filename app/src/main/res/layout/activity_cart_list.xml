@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
-        android:background="#7ef22e"
+        android:background="@color/checkoutButtonGreen"
         android:text="Checkout"
         android:textSize="20sp"
         android:textColor="@color/white"/>

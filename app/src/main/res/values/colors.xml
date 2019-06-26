@@ -27,4 +27,6 @@
 
     <color name="darkgrey">#5a6166</color>
     <color name="grey">#6a7277</color>
+
+    <color name="checkoutButtonGreen">#7ef22e</color>
 </resources>
