@@ -1,4 +1,4 @@
-package com.ushop.ushopapp;
+package com.ushop.ushopapp.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +13,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
+import com.ushop.ushopapp.Model.Cart;
+import com.ushop.ushopapp.R;
 
 public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapter.productHolder> {
 

@@ -1,9 +1,6 @@
-package com.ushop.ushopapp;
+package com.ushop.ushopapp.Adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+import com.ushop.ushopapp.Model.Product;
+import com.ushop.ushopapp.R;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProductAdapter extends ArrayAdapter<Product> {

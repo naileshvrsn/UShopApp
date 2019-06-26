@@ -1,6 +1,7 @@
 package com.ushop.ushopapp;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -56,5 +57,12 @@ public class SelectStoreActivity extends AppCompatActivity {
 
     private void paknsaveClicked(){
         startActivity(new Intent(getApplicationContext(), CategoryActivity.class).putExtra("store", "PaknSave"));
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Here you want to show the user a dialog box
+        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+        SelectStoreActivity.this.finish();
     }
 }

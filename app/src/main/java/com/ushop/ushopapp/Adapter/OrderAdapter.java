@@ -1,6 +1,5 @@
-package com.ushop.ushopapp;
+package com.ushop.ushopapp.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.ushop.ushopapp.Model.Order;
+import com.ushop.ushopapp.R;
 
 
 public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.orderHolder>{
