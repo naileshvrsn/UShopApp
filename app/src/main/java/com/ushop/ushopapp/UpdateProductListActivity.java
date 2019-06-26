@@ -39,6 +39,7 @@ public class UpdateProductListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_product_list);
+        getSupportActionBar().setTitle("Update Products");
 
         pDialog= new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Uploading");

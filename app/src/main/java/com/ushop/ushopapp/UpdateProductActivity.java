@@ -71,6 +71,7 @@ public class UpdateProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_product);
+        getSupportActionBar().setTitle("Update Product");
 
         Bundle extrasfromIntent = getIntent().getExtras();
         productID = extrasfromIntent.getString("productID");
@@ -131,6 +132,13 @@ public class UpdateProductActivity extends AppCompatActivity {
                 }
             }
         });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateProductActivity.this.finish();
+            }
+        });
     }
 
     private void setupProduct(final String productID) {
@@ -150,6 +158,8 @@ public class UpdateProductActivity extends AppCompatActivity {
                         categorySpinner.setSelection(((ArrayAdapter<String>)categorySpinner.getAdapter()).getPosition(product.getCategory()));
                         storeSpinner.setSelection(((ArrayAdapter<String>)storeSpinner.getAdapter()).getPosition(product.getStore()));
                         Picasso.get().load(product.getImageLocation()).into(productImage);
+
+                        getSupportActionBar().setTitle("Update " + product.getName());
                     } else {
                         Log.d(TAG, "No such document");
                     }

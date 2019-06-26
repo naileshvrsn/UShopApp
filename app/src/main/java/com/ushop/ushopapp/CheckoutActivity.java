@@ -142,7 +142,7 @@ public class CheckoutActivity extends AppCompatActivity {
         total = (subtotal + shipment) - discount;
 
         oSubTotal.setText(String.valueOf(subtotal));
-        oDiscount.setText(String.valueOf(discount));
+        oDiscount.setText("-" + String.valueOf(discount));
         oShipment.setText(String.valueOf(shipment));
 
         bd = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP);
