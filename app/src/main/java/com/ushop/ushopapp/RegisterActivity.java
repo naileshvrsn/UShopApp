@@ -51,8 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         firestoreDb = FirebaseFirestore.getInstance();
-        defaultImageStorageLocation = "";
-        //defaultImageStorageLocation = "https://firebasestorage.googleapis.com/v0/b/ushop-73f4b.appspot.com/o/userImages%2Fblank_user.png?alt=media&token=ed4de9cf-befb-4fed-ad64-485f609ab709";
+        //defaultImageStorageLocation = "";
+        defaultImageStorageLocation = "https://firebasestorage.googleapis.com/v0/b/ushop-73f4b.appspot.com/o/userImages%2Fblank_user.png?alt=media&token=ed4de9cf-befb-4fed-ad64-485f609ab709";
 
         _nameText = findViewById(R.id.input_name);
         _streetText = findViewById(R.id.input_street);

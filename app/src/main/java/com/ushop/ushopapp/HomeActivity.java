@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 import com.ushop.ushopapp.Model.User;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -122,6 +123,7 @@ public class HomeActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         currentUserFirestore = document.toObject(User.class);
+                        Picasso.get().load(currentUserFirestore.getUserImageLocation()).into(homeImage);
                         welcomeUser.setText("Welcome " + currentUserFirestore.getName());
                     }
                     else {

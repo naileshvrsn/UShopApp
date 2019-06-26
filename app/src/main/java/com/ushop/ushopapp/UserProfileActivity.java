@@ -1,10 +1,16 @@
 package com.ushop.ushopapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,8 +27,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.ushop.ushopapp.Model.User;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -34,20 +45,34 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView userName, cancel;
     private EditText email, dob, street, suburb, city, postcode, password, confirmPassword;
     private Button saveChanges;
+    private String imageURl;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDb;
     private DocumentReference documentReference;
     private User currentUserFirestore;
 
+    //Firebase storage
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    StorageReference ref;
+
+    // Image storage URL string
+    String storageLocation;
+
+    private final int PICK_IMAGE_REQUEST = 71;
+    private Uri filePath;
+    SweetAlertDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         getSupportActionBar().setTitle("Edit Profile");
-        SweetAlertDialog pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.setTitleText("Loading...");
-        pDialog.show();
+
+        pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setTitleText("Updating Profile");
+        pDialog.setCancelable(true);
 
         userImage = findViewById(R.id.editProfileImageView);
         userName = findViewById(R.id.userProfileName);
@@ -67,16 +92,26 @@ public class UserProfileActivity extends AppCompatActivity {
         documentReference = firestoreDb.collection("users").document(mAuth.getUid());
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        //setup firebase storage
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+
+        // setup Image storage location
+        storageLocation = "gs://ushop-73f4b.appspot.com/userImages/";
+
         email.setEnabled(false);
         dob.setEnabled(false);
 
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
+                    if (document.exists()) {
                         currentUserFirestore = document.toObject(User.class);
+
+                        Picasso.get().load(currentUserFirestore.getUserImageLocation()).into(userImage);
                         userName.setText(currentUserFirestore.getName());
                         email.setText(mAuth.getCurrentUser().getEmail());
                         DateFormat df = new SimpleDateFormat("MM/dd/yyy");
@@ -86,20 +121,18 @@ public class UserProfileActivity extends AppCompatActivity {
                         suburb.setText(currentUserFirestore.getSuburb());
                         city.setText(currentUserFirestore.getCity());
                         postcode.setText(currentUserFirestore.getPostCode());
-                    }
-                    else {
+                    } else {
                         //could not get user from firestore database hence back to login screen
                         mAuth.signOut();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         UserProfileActivity.this.finish();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(UserProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        pDialog.dismissWithAnimation();
+
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,9 +145,6 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //progress bar while activity loads
-                SweetAlertDialog pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-                pDialog.setTitleText("Saving...");
-                pDialog.setCancelable(false);
                 pDialog.show();
 
                 String newstreet = street.getText().toString();
@@ -124,47 +154,141 @@ public class UserProfileActivity extends AppCompatActivity {
                 String newPassword = password.getText().toString();
 
                 //validation failed from inputs
-                if(!validate()){
+                if (!validate()) {
                     pDialog.dismissWithAnimation();
                     return;
-                }
-                else {
+                } else {
                     //if user wants to change password
                     if (!newPassword.isEmpty()) {
                         currentUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     Toast.makeText(UserProfileActivity.this, "Password updated successfully", Toast.LENGTH_LONG);
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(UserProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG);
                                 }
                             }
                         });
-                    }
-
-                    else {
-                        DocumentReference currentUserRef = firestoreDb.collection("users").document(mAuth.getUid());
+                    } else {
+                        final DocumentReference currentUserRef = firestoreDb.collection("users").document(mAuth.getUid());
                         currentUserRef.update("street", newstreet, "suburb", newsuburb, "city", newcity, "postCode", newpostcode)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UserProfileActivity.this, "Successfully updated profile ", Toast.LENGTH_LONG).show();
-                            }
-                        })
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        if (filePath != null) {
+                                            uploadImage(currentUserRef.getId());
+                                        }
+                                    }
+                                })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(UserProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
                     }
                 }
-                pDialog.dismissWithAnimation();
+
             }
         });
 
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
+
+    }
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                userImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void uploadImage(final String userId) {
+
+        if (filePath != null) {
+
+            ref = storageReference.child("userImages/" + userId);
+            //uploage the new image
+            ref.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            getImageURl(userId);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(UserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        } else {
+            Toast.makeText(this, "No image", Toast.LENGTH_LONG).show();
+        }
+
+}
+
+    private void getImageURl(final String userID) {
+
+        StorageReference gfReference = storage.getReferenceFromUrl(storageLocation + userID);
+
+        gfReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Log.d("URI", String.valueOf(uri));
+
+                imageURl = String.valueOf(uri);
+
+                //get product and set image Url
+                firestoreDb.collection("users").document(userID).update("userImageLocation", imageURl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        pDialog.dismissWithAnimation();
+                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UserProfileActivity.this);
+                        dlgAlert.setMessage("Profile Updated Succeffully");
+                        dlgAlert.setTitle("SUCCESS");
+                        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                gotoHome();
+                            }
+                        });
+                        dlgAlert.setCancelable(true);
+                        dlgAlert.create().show();
+                        //Toast.makeText(UserProfileActivity.this, "Successfully updated profile ", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("URI", "Error");
+                    }
+                });
+            }
+        });
     }
 
 
@@ -178,28 +302,28 @@ public class UserProfileActivity extends AppCompatActivity {
         String upassword = password.getText().toString().trim();
         String uconfirmPassword = confirmPassword.getText().toString().trim();
 
-        if (ustreet.isEmpty() || ustreet.length() < 5){
+        if (ustreet.isEmpty() || ustreet.length() < 5) {
             street.setError("at least 5 characters");
             valid = false;
         } else {
             street.setError(null);
         }
 
-        if (usuburb.isEmpty() || usuburb.length() < 4){
+        if (usuburb.isEmpty() || usuburb.length() < 4) {
             suburb.setError("at least 4 characters");
             valid = false;
         } else {
             suburb.setError(null);
         }
 
-        if (ucity.isEmpty() || ucity.length() < 6){
+        if (ucity.isEmpty() || ucity.length() < 6) {
             city.setError("at least 6 characters");
             valid = false;
         } else {
             city.setError(null);
         }
 
-        if (upostcode.isEmpty() || upostcode.length() != 4){
+        if (upostcode.isEmpty() || upostcode.length() != 4) {
             postcode.setError("Enter a valid postcode");
             valid = false;
         } else {
@@ -213,13 +337,18 @@ public class UserProfileActivity extends AppCompatActivity {
             password.setError(null);
         }
 
-        if(!upassword.equals(uconfirmPassword)){
+        if (!upassword.equals(uconfirmPassword)) {
             confirmPassword.setError("Passwords do not match");
             valid = false;
-        }else {
+        } else {
             confirmPassword.setError(null);
         }
 
         return valid;
+    }
+    public void gotoHome() {
+        Intent i = new Intent(UserProfileActivity.this, HomeActivity.class);
+        startActivity(i);
+        UserProfileActivity.this.finish();
     }
 }
