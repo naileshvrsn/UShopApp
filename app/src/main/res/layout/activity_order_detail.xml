@@ -1,86 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".OrderDetailActivity"
-    android:padding="16dp">
-    <TextView
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/light_background">
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Order Details"
-        android:layout_marginBottom="8dp"
-        android:textSize="32sp"
-        android:gravity="center"
-        />
+        android:layout_height="100dp"
+        android:src="@drawable/ushop_text_only"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/locationImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location_darkblue_48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="20dp"/>
+
+        <TextView
+            android:id="@+id/order_detail_user_name"
+            android:layout_toEndOf="@+id/locationImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Customer Name"
+            android:textSize="20sp"
+            android:textColor="@color/appDarkBlueGreen"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/order_detail_user_address"
+            android:layout_toEndOf="@+id/locationImage"
+            android:layout_below="@+id/order_detail_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Ship address"
+            android:textSize="18sp"
+            android:textColor="@color/appDarkBlueGreen" />
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/order_detail_user_name"
+        android:id="@+id/order_detail_order_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:hint="name"
-        android:textSize="24sp"
-        android:gravity="center"
-        />
-    <TextView
-        android:id="@+id/order_detail_user_address"
+        android:hint="Order # orderidfromdatabase"
+        android:textSize="16sp"
+        android:padding="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/appDarkBlueGreen"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:hint="name"
-        android:textSize="24sp"
-        android:gravity="center"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/order_detail_product_list"
-        android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/order_detail_product_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+
     <TextView
         android:id="@+id/order_detail_subTotal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="right"
-        android:hint="SubTotal"
-        android:textSize="18sp"/>
+        style="@style/orderDetailTotalsStyle"
+        android:hint="SubTotal" />
+
     <TextView
         android:id="@+id/order_detail_shipping"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="right"
-        android:hint="Shipping"
-        android:textSize="18sp"/>
+        style="@style/orderDetailTotalsStyle"
+        android:hint="Shipping" />
 
     <TextView
         android:id="@+id/order_detail_discount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="right"
-        android:hint="Discount"
-        android:textSize="18sp"/>
+        style="@style/orderDetailTotalsStyle"
+        android:hint="Discount" />
 
     <TextView
         android:id="@+id/order_detail_total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-
-        android:gravity="right"
-        android:hint="Total"
-        android:textSize="18sp"/>
+        style="@style/orderDetailTotalsStyle"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp"
+        android:hint="Total" />
 
 </LinearLayout>

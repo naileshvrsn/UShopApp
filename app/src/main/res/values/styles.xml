@@ -146,4 +146,14 @@
         <item name="android:hint">$ 0.00</item>
     </style>
 
+    <style name="orderDetailTotalsStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/appDarkBlueGreen</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
 </resources>
