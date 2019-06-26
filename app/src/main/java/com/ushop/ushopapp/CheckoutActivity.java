@@ -74,7 +74,7 @@ public class CheckoutActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         docRef = db.collection("users").document(userid);
         cartRef = db.collection("cartList").document(userid).collection("products");
-        orderRef = db.collection("order").document(userid).collection("orders");
+        orderRef = db.collection("order").document(userid).collection("userorders");
 
         subtotal = getIntent().getDoubleExtra("cartTotal", 0);
 

@@ -3,23 +3,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    android:layout_margin="4dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
+
         <ImageView
             android:id="@+id/order_imageView"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"/>
+
         <TextView
             android:id="@+id/order_total_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/order_imageView"
             android:layout_marginLeft="12dp"
-            android:hint="12 Products"
-            />
+            android:hint="1 Item(s)"
+            android:textSize="16sp"
+            android:textColor="@color/appDarkBlueGreen"/>
+
         <TextView
             android:id="@+id/order_shipping_address"
             android:layout_width="wrap_content"
@@ -29,15 +36,16 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="12dp"
             android:hint="shipping Address"
-            />
+            android:textColor="@color/appDarkBlueGreen"/>
 
         <TextView
             android:id="@+id/order_placed_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="12dp"
-            android:hint="Order date" />
+            android:hint="26-Jun-2019"
+            android:textSize="16sp"
+            android:textColor="@color/appDarkBlueGreen"/>
 
         <TextView
             android:id="@+id/order_total"
@@ -45,8 +53,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/order_placed_date"
-            android:layout_marginTop="12dp"
-            android:hint="Order total" />
+            android:layout_marginTop="22dp"
+            android:hint="$ 9.99"
+            android:textSize="18sp"
+            android:textColor="@color/appDarkBlueGreen"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 

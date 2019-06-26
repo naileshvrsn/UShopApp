@@ -16,11 +16,11 @@ import com.ushop.ushopapp.Model.Order;
 import com.ushop.ushopapp.R;
 
 
-public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.orderHolder>{
+public class OrderItemAdapter extends FirestoreRecyclerAdapter <Order, OrderItemAdapter.orderHolder>{
 
     private OnItemClickListener listener;
 
-    public OrderAdapter(@NonNull FirestoreRecyclerOptions<Order> options) {
+    public OrderItemAdapter(@NonNull FirestoreRecyclerOptions<Order> options) {
         super(options);
     }
 
@@ -31,11 +31,11 @@ public class OrderAdapter extends FirestoreRecyclerAdapter <Order, OrderAdapter.
         shippingAddress = order.getName() +"\n"+order.getStreet()+"\n"
                 +order.getSuburb()+"\n"+order.getCity()+", "+order.getPostalCode();
 
-        orderHolder.orderTotalItems.setText(order.getProductsCount() + " Products");
+        orderHolder.orderTotalItems.setText(order.getProductsCount() + " Item(s)");
         orderHolder.orderDate.setText(order.getOrderDate());
         orderHolder.orderTotal.setText("$ "+order.getTotal());
         orderHolder.orderShippingAddress.setText(shippingAddress);
-        orderHolder.orderImageView.setImageResource(R.drawable.blank_user);
+        orderHolder.orderImageView.setImageResource(R.drawable.ushop_icon_2);
     }
 
     @NonNull
