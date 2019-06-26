@@ -68,15 +68,15 @@ public class OrderDetailActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Order order = document.toObject(Order.class);
-                        orderIdTV.setText("Order ID: " + orderId);
+                        orderIdTV.setText("Order # " + orderId);
                         userName.setText(order.getName());
                         //shipping Address
                         shippingAddress = order.getStreet()+"\n"+order.getSuburb()+"\n"+order.getCity()+", "+ order.getPostalCode();
                         userAddress.setText(shippingAddress);
-                        orderSubtotal.setText(" SubTotal: $ "+ String.valueOf(order.getSubtotal()));
-                        orderShipping.setText(" Shipping: $ "+ String.valueOf(order.getShipping()));
-                        orderDiscount.setText(" Discount: -$ "+ String.valueOf(order.getDiscount()));
-                        orderTotal.setText(" Total: $ "+ String.valueOf(order.getTotal()));
+                        orderSubtotal.setText(" Subtotal:  $ "+ String.valueOf(order.getSubtotal()));
+                        orderShipping.setText(" Shipping:  $ "+ String.valueOf(order.getShipping()));
+                        orderDiscount.setText(" Discount:  -$ "+ String.valueOf(order.getDiscount()));
+                        orderTotal.setText(" Total:  $ "+ String.valueOf(order.getTotal()));
                         getSupportActionBar().setTitle("Order Details: " + String.valueOf(order.getOrderDate()));
                     } else {
                         Log.d("Error:", "No such document");
