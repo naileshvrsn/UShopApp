@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     private ImageView userImage;
     private TextView userName, cancel;
@@ -45,7 +45,7 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         getSupportActionBar().setTitle("Edit Profile");
-        SweetAlertDialog pDialog = new SweetAlertDialog(UserProfile.this, SweetAlertDialog.PROGRESS_TYPE);
+        SweetAlertDialog pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Loading...");
         pDialog.show();
 
@@ -91,11 +91,11 @@ public class UserProfile extends AppCompatActivity {
                         //could not get user from firestore database hence back to login screen
                         mAuth.signOut();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        UserProfile.this.finish();
+                        UserProfileActivity.this.finish();
                     }
                 }
                 else {
-                    Toast.makeText(UserProfile.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,7 +104,7 @@ public class UserProfile extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserProfile.this.finish();
+                UserProfileActivity.this.finish();
             }
         });
 
@@ -112,7 +112,7 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //progress bar while activity loads
-                SweetAlertDialog pDialog = new SweetAlertDialog(UserProfile.this, SweetAlertDialog.PROGRESS_TYPE);
+                SweetAlertDialog pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.setTitleText("Saving...");
                 pDialog.setCancelable(false);
                 pDialog.show();
@@ -135,10 +135,10 @@ public class UserProfile extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(UserProfile.this, "Password updated successfully", Toast.LENGTH_LONG);
+                                    Toast.makeText(UserProfileActivity.this, "Password updated successfully", Toast.LENGTH_LONG);
                                 }
                                 else {
-                                    Toast.makeText(UserProfile.this, task.getException().getMessage(), Toast.LENGTH_LONG);
+                                    Toast.makeText(UserProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG);
                                 }
                             }
                         });
@@ -150,13 +150,13 @@ public class UserProfile extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(UserProfile.this, "Successfully updated profile ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserProfileActivity.this, "Successfully updated profile ", Toast.LENGTH_LONG).show();
                             }
                         })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(UserProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UserProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }
