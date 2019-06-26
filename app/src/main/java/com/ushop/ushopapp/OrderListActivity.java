@@ -26,7 +26,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     private OrderAdapter adapter;
 
-    private static final String TAG = "ConfirmOrderActivity";
+    private static final String TAG = "CheckoutActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

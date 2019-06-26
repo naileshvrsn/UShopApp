@@ -19,7 +19,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,19 +26,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.Console;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class ConfirmOrderActivity extends AppCompatActivity {
+public class CheckoutActivity extends AppCompatActivity {
 
-    private static final String TAG = "ConfirmOrderActivity";
+    private static final String TAG = "CheckoutActivity";
 
 
     private FirebaseAuth mauth;
@@ -62,7 +58,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm_order);
+        setContentView(R.layout.activity_checkout);
 
         pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Placing Order");
@@ -127,7 +123,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     uCity.setText(user.getCity());
                     uPostCode.setText(user.getPostCode());
                 } else {
-                    Toast.makeText(ConfirmOrderActivity.this, "No user found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CheckoutActivity.this, "No user found", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -287,7 +283,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     pDialog.dismissWithAnimation();
                     clearCart();
                     // show alert message
-                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(ConfirmOrderActivity.this);
+                    AlertDialog.Builder dlgAlert = new AlertDialog.Builder(CheckoutActivity.this);
                     dlgAlert.setMessage("Order Placed Successfully");
                     dlgAlert.setTitle("SUCCESS");
                     dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -330,9 +326,9 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     }
 
     public void gotoselectstore() {
-        Intent i = new Intent(ConfirmOrderActivity.this, SelectStoreActivity.class);
+        Intent i = new Intent(CheckoutActivity.this, SelectStoreActivity.class);
         startActivity(i);
-        ConfirmOrderActivity.this.finish();
+        CheckoutActivity.this.finish();
     }
 
 }

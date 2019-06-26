@@ -16,7 +16,7 @@
         tools:replace="android:icon">
         <activity android:name=".OrderDetailActivity"></activity>
         <activity android:name=".OrderListActivity" />
-        <activity android:name=".ConfirmOrderActivity" />
+        <activity android:name=".CheckoutActivity" />
         <activity android:name=".CartListActivity" />
         <activity android:name=".ProductDetailActivity" />
         <activity android:name=".UserProfile" />

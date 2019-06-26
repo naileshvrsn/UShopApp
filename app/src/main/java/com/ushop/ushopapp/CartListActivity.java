@@ -185,7 +185,7 @@ public class CartListActivity extends AppCompatActivity {
             dlgAlert.create().show();
 
         } else {
-            Intent i = new Intent(CartListActivity.this, ConfirmOrderActivity.class);
+            Intent i = new Intent(CartListActivity.this, CheckoutActivity.class);
             i.putExtra("cartTotal", bd.doubleValue());
             startActivity(i);
         }
