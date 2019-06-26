@@ -1,9 +1,11 @@
 package com.ushop.ushopapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,8 +21,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,6 +33,9 @@ import com.google.firebase.storage.UploadTask;
 import com.ushop.ushopapp.Model.Product;
 
 import java.io.IOException;
+import java.util.HashMap;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AddProductActivity extends AppCompatActivity {
 
@@ -53,7 +60,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     // Image storage URL string
     String storageLocation;
-
+    SweetAlertDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +77,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
         // setup Image storage location
-        storageLocation = "gs://ushop-73f4b.appspot.com/productImages/";
+
 
         nameTextField = findViewById(R.id.nameTextFieldAddProduct);
         descriptionTextField = findViewById(R.id.descriptionTextFieldAddProduct);
@@ -81,6 +88,10 @@ public class AddProductActivity extends AppCompatActivity {
         uploadImage = findViewById(R.id.uploadImageAddProduct);
         uploadProduct = findViewById(R.id.uploadProduct);
         cancel = findViewById(R.id.addProductCancelButton);
+
+        pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setTitleText("Adding Product");
+        pDialog.setCancelable(false);
 
         //Spinner for category selection
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
@@ -128,7 +139,9 @@ public class AddProductActivity extends AppCompatActivity {
     public void addProduct() {
         //Add Product is it has image file
         if(filePath != null){
-            uploadImage();
+
+            productFirestoreUpload();
+
         }else{
             Toast.makeText(AddProductActivity.this, "Select an Image", Toast.LENGTH_LONG).show();
         }
@@ -159,25 +172,52 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
+    // Function -> Upload Product into database(Firestore)
+    private void productFirestoreUpload() {
+        // progress bar
+        pDialog.show();
+
+        // Get product value;
+        name = nameTextField.getText().toString();
+        description = descriptionTextField.getText().toString();
+        unitPrice = Double.parseDouble(unitpriceTextField.getText().toString());
+        category = categorySpinner.getSelectedItem().toString();
+        store = storeSpinner.getSelectedItem().toString();
+
+        Product product = new Product(name,description,unitPrice,category,store);
+
+        //Add a new document with a generated ID
+        db.collection("products")
+                .add(product).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if(task.isSuccessful()){
+                    uploadImage(task.getResult().getId());
+                }else {
+                    Toast.makeText(AddProductActivity.this, "Product not uploaded ",Toast.LENGTH_LONG).show();
+                }
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast.makeText(AddProductActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     //Function -> Upload image to firebase storage
-    private void uploadImage() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Uploading Image");
-        progressDialog.show();
+    private void uploadImage(final String productId) {
+
         if(filePath != null) {
-            //product name is picture file name
-            String _name = nameTextField.getText().toString().trim();
-            String _store = storeSpinner.getSelectedItem().toString();
-            System.out.println(_store);
-            //upload image to firebase storage
-                ref = storageReference.child("productImages/" + _name + _store);
+
+            ref = storageReference.child("productImages/"+productId );
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Successfull Upload then get image URL to save in product
-                            getImageURl();
-                            progressDialog.dismiss();
+                            getImageURl(productId);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -189,11 +229,9 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
     // Function -> get image url for image file
-    private void getImageURl(){
-        String _name = nameTextField.getText().toString();
-        String _store = storeSpinner.getSelectedItem().toString();
-
-        StorageReference gfReference = storage.getReferenceFromUrl(storageLocation+_name+_store);
+    private void getImageURl(final String productID){
+        storageLocation = "gs://ushop-73f4b.appspot.com/productImages/";
+        StorageReference gfReference = storage.getReferenceFromUrl(storageLocation+productID);
 
         gfReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -201,23 +239,29 @@ public class AddProductActivity extends AppCompatActivity {
 
                 Log.d("URI", String.valueOf(uri));
 
-                // Get product value;
-                name = nameTextField.getText().toString();
-                description = descriptionTextField.getText().toString();
-                unitPrice = Double.parseDouble(unitpriceTextField.getText().toString());
-                category = categorySpinner.getSelectedItem().toString();
-                store = storeSpinner.getSelectedItem().toString();
-
-                //set Image URL
                 imageURl = String.valueOf(uri);
 
-                // make new product
-                Product newProduct = new Product(name,description,unitPrice,category,store,imageURl);
+                Product product = new Product();
+                product.setImageLocation(imageURl);
 
-                //upload the product into firestore
-                productFirestoreUpload(newProduct);
-
-
+                //get product and set image Url
+                db.collection("products").document(productID).update("imageLocation",imageURl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        pDialog.dismissWithAnimation();
+                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(AddProductActivity.this);
+                        dlgAlert.setMessage("Product Added Succeffully");
+                        dlgAlert.setTitle("SUCCESS");
+                        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                gotoHome();
+                            }
+                        });
+                        dlgAlert.setCancelable(true);
+                        dlgAlert.create().show();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -225,35 +269,9 @@ public class AddProductActivity extends AppCompatActivity {
                 Log.d("URI", "Error");
             }
         });
-
     }
 
-    // Function -> Upload Product into database(Firestore)
-    private void productFirestoreUpload(Product product) {
-        // progress bar
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Uploading Product");
-        progressDialog.show();
 
-        //Add a new document with a generated ID
-        db.collection("products")
-                .add(product)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddProductActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        AddProductActivity.this.finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddProductActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 
     // Validate empty fields
     private boolean validate(){
@@ -303,5 +321,11 @@ public class AddProductActivity extends AppCompatActivity {
 
         return valid;
 
+    }
+
+    public void gotoHome() {
+        Intent i = new Intent(AddProductActivity.this, HomeActivity.class);
+        startActivity(i);
+        AddProductActivity.this.finish();
     }
 }

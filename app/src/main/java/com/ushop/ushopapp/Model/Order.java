@@ -23,23 +23,6 @@ public class Order {
 
     public Order(){}
 
-//    public Order(String orderId, Date orderDate, String name, String street, String suburb, String city, String postalCode,
-//                 double subtotal, double shipping, double discount, double total, String orderStatus) {
-//        this.orderId = orderId;
-//        this.orderDate = orderDate;
-//        this.name = name;
-//        this.street = street;
-//        this.suburb = suburb;
-//        this.city = city;
-//        this.postalCode = postalCode;
-//        this.subtotal = subtotal;
-//        this.shipping = shipping;
-//        this.discount = discount;
-//        this.total = total;
-//        this.orderStatus = orderStatus;
-//
-//    }
-
     public Order(String orderDate, String name, String street, String suburb, String city, String postalCode,
                  double subtotal, double shipping, double discount, double total, int productsCount,String orderStatus) {
         this.orderDate = orderDate;

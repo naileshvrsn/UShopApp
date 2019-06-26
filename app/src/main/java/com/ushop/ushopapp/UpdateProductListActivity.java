@@ -32,6 +32,7 @@ public class UpdateProductListActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private CollectionReference productRef;
+    SweetAlertDialog pDialog;
 
 
     @Override
@@ -39,12 +40,16 @@ public class UpdateProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_product_list);
 
+        pDialog= new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setTitleText("Uploading");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
         db = FirebaseFirestore.getInstance();
         productRef = db.collection("products");
 
-
-
         getAllProducts();
+        pDialog.dismissWithAnimation();
     }
 
     private void getAllProducts() {
@@ -56,8 +61,6 @@ public class UpdateProductListActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document:task.getResult()){
-
-
                         Product product = document.toObject(Product.class);
                         product.setProductId(document.getId());
                         products.add(product);
@@ -78,10 +81,8 @@ public class UpdateProductListActivity extends AppCompatActivity {
 
         Log.d(TAG,"Product Count " + products.size());
 
-        SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.setTitleText("Loading");
-        pDialog.setCancelable(false);
-        pDialog.show();
+
+
 
         ProductAdapter productAdapter = new ProductAdapter(this, products);
         ListView listView = findViewById(R.id.update_product_list);
