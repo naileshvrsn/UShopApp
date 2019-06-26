@@ -35,7 +35,7 @@ public class CartItemAdapter extends FirestoreRecyclerAdapter<Cart,CartItemAdapt
     @NonNull
     @Override
     public productHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_cart_item,parent,false);
 
         return new productHolder(view);
     }
