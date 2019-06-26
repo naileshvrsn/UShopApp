@@ -24,7 +24,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference ordersRef = db.collection("order")
-            .document(user.getUid()).collection("orders");
+            .document(user.getUid()).collection("userorders");
 
     private OrderAdapter adapter;
 

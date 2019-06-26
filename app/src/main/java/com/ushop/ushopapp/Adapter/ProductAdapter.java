@@ -28,7 +28,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.activity_product_list_item, parent, false);
 
-            final Product currentProduct = getItem(position);
+            Product currentProduct = getItem(position);
 
 
             TextView productTextView = (TextView) listItemView.findViewById(R.id.product_title);

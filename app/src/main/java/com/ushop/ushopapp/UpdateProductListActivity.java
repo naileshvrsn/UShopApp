@@ -57,7 +57,7 @@ public class UpdateProductListActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document:task.getResult()){
 
-                        
+
                         Product product = document.toObject(Product.class);
                         product.setProductId(document.getId());
                         products.add(product);
@@ -103,7 +103,7 @@ public class UpdateProductListActivity extends AppCompatActivity {
 
                 Bundle extrastoSend = new Bundle();
                 extrastoSend.putString("productID", selectedProduct.getProductId());
-                //startActivity(new Intent(getBaseContext(), ProductDetailActivity.class).putExtras(extrastoSend));
+                startActivity(new Intent(getBaseContext(), UpdateProductActivity.class).putExtras(extrastoSend));
             }
         });
 

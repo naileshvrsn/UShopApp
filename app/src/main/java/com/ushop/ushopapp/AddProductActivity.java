@@ -83,13 +83,13 @@ public class AddProductActivity extends AppCompatActivity {
         cancel = findViewById(R.id.addProductCancelButton);
 
         //Spinner for category selection
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(AddProductActivity.this,
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.category));
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
 
         //Spinner for store selection
-        ArrayAdapter<String> storeAdapter = new ArrayAdapter<String>(AddProductActivity.this,
+        ArrayAdapter<String> storeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.store));
         storeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(storeAdapter);

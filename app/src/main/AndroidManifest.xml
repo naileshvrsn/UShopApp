@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".UpdateProductListActivity"></activity>
+        <activity android:name=".UpdateProductActivity"></activity>
+        <activity android:name=".UpdateProductListActivity" />
         <activity android:name=".OrderDetailActivity" />
         <activity android:name=".OrderListActivity" />
         <activity android:name=".CheckoutActivity" />

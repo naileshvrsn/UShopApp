@@ -60,7 +60,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         orderDetials = db.collection("order")
                 .document(currentUser.getUid())
-                .collection("orders")
+                .collection("userorders")
                 .document(orderId);
 
         orderDetials.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
