@@ -79,7 +79,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("Shopping from " + store);
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                         .getColor(R.color.countdownBrightGreen)));
-                //addToCart.setBackgroundColor(getResources().getColor(R.color.elegantnumbercountdown));
+                addToCart.setBackgroundColor(getResources().getColor(R.color.elegantnumbercountdown));
                 if (Build.VERSION.SDK_INT >= 21) {
                     Window window = getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -92,7 +92,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("Shopping from " + store);
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                         .getColor(R.color.paknsaveBrightYellow)));
-                //addToCart.setBackgroundColor(getResources().getColor(R.color.elegantnumberpaknsave));
+                addToCart.setBackgroundColor(getResources().getColor(R.color.elegantnumberpaknsave));
                 if (Build.VERSION.SDK_INT >= 21) {
                     Window window = getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
