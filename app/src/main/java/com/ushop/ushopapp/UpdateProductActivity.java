@@ -254,6 +254,20 @@ public class UpdateProductActivity extends AppCompatActivity {
             });
 
         }
+        else{
+            pDialog.dismissWithAnimation();
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UpdateProductActivity.this);
+            dlgAlert.setMessage("Product updated successfully");
+            dlgAlert.setTitle("SUCCESS");
+            dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    gotoProductList();
+                }
+            });
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
     }
 
     private void getImageURl(final String productID){
