@@ -80,11 +80,7 @@ public class UpdateProductListActivity extends AppCompatActivity {
 
     public void displayProducts(final ArrayList<Product> products){
 
-        Log.d(TAG,"Product Count " + products.size());
-
-
-
-
+        //Log.d(TAG,"Product Count " + products.size());
         ProductAdapter productAdapter = new ProductAdapter(this, products);
         ListView listView = findViewById(R.id.update_product_list);
         listView.setAdapter(productAdapter);
@@ -102,13 +98,22 @@ public class UpdateProductListActivity extends AppCompatActivity {
                     Log.d("Selected Product", "No Id");
                 }
 
-
                 Bundle extrastoSend = new Bundle();
                 extrastoSend.putString("productID", selectedProduct.getProductId());
                 startActivity(new Intent(getBaseContext(), UpdateProductActivity.class).putExtras(extrastoSend));
+                UpdateProductListActivity.this.finish();
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        gotoHome();
+    }
 
+    public void gotoHome() {
+        Intent i = new Intent(UpdateProductListActivity.this, HomeActivity.class);
+        startActivity(i);
+        UpdateProductListActivity.this.finish();
     }
 }

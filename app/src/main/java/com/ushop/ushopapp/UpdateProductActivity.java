@@ -136,7 +136,7 @@ public class UpdateProductActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateProductActivity.this.finish();
+                gotoProductList();
             }
         });
     }
@@ -256,17 +256,7 @@ public class UpdateProductActivity extends AppCompatActivity {
         }
         else{
             pDialog.dismissWithAnimation();
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UpdateProductActivity.this);
-            dlgAlert.setMessage("Product updated successfully");
-            dlgAlert.setTitle("SUCCESS");
-            dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    gotoProductList();
-                }
-            });
-            dlgAlert.setCancelable(true);
-            dlgAlert.create().show();
+            showMessage();
         }
     }
 
@@ -287,17 +277,8 @@ public class UpdateProductActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         pDialog.dismissWithAnimation();
-                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UpdateProductActivity.this);
-                        dlgAlert.setMessage("Product updated successfully");
-                        dlgAlert.setTitle("SUCCESS");
-                        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                gotoProductList();
-                            }
-                        });
-                        dlgAlert.setCancelable(true);
-                        dlgAlert.create().show();
+                        showMessage();
+
                     }
                 });
             }
@@ -360,6 +341,20 @@ public class UpdateProductActivity extends AppCompatActivity {
         Intent i = new Intent(UpdateProductActivity.this, UpdateProductListActivity.class);
         startActivity(i);
         UpdateProductActivity.this.finish();
+    }
+
+    private void showMessage(){
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UpdateProductActivity.this);
+        dlgAlert.setMessage("Product updated successfully");
+        dlgAlert.setTitle("SUCCESS");
+        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                gotoProductList();
+            }
+        });
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
     }
 
 }
