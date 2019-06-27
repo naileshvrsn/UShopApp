@@ -10,18 +10,20 @@ public class User {
     private String city;
     private String postCode;
     private Date dateOfBirth;
+    private String phone;
     private String userImageLocation;
 
     public User() {
     }
 
-    public User(String name, String street, String suburb, String city, String postCode, Date dateOfBirth, String userImageLocation) {
+    public User(String name, String street, String suburb, String city, String postCode, Date dateOfBirth,String phone, String userImageLocation) {
         this.name = name;
         this.street = street;
         this.suburb = suburb;
         this.city = city;
         this.postCode = postCode;
         this.dateOfBirth = dateOfBirth;
+        this.phone = phone;
         this.userImageLocation = userImageLocation;
     }
 
@@ -71,6 +73,14 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getUserImageLocation() {
