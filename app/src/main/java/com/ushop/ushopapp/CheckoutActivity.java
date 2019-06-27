@@ -85,8 +85,8 @@ public class CheckoutActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
 
         // Start Paypal Service
-        Intent intent = new Intent(this,PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
 
         mauth = FirebaseAuth.getInstance();
@@ -116,17 +116,13 @@ public class CheckoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validate();
-
                 if (validate()) {
-
                     makeOrderPayment();
-
                 } else {
-
+                    return;
                 }
             }
         });
-
     }
 
     private void setUserDetails() {
@@ -147,7 +143,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(CheckoutActivity.this, "No user found", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -170,7 +165,6 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private boolean validate() {
         boolean valid = true;
-
         //Textfields for validation;
         TextView _uName, _uStreet, _uSuburb, _uCity, _uPostCode;
         _uName = findViewById(R.id.user_name_txt);
@@ -221,24 +215,22 @@ public class CheckoutActivity extends AppCompatActivity {
 
         amount = oTotal.getText().toString();
 
-
-        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(amount),"NZD",
-                "Make Order Payment",PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(amount), "NZD",
+                "Make Order Payment", PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
-        startActivityForResult(intent,PAYPAL_REQUEST_CODE);
-
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);
+        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == PAYPAL_REQUEST_CODE){
-            if(resultCode == RESULT_OK){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PAYPAL_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
                 PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-                if(confirmation != null){
-                    try{
+                if (confirmation != null) {
+                    try {
                         JSONObject jsonObject = confirmation.toJSONObject();
                         // Checkpayment Status
                         checkPaymentStatus(jsonObject.getJSONObject("response"));
@@ -246,22 +238,28 @@ public class CheckoutActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }else if(requestCode == Activity.RESULT_CANCELED){
-                Toast.makeText(this,"Cancel", Toast.LENGTH_SHORT).show();
+            } else if (requestCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show();
             }
-        }else if(resultCode == PaymentActivity.RESULT_EXTRAS_INVALID){
-            Toast.makeText(this,"Invalid" ,Toast.LENGTH_SHORT).show();
+        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+            Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void checkPaymentStatus (JSONObject response) {
+    private void checkPaymentStatus(JSONObject response) {
         try {
             String txtId = response.getString("id");
             String status = response.getString("state");
-            System.out.println("-----------------ID "+txtId);
-            System.out.println("-----------------Status "+status);
-            if(!txtId.isEmpty() && status.equals("approved")){
+            if (!txtId.isEmpty() && status.equals("approved")) {
                 placeOrder(txtId);
+            } else {
+                //show alert message if payment unsuccessfull
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(CheckoutActivity.this);
+                dlgAlert.setMessage("Payment Unsuccessfull");
+                dlgAlert.setTitle("Error");
+                dlgAlert.setPositiveButton("OK", null);
+                dlgAlert.setCancelable(true);
+                dlgAlert.create().show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -272,14 +270,11 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopService(new Intent(this, PayPalService.class));
-
     }
+
     private void placeOrder(String paymentId) {
         pDialog.show();
-
         final String orderpaymentId = paymentId;
-        Log.d("-----------OrderPayment",orderpaymentId);
-
         cartRef.get().addOnCompleteListener
                 (new OnCompleteListener<QuerySnapshot>() {
                      @Override
@@ -309,16 +304,13 @@ public class CheckoutActivity extends AppCompatActivity {
 
                              // make new blank order
                              Order order = new Order(orderDate, orderUserName, orderUserStreet, orderUserSuburb, orderUserCity, orderUserPostalCode,
-                                     orderSubTotal, orderShipping, orderDiscount, orderTotal, count, orderStatus,orderpaymentId);
+                                     orderSubTotal, orderShipping, orderDiscount, orderTotal, count, orderStatus, orderpaymentId);
 
                              //set cart list
                              orderRef.add(order).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                  @Override
                                  public void onSuccess(DocumentReference documentReference) {
-                                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-
                                      addProductsToOrder(documentReference.getId());
-
                                  }
                              }).addOnFailureListener(new OnFailureListener() {
                                  @Override
@@ -326,21 +318,14 @@ public class CheckoutActivity extends AppCompatActivity {
                                      Log.w(TAG, "Error adding document", e);
                                  }
                              });
-
                          }
-
                      }
-
-                 }
-                );
-
+                });
     }
 
     private void addProductsToOrder(String id) {
         final CollectionReference productRef = orderRef.document(id).collection("products");
-
         // get cart list
-
         cartRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -353,7 +338,6 @@ public class CheckoutActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-
                                         }
                                     }
                                 });
@@ -374,12 +358,9 @@ public class CheckoutActivity extends AppCompatActivity {
                     });
                     dlgAlert.setCancelable(true);
                     dlgAlert.create().show();
-
                 }
-
             }
         });
-
 
     }
 
@@ -398,7 +379,6 @@ public class CheckoutActivity extends AppCompatActivity {
                                     }
                                 });
                     }
-
                 }
             }
         });
