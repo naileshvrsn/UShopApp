@@ -41,7 +41,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private ImageView userImage;
+    private ImageView userImage, editImage;
     private TextView userName, cancel;
     private EditText email, dob, phone, street, suburb, city, postcode, password, confirmPassword;
     private Button saveChanges;
@@ -58,11 +58,10 @@ public class UserProfileActivity extends AppCompatActivity {
     StorageReference ref;
 
     // Image storage URL string
-    String storageLocation;
+    private String storageLocation;
 
     private final int PICK_IMAGE_REQUEST = 71;
     private Uri filePath;
-    SweetAlertDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +69,12 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         getSupportActionBar().setTitle("Edit Profile");
 
-        pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.setTitleText("Updating Profile");
+        SweetAlertDialog pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setTitleText("Loading");
         pDialog.setCancelable(true);
+        pDialog.show();
 
+        editImage = findViewById(R.id.userProfileEditImage);
         userImage = findViewById(R.id.editProfileImageView);
         userName = findViewById(R.id.userProfileName);
         cancel = findViewById(R.id.userProfileCancelButton);
@@ -96,7 +97,6 @@ public class UserProfileActivity extends AppCompatActivity {
         //setup firebase storage
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
 
         // setup Image storage location
         storageLocation = "gs://ushop-73f4b.appspot.com/userImages/";
@@ -135,65 +135,10 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserProfileActivity.this.finish();
-            }
-        });
-
-        saveChanges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //progress bar while activity loads
-                pDialog.show();
-
-                String newphone = phone.getText().toString();
-                String newstreet = street.getText().toString();
-                String newsuburb = suburb.getText().toString();
-                String newcity = city.getText().toString();
-                String newpostcode = postcode.getText().toString();
-                String newPassword = password.getText().toString();
-
-                //validation failed from inputs
-                if (!validate()) {
-                    pDialog.dismissWithAnimation();
-                    return;
-                } else {
-                    //if user wants to change password
-                    if (!newPassword.isEmpty()) {
-                        currentUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(UserProfileActivity.this, "Password updated successfully", Toast.LENGTH_LONG);
-                                } else {
-                                    Toast.makeText(UserProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG);
-                                }
-                            }
-                        });
-                    } else {
-                        final DocumentReference currentUserRef = firestoreDb.collection("users").document(mAuth.getUid());
-                        currentUserRef.update("phone", newphone, "street", newstreet, "suburb", newsuburb, "city", newcity, "postCode", newpostcode)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        if (filePath != null) {
-                                            uploadImage(currentUserRef.getId());
-                                        }
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(UserProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                    }
-                }
-
+                gotoHome();
             }
         });
 
@@ -204,6 +149,71 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
+
+        saveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newphone = phone.getText().toString();
+                String newstreet = street.getText().toString();
+                String newsuburb = suburb.getText().toString();
+                String newcity = city.getText().toString();
+                String newpostcode = postcode.getText().toString();
+                String newPassword = password.getText().toString();
+
+                //validation failed from inputs
+                if (!validate()) {
+                    return;
+                }
+
+                else {
+                    //if user wants to change password
+                    if (!newPassword.isEmpty()) {
+                        currentUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(UserProfileActivity.this, "Password updated successfully", Toast.LENGTH_SHORT);
+                                } else {
+                                    Toast.makeText(UserProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG);
+                                }
+                            }
+                        });
+                    }
+
+                    //save changes from text fields
+                    final DocumentReference currentUserRef = firestoreDb.collection("users").document(mAuth.getUid());
+                    currentUserRef.update("phone", newphone, "street", newstreet, "suburb", newsuburb, "city", newcity, "postCode", newpostcode)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(UserProfileActivity.this, "Profile details updated successfully", Toast.LENGTH_SHORT);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(UserProfileActivity.this, "Failed to save changes", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    //image changed or not
+                    if (filePath != null) {
+                        System.out.println(String.valueOf(filePath));
+                        uploadImage(currentUserRef.getId());
+                    }
+
+                    showSuccessMessage();
+                }
+            }
+        });
+
+        pDialog.dismissWithAnimation();
     }
 
     private void chooseImage() {
@@ -233,7 +243,7 @@ public class UserProfileActivity extends AppCompatActivity {
         if (filePath != null) {
 
             ref = storageReference.child("userImages/" + userId);
-            //uploage the new image
+            //upload the new image
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -252,7 +262,7 @@ public class UserProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "No image", Toast.LENGTH_LONG).show();
         }
 
-}
+    }
 
     private void getImageURl(final String userID) {
 
@@ -266,27 +276,15 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 imageURl = String.valueOf(uri);
 
-                //get product and set image Url
+                //get user and set image Url
                 firestoreDb.collection("users").document(userID).update("userImageLocation", imageURl).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        pDialog.dismissWithAnimation();
-                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UserProfileActivity.this);
-                        dlgAlert.setMessage("Profile Updated Succeffully");
-                        dlgAlert.setTitle("SUCCESS");
-                        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                gotoHome();
-                            }
-                        });
-                        dlgAlert.setCancelable(true);
-                        dlgAlert.create().show();
-                        //Toast.makeText(UserProfileActivity.this, "Successfully updated profile ", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UserProfileActivity.this, "Failed to save image to databasde", Toast.LENGTH_SHORT).show();
                         Log.d("URI", "Error");
                     }
                 });
@@ -358,9 +356,29 @@ public class UserProfileActivity extends AppCompatActivity {
 
         return valid;
     }
+
     public void gotoHome() {
         Intent i = new Intent(UserProfileActivity.this, HomeActivity.class);
         startActivity(i);
         UserProfileActivity.this.finish();
+    }
+
+    private void showSuccessMessage(){
+        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UserProfileActivity.this);
+        dlgAlert.setMessage("Profile Updated Succeffully");
+        dlgAlert.setTitle("SUCCESS");
+        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                gotoHome();
+            }
+        });
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        gotoHome();
     }
 }

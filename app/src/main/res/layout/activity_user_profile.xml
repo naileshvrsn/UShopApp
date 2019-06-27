@@ -26,6 +26,7 @@
             app:civ_border_color="@color/white"/>
 
         <ImageView
+            android:id="@+id/userProfileEditImage"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
@@ -40,7 +41,7 @@
             android:layout_below="@+id/editProfileImageView"
             android:gravity="center"
             android:padding="10dp"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:text="Full Name"
             android:textColor="@color/appDarkBlueGreen" />
     </RelativeLayout>
