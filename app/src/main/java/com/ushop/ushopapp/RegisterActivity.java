@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText,_dateOfBirth, _emailText, _passwordText, _confirmPassword;
+    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText,_dateOfBirth, _phone, _emailText, _passwordText, _confirmPassword;
     private Button _signupButton;
     private TextView _loginLink;
     private DatePickerDialog datePickerDialog;
@@ -60,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         _cityText = findViewById(R.id.input_city);
         _postcodeText = findViewById(R.id.input_postcode);
         _dateOfBirth = findViewById(R.id.input_dateofbirth);
+        _phone = findViewById(R.id.input_phone);
         _emailText = findViewById(R.id.input_email);
         _passwordText = findViewById(R.id.input_password);
         _confirmPassword = findViewById(R.id.input_confirmPassword);
@@ -103,6 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String suburb = _suburbText.getText().toString();
                 String city = _cityText.getText().toString();
                 String postcode = _postcodeText.getText().toString();
+                String phone = _phone.getText().toString();
 
                 if (!validate()) {
                     return;
@@ -115,6 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.setSuburb(suburb);
                     user.setCity(city);
                     user.setPostCode(postcode);
+                    user.setPhone(phone);
                     user.setDateOfBirth(selectedDateOfBirth);
                     user.setUserImageLocation(defaultImageStorageLocation);
 
@@ -191,6 +194,7 @@ public class RegisterActivity extends AppCompatActivity {
         String city = _cityText.getText().toString();
         String postcode = _postcodeText.getText().toString();
         String dateOfBirth = _dateOfBirth.getText().toString();
+        String phone = _phone.getText().toString();
         String email = _emailText.getText().toString().trim();
         String password = _passwordText.getText().toString().trim();
         String confirmPassword = _confirmPassword.getText().toString().trim();
@@ -243,6 +247,14 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         } else {
             _dateOfBirth.setError(null);
+        }
+
+        if (phone.isEmpty() || phone.length() < 8 || phone.length() > 12){
+            _phone.setError("Enter a valid phone number");
+            valid = false;
+        }
+        else {
+            _phone.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

@@ -83,6 +83,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/LoginFieldsTextLayout">
+                <EditText android:id="@+id/input_phone"
+                    style="@style/LoginFieldsTextStyle"
+                    android:inputType="phone"
+                    android:hint="Phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginFieldsTextLayout">
                 <EditText android:id="@+id/input_email"
                     style="@style/LoginFieldsTextStyle"
                     android:inputType="textEmailAddress"

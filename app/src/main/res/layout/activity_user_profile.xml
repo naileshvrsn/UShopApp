@@ -90,6 +90,22 @@
                 android:orientation="horizontal">
                 <TextView
                     style="@style/UserProfileLabelsStyle"
+                    android:text="Phone" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/UserProfileFieldsTextLayout">
+                    <EditText
+                        android:id="@+id/userProfilePhone"
+                        style="@style/UserProfileFieldsTextStyle"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/UserProfileLabelsStyle"
                     android:text="Street" />
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/UserProfileFieldsTextLayout">

@@ -43,7 +43,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private ImageView userImage;
     private TextView userName, cancel;
-    private EditText email, dob, street, suburb, city, postcode, password, confirmPassword;
+    private EditText email, dob, phone, street, suburb, city, postcode, password, confirmPassword;
     private Button saveChanges;
     private String imageURl;
 
@@ -79,6 +79,7 @@ public class UserProfileActivity extends AppCompatActivity {
         cancel = findViewById(R.id.userProfileCancelButton);
         email = findViewById(R.id.userProfileEmail);
         dob = findViewById(R.id.userProfileDateOfBirth);
+        phone = findViewById(R.id.userProfilePhone);
         street = findViewById(R.id.userProfileStreet);
         suburb = findViewById(R.id.userProfileSuburb);
         city = findViewById(R.id.userProfileCity);
@@ -117,6 +118,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         DateFormat df = new SimpleDateFormat("MM/dd/yyy");
                         String currentUserDob = df.format(currentUserFirestore.getDateOfBirth());
                         dob.setText(currentUserDob);
+                        phone.setText(currentUserFirestore.getPhone());
                         street.setText(currentUserFirestore.getStreet());
                         suburb.setText(currentUserFirestore.getSuburb());
                         city.setText(currentUserFirestore.getCity());
@@ -147,6 +149,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 //progress bar while activity loads
                 pDialog.show();
 
+                String newphone = phone.getText().toString();
                 String newstreet = street.getText().toString();
                 String newsuburb = suburb.getText().toString();
                 String newcity = city.getText().toString();
@@ -172,7 +175,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         });
                     } else {
                         final DocumentReference currentUserRef = firestoreDb.collection("users").document(mAuth.getUid());
-                        currentUserRef.update("street", newstreet, "suburb", newsuburb, "city", newcity, "postCode", newpostcode)
+                        currentUserRef.update("phone", newphone, "street", newstreet, "suburb", newsuburb, "city", newcity, "postCode", newpostcode)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -295,12 +298,21 @@ public class UserProfileActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
+        String uphone = phone.getText().toString();
         String ustreet = street.getText().toString();
         String usuburb = suburb.getText().toString();
         String ucity = city.getText().toString();
         String upostcode = postcode.getText().toString();
         String upassword = password.getText().toString().trim();
         String uconfirmPassword = confirmPassword.getText().toString().trim();
+
+        if (uphone.isEmpty() || uphone.length() < 8 || uphone.length() > 12){
+            phone.setError("Enter a valid phone number");
+            valid = false;
+        }
+        else {
+            phone.setError(null);
+        }
 
         if (ustreet.isEmpty() || ustreet.length() < 5) {
             street.setError("at least 5 characters");
