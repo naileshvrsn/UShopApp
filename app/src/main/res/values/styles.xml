@@ -156,4 +156,9 @@
         <item name="android:padding">4dp</item>
     </style>
 
+    <style name="Autocomplete" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:background">@drawable/light_background</item>
+
+    </style>
+
 </resources>

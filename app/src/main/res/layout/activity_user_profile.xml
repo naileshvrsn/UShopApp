@@ -142,10 +142,11 @@
                     android:text="City" />
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/UserProfileFieldsTextLayout">
-                    <EditText
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                         android:id="@+id/userProfileCity"
-                        style="@style/UserProfileFieldsTextStyle"
-                        android:inputType="textPostalAddress" />
+                        style="@style/LoginFieldsTextStyle"
+                        android:inputType="textPostalAddress"
+                        android:theme="@style/Autocomplete"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 

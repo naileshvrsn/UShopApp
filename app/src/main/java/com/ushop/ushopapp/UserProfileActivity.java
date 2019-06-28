@@ -3,6 +3,7 @@ package com.ushop.ushopapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,9 +45,11 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private ImageView userImage, editImage;
     private TextView userName, cancel;
-    private EditText email, dob, phone, street, suburb, city, postcode, password, confirmPassword;
+    private EditText email, dob, phone, street, suburb, postcode, password, confirmPassword;
     private Button saveChanges;
     private String imageURl;
+    private AppCompatAutoCompleteTextView city;
+    private String[] cities;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDb;
@@ -74,6 +78,7 @@ public class UserProfileActivity extends AppCompatActivity {
         pDialog.setCancelable(true);
         pDialog.show();
 
+        cities = getResources().getStringArray(R.array.nz_cities_array);
         editImage = findViewById(R.id.userProfileEditImage);
         userImage = findViewById(R.id.editProfileImageView);
         userName = findViewById(R.id.userProfileName);
@@ -103,6 +108,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
         email.setEnabled(false);
         dob.setEnabled(false);
+
+        city.setAdapter(new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, cities));
+        city.setThreshold(1);
 
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

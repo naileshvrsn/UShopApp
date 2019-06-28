@@ -62,7 +62,8 @@
                     android:id="@+id/auto_input_city"
                     style="@style/LoginFieldsTextStyle"
                     android:inputType="textPostalAddress"
-                    android:hint="City" />
+                    android:hint="City"
+                    android:theme="@style/Autocomplete"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
