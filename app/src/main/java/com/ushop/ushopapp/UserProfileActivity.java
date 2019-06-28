@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +46,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class UserProfileActivity extends AppCompatActivity {
 
     private ImageView userImage, editImage;
-    private TextView userName, cancel;
+    private TextView userName, verifyEmail, cancel;
     private EditText email, dob, phone, street, suburb, postcode, password, confirmPassword;
     private Button saveChanges;
     private String imageURl;
@@ -67,13 +69,15 @@ public class UserProfileActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 71;
     private Uri filePath;
 
+    private SweetAlertDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         getSupportActionBar().setTitle("Edit Profile");
 
-        SweetAlertDialog pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(true);
         pDialog.show();
@@ -83,6 +87,7 @@ public class UserProfileActivity extends AppCompatActivity {
         userImage = findViewById(R.id.editProfileImageView);
         userName = findViewById(R.id.userProfileName);
         cancel = findViewById(R.id.userProfileCancelButton);
+        verifyEmail = findViewById(R.id.userProfileVerifyEmail);
         email = findViewById(R.id.userProfileEmail);
         dob = findViewById(R.id.userProfileDateOfBirth);
         phone = findViewById(R.id.userProfilePhone);
@@ -93,6 +98,7 @@ public class UserProfileActivity extends AppCompatActivity {
         password = findViewById(R.id.userProfileNewPassword);
         confirmPassword = findViewById(R.id.userProfileConfirmPassword);
         saveChanges = findViewById(R.id.userProfileSaveChangesButton);
+        final LinearLayout UserProfilelinearLayout = findViewById(R.id.UserProfileLinearLayout);
 
         mAuth = FirebaseAuth.getInstance();
         firestoreDb = FirebaseFirestore.getInstance();
@@ -143,6 +149,25 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        if (!currentUser.isEmailVerified()){
+            verifyEmail.setVisibility(View.VISIBLE);
+        }
+
+        verifyEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            //Toast.makeText(getApplicationContext(), "Verification email sent. Check your email", Toast.LENGTH_LONG).show();
+                            showEmailSentMessage();
+                        }
+                    }
+                });
+            }
+        });
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +192,7 @@ public class UserProfileActivity extends AppCompatActivity {
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserProfilelinearLayout.requestFocus();
                 String newphone = phone.getText().toString();
                 String newstreet = street.getText().toString();
                 String newsuburb = suburb.getText().toString();
@@ -180,6 +206,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
 
                 else {
+
                     //if user wants to change password
                     if (!newPassword.isEmpty()) {
                         currentUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -383,6 +410,12 @@ public class UserProfileActivity extends AppCompatActivity {
         });
         dlgAlert.setCancelable(true);
         dlgAlert.create().show();
+    }
+
+    private void showEmailSentMessage(){
+        pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+        pDialog.setConfirmText("Ok").setTitleText("Email sent successfully. Check your email");
+        pDialog.setCancelable(true);
     }
 
     @Override
