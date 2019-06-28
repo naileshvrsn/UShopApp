@@ -70,8 +70,6 @@ public class CheckoutActivity extends AppCompatActivity {
     SweetAlertDialog pDialog;
 
     private TextView uName, uStreet, uSuburb, uCity, uPostCode, oSubTotal, oDiscount, oShipment, oTotal;
-
-
     private Button makePayment;
 
     @Override
@@ -277,49 +275,49 @@ public class CheckoutActivity extends AppCompatActivity {
         final String orderpaymentId = paymentId;
         cartRef.get().addOnCompleteListener
                 (new OnCompleteListener<QuerySnapshot>() {
-                     @Override
-                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                         if (task.isSuccessful()) {
-                             int count = task.getResult().size();
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int count = task.getResult().size();
 
-                             //date of the order
-                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-                             String orderDate = simpleDateFormat.format(new Date());
+                            //date of the order
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                            String orderDate = simpleDateFormat.format(new Date());
 
-                             //put in other values into the Order
-                             //Shipping details
-                             String orderUserName = uName.getText().toString();
-                             String orderUserStreet = uStreet.getText().toString();
-                             String orderUserSuburb = uSuburb.getText().toString();
-                             String orderUserCity = uCity.getText().toString();
-                             String orderUserPostalCode = uPostCode.getText().toString();
-                             //Order Details
-                             double orderSubTotal = Double.valueOf(oSubTotal.getText().toString());
-                             double orderShipping = Double.valueOf(oShipment.getText().toString());
-                             double orderDiscount = Double.valueOf(oDiscount.getText().toString());
-                             double orderTotal = Double.valueOf(oTotal.getText().toString());
+                            //put in other values into the Order
+                            //Shipping details
+                            String orderUserName = uName.getText().toString();
+                            String orderUserStreet = uStreet.getText().toString();
+                            String orderUserSuburb = uSuburb.getText().toString();
+                            String orderUserCity = uCity.getText().toString();
+                            String orderUserPostalCode = uPostCode.getText().toString();
+                            //Order Details
+                            double orderSubTotal = Double.valueOf(oSubTotal.getText().toString());
+                            double orderShipping = Double.valueOf(oShipment.getText().toString());
+                            double orderDiscount = Double.valueOf(oDiscount.getText().toString());
+                            double orderTotal = Double.valueOf(oTotal.getText().toString());
 
-                             //Order Status
-                             String orderStatus = "New Order";
+                            //Order Status
+                            String orderStatus = "New Order";
 
-                             // make new blank order
-                             Order order = new Order(orderDate, orderUserName, orderUserStreet, orderUserSuburb, orderUserCity, orderUserPostalCode,
-                                     orderSubTotal, orderShipping, orderDiscount, orderTotal, count, orderStatus, orderpaymentId);
+                            // make new blank order
+                            Order order = new Order(orderDate, orderUserName, orderUserStreet, orderUserSuburb, orderUserCity, orderUserPostalCode,
+                                    orderSubTotal, orderShipping, orderDiscount, orderTotal, count, orderStatus, orderpaymentId);
 
-                             //set cart list
-                             orderRef.add(order).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                 @Override
-                                 public void onSuccess(DocumentReference documentReference) {
-                                     addProductsToOrder(documentReference.getId());
-                                 }
-                             }).addOnFailureListener(new OnFailureListener() {
-                                 @Override
-                                 public void onFailure(@NonNull Exception e) {
-                                     Log.w(TAG, "Error adding document", e);
-                                 }
-                             });
-                         }
-                     }
+                            //set cart list
+                            orderRef.add(order).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    addProductsToOrder(documentReference.getId());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                        }
+                    }
                 });
     }
 
