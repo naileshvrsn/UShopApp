@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
@@ -41,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     private int selectedYear;
     private String[] cities;
     private AppCompatAutoCompleteTextView _cityAutoText;
+    private LinearLayout registerActivityLayout;
 
     private String defaultImageStorageLocation;
 
@@ -58,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         //defaultImageStorageLocation = "";
         defaultImageStorageLocation = "https://firebasestorage.googleapis.com/v0/b/ushop-73f4b.appspot.com/o/userImages%2Fblank_user.png?alt=media&token=ed4de9cf-befb-4fed-ad64-485f609ab709";
 
+        registerActivityLayout = findViewById(R.id.registerActivityLayout);
         cities = getResources().getStringArray(R.array.nz_cities_array);
 
         _nameText = findViewById(R.id.input_name);
@@ -119,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 else {
+                    registerActivityLayout.getFocusedChild().setEnabled(false);
                     progressBar.setVisibility(View.VISIBLE);
                     final User user = new User();
                     user.setName(name);

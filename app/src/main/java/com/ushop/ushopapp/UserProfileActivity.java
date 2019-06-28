@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -192,7 +193,6 @@ public class UserProfileActivity extends AppCompatActivity {
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserProfilelinearLayout.requestFocus();
                 String newphone = phone.getText().toString();
                 String newstreet = street.getText().toString();
                 String newsuburb = suburb.getText().toString();
@@ -206,7 +206,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
 
                 else {
-
                     //if user wants to change password
                     if (!newPassword.isEmpty()) {
                         currentUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -243,7 +242,18 @@ public class UserProfileActivity extends AppCompatActivity {
                         uploadImage(currentUserRef.getId());
                     }
 
-                    showSuccessMessage();
+                    showProgressMessage();
+
+                    //delay success message
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.dismissWithAnimation();
+                            showSuccessMessage();
+                        }
+                    }, 5000);
+                    //showSuccessMessage();
                 }
             }
         });
@@ -398,6 +408,13 @@ public class UserProfileActivity extends AppCompatActivity {
         UserProfileActivity.this.finish();
     }
 
+    private void showProgressMessage(){
+        pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setTitleText("Saving");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
     private void showSuccessMessage(){
         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UserProfileActivity.this);
         dlgAlert.setMessage("Profile Updated Succeffully");
@@ -416,6 +433,7 @@ public class UserProfileActivity extends AppCompatActivity {
         pDialog = new SweetAlertDialog(UserProfileActivity.this, SweetAlertDialog.SUCCESS_TYPE);
         pDialog.setConfirmText("Ok").setTitleText("Email sent successfully. Check your email");
         pDialog.setCancelable(true);
+        pDialog.show();
     }
 
     @Override
