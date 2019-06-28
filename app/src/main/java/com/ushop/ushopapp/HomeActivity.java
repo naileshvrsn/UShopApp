@@ -141,13 +141,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pDialog.dismissWithAnimation();
-            }
-        }, 1500);
+        pDialog.dismissWithAnimation();
     }
 
     //close app when back button is pressed;
