@@ -4,8 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Button;
@@ -28,7 +30,7 @@ import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText _nameText, _streetText, _suburbText, _cityText, _postcodeText,_dateOfBirth, _phone, _emailText, _passwordText, _confirmPassword;
+    private EditText _nameText, _streetText, _suburbText, _postcodeText,_dateOfBirth, _phone, _emailText, _passwordText, _confirmPassword;
     private Button _signupButton;
     private TextView _loginLink;
     private DatePickerDialog datePickerDialog;
@@ -37,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseFirestore firestoreDb;
     private Date selectedDateOfBirth;
     private int selectedYear;
+    private String[] cities;
+    private AppCompatAutoCompleteTextView _cityAutoText;
 
     private String defaultImageStorageLocation;
 
@@ -54,10 +58,12 @@ public class RegisterActivity extends AppCompatActivity {
         //defaultImageStorageLocation = "";
         defaultImageStorageLocation = "https://firebasestorage.googleapis.com/v0/b/ushop-73f4b.appspot.com/o/userImages%2Fblank_user.png?alt=media&token=ed4de9cf-befb-4fed-ad64-485f609ab709";
 
+        cities = getResources().getStringArray(R.array.nz_cities_array);
+
         _nameText = findViewById(R.id.input_name);
         _streetText = findViewById(R.id.input_street);
         _suburbText = findViewById(R.id.input_suburb);
-        _cityText = findViewById(R.id.input_city);
+        _cityAutoText = findViewById(R.id.auto_input_city);
         _postcodeText = findViewById(R.id.input_postcode);
         _dateOfBirth = findViewById(R.id.input_dateofbirth);
         _phone = findViewById(R.id.input_phone);
@@ -66,6 +72,9 @@ public class RegisterActivity extends AppCompatActivity {
         _confirmPassword = findViewById(R.id.input_confirmPassword);
         _signupButton = findViewById(R.id.btn_signup);
         _loginLink = findViewById(R.id.link_login);
+
+        _cityAutoText.setAdapter(new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, cities));
+        _cityAutoText.setThreshold(1);
 
         _dateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String name = _nameText.getText().toString();
                 String street = _streetText.getText().toString();
                 String suburb = _suburbText.getText().toString();
-                String city = _cityText.getText().toString();
+                String city = _cityAutoText.getText().toString();
                 String postcode = _postcodeText.getText().toString();
                 String phone = _phone.getText().toString();
 
@@ -191,7 +200,7 @@ public class RegisterActivity extends AppCompatActivity {
         String name = _nameText.getText().toString();
         String street = _streetText.getText().toString();
         String suburb = _suburbText.getText().toString();
-        String city = _cityText.getText().toString();
+        String city = _cityAutoText.getText().toString();
         String postcode = _postcodeText.getText().toString();
         String dateOfBirth = _dateOfBirth.getText().toString();
         String phone = _phone.getText().toString();
@@ -221,10 +230,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (city.isEmpty() || city.length() < 6){
-            _cityText.setError("at least 6 characters");
+            _cityAutoText.setError("at least 6 characters");
             valid = false;
         } else {
-            _cityText.setError(null);
+            _cityAutoText.setError(null);
         }
 
         if (postcode.isEmpty() || postcode.length() != 4){

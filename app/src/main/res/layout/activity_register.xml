@@ -58,7 +58,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/LoginFieldsTextLayout">
-                <EditText android:id="@+id/input_city"
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/auto_input_city"
                     style="@style/LoginFieldsTextStyle"
                     android:inputType="textPostalAddress"
                     android:hint="City" />
