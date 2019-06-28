@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -37,6 +38,7 @@ public class ProductListActivity extends AppCompatActivity {
     private String store;
     private String category;
     private FloatingActionButton cartBtn;
+    private SweetAlertDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +119,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     public void displayProducts(final ArrayList<Product> products){
 
-        SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -125,7 +127,15 @@ public class ProductListActivity extends AppCompatActivity {
         ProductAdapter productAdapter = new ProductAdapter(this, products);
         ListView listView = findViewById(R.id.productlist);
         listView.setAdapter(productAdapter);
-        pDialog.dismissWithAnimation();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pDialog.dismissWithAnimation();
+            }
+        }, 3000);
+
 
         // go to detailed page
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

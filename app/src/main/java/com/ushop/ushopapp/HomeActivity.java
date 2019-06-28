@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
+    private SweetAlertDialog pDialog;
 
     private User currentUserFirestore;
 
@@ -42,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         //progress bar while activity loads
-        SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -139,7 +141,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        pDialog.dismissWithAnimation();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pDialog.dismissWithAnimation();
+            }
+        }, 1500);
     }
 
     //close app when back button is pressed;

@@ -417,7 +417,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void showSuccessMessage(){
         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(UserProfileActivity.this);
-        dlgAlert.setMessage("Profile Updated Succeffully");
+        dlgAlert.setMessage("Profile Updated Successfully");
         dlgAlert.setTitle("SUCCESS");
         dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
