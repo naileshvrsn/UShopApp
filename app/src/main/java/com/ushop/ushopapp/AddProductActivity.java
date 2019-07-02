@@ -250,7 +250,7 @@ public class AddProductActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         pDialog.dismissWithAnimation();
                         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(AddProductActivity.this);
-                        dlgAlert.setMessage("Product Added Succeffully");
+                        dlgAlert.setMessage("Product Added Successfully");
                         dlgAlert.setTitle("SUCCESS");
                         dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
